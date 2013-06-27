@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4bd58bb27858f72439ce23befb98537a",
+    "hash": "4740e48a30d403cc1c2cfc96c3793e47",
     "packages": [
         {
             "name": "zendframework/zendframework",
