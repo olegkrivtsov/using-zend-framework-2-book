@@ -19,8 +19,15 @@
                                       ->prependFile($this->basePath() . '/js/jquery.min.js') ?>
 
     </head>
-    <body>        
-        <div class="container">
+    <body>  
+        
+        <div class="container">           
+            
+            <div class="row">
+                <div class="span4">
+                    <div class="app-caption">Demo</div>
+                </div>
+            </div>
             
             <div class="navbar">
                 <div class="navbar-inner">
@@ -28,12 +35,18 @@
                         <div class="nav-collapse collapse">
                             <ul class="nav">
                                 <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-                                <li><a href="<?php echo $this->url('contact') ?>"><?php echo $this->translate('Contact Us') ?></a></li>
+                                <li><a href="<?php echo $this->url('about') ?>"><?php echo $this->translate('About') ?></a></li>
+                                <li><a href="<?php echo $this->url('contact') ?>"><?php echo $this->translate('Contact Us') ?></a></li>                                
                             </ul>
-                        </div><!--/.nav-collapse -->
+                        </div>
                     </div>
                 </div>
-            </div>
+            </div> 
+            
+            <?php 
+            
+                echo new \Application\View\Helper\Menu()->render();
+            ?>
             
             <?php echo $this->content; ?>
             <hr>

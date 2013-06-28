@@ -20,10 +20,20 @@ return array(
                     ),
                 ),
             ),
+            'about' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/about',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'about',
+                    ),
+                ),
+            ),
             'contact' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/',
+                    'route'    => '/contact',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action'     => 'contact',
