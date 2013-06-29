@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle('Hello World')->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
 
@@ -25,28 +25,13 @@
             
             <div class="row">
                 <div class="span4">
-                    <div class="app-caption">Demo</div>
+                    <div class="app-caption">Hello World!</div>
                 </div>
             </div>
             
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <div class="container">
-                        <div class="nav-collapse collapse">
-                            <ul class="nav">
-                                <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-                                <li><a href="<?php echo $this->url('about') ?>"><?php echo $this->translate('About') ?></a></li>
-                                <li><a href="<?php echo $this->url('contact') ?>"><?php echo $this->translate('Contact Us') ?></a></li>                                
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> 
+            <?php echo $this->navbar; ?>
             
-            <?php 
-            
-                echo new \Application\View\Helper\Menu()->render();
-            ?>
+            <?php echo $this->breadcrumbs; ?>
             
             <?php echo $this->content; ?>
             <hr>

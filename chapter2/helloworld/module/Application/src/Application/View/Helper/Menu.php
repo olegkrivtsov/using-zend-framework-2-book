@@ -1,5 +1,7 @@
 <?php
 
+namespace Application\View\Helper;
+
 /**
  * This class displays menu bar.
  * 
@@ -21,7 +23,7 @@ class Menu {
         if(isset($config['items'])) {
             $this->items = $config['items'];
         } else {
-            throw \Exception('No items specified');
+            throw new \Exception('No items specified');
         }
         
     }
@@ -41,14 +43,20 @@ class Menu {
     public function render() {
         
         $result = '<div class="navbar">';
-        $result .= '<div class="navbar-inner">';
-        $result .= '<ul>';
+        $result .= '<div class="navbar-inner">';        
+        $result .= '<div class="container">';
+        $result .= '<div class="nav-collapse collapse">';
+        $result .= '<div class="nav">';
+        $result .= '<ul class="nav">';
         
         foreach($this->items as $item) {
             $result .= $this->renderItem($item);
         }
         
         $result .= '</ul>';
+        $result .= '</div>';
+        $result .= '</div>';
+        $result .= '</div>';
         $result .= '</div>';
         $result .= '</div>';
         

@@ -1,20 +1,17 @@
-<h1>Hello World!</h1>
+<?php
+$this->headTitle('Welcome');
+?>
+
+<h1>Welcome</h1>
 
 <p>
-    I'm the unique Hello World application powered with Zend Framework 2.
+    This is the Hello World application powered by Zend Framework 2.
 </p>
 
 <p>
-    You can optically recognize me using the barcode image below:
+    You can optically recognize this app using the barcode image below:
 </p>
 
-<img src="<?php echo $this->url('application/default', array('controller'=>'index', 'action'=>'barcode')); ?>"/>
+<img src="<?php echo $this->url('application/default', 
+          array('controller'=>'index', 'action'=>'barcode')); ?>"/>
 
-<p>
-    I'm powered by Zend Framework 2.2.1.
-</p>
-
-<p>
-    The version 2.2.2 of ZF is available. Please check the 
-    Zend Framework 2 web site.
-</p>
