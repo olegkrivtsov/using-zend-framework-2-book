@@ -18,6 +18,7 @@ class NavigationPlugin extends AbstractPlugin{
      */
     public function addMenu($activeItemId = 'home') {
         
+        return;
         $controller = $this->getController();
         
         $menu = new \Application\View\Helper\Menu(array(

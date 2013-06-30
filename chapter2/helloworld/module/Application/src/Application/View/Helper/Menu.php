@@ -2,11 +2,13 @@
 
 namespace Application\View\Helper;
 
+use Zend\View\AbstractHelper;
+
 /**
  * This class displays menu bar.
  * 
  */
-class Menu {
+class Menu extends \Zend\View\Helper\AbstractHelper {
  
     /**
      * Menu items.
@@ -15,16 +17,37 @@ class Menu {
     protected $items;
     
     /**
+     *
+     * @var type 
+     */
+    protected $activeItemId = 'home';
+    
+    /**
      * Constructor.
      * @param array $config
      */
-    public function __construct($config) {
+    public function getItems() {
         
-        if(isset($config['items'])) {
-            $this->items = $config['items'];
-        } else {
-            throw new \Exception('No items specified');
-        }
+        $urlHelper = $this->getView()->url();
+        
+        $this->items = array(
+                    array(
+                        'label' => 'Home',
+                        'link' => $urlHelper->fromRoute('home', array('controller' => 'index', 'action' => 'index')),
+                        'id' => 'home'
+                    ),
+                    array(
+                        'label' => 'About',
+                        'link' => 'b',//$controller->url()->fromRoute('about', array('controller' => 'index', 'action' => 'about')),
+                        'id' => 'about'
+                    ),                    
+                );
+        
+        $viewModel = new ViewModel(
+                array('menu' => $this)
+               );
+        $viewModel->setTemplate('layout/navbar');
+        $this->getView()->layout()->addChild($viewModel, 'navbar'); 
         
     }
     
@@ -36,11 +59,15 @@ class Menu {
         return $this->render();
     }
     
+    public function setActiveItemId($activeItemId) {
+        $this->activeItemId = $activeItemId;
+    }
+    
     /**
      * Renders the menu.
      * @return string HTML code of the menu.
      */
-    public function render() {
+    public function render($activeItemId='home') {
         
         $result = '<div class="navbar">';
         $result .= '<div class="navbar-inner">';        
@@ -49,8 +76,10 @@ class Menu {
         $result .= '<div class="nav">';
         $result .= '<ul class="nav">';
         
+        $this->getItems();
+        
         foreach($this->items as $item) {
-            $result .= $this->renderItem($item);
+            $result .= $this->renderItem($item, $activeItemId);
         }
         
         $result .= '</ul>';
@@ -69,9 +98,10 @@ class Menu {
      * @param array $item
      * @return string HTML code of the item.
      */
-    protected function renderItem($item) {
+    protected function renderItem($item, $activeItemId) {
         
-        $isActive = isset($item['active'])?$item['active']:false;
+        $id = isset($item['id'])?$item['id']:'';
+        $isActive = $id==$activeItemId;
         $label = isset($item['label'])?$item['label']:'';
         $link = isset($item['link'])?$item['link']:'#';
         

@@ -30,7 +30,7 @@ class IndexController extends AbstractActionController {
      */
     public function indexAction() {
         
-        $this->navigation()->addMenu('home');
+        
         $this->navigation()->addBreadcrumbs(array(
             'Home'=>$this->url()->fromRoute('home')
             ));
