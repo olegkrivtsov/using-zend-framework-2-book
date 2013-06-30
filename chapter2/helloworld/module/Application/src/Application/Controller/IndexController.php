@@ -13,9 +13,10 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Barcode\Barcode;
+use Zend\Version\Version;
 
 /**
- * This is the main controller class for the Hello World application. The 
+ * This is the main controller class of the Hello World application. The 
  * controller class is used to receive user input, instantiate needed models, 
  * pass the data to the models and pass the results returned by models to the 
  * view for rendering.
@@ -24,7 +25,7 @@ class IndexController extends AbstractActionController {
 
     /**
      * This is the default "index" action of the controller. It displays the 
-     * "Hello World!" page.
+     * Home page.
      * @return \Zend\View\Model\ViewModel
      */
     public function indexAction() {
@@ -49,33 +50,29 @@ class IndexController extends AbstractActionController {
             'About'=>$this->url()->fromRoute('about')
             ));
         
-        return new ViewModel();
+        $zendFrameworkVer = \Zend\Version\Version::VERSION;
+        $isNewerVerAvailable = \Zend\Version\Version::compareVersion($zendFrameworkVer);
+        $latestVer = \Zend\Version\Version::getLatest();
+        
+        return new ViewModel(array(
+            'zendFrameworkVer' => $zendFrameworkVer,
+            'isNewerVerAvailable' => $isNewerVerAvailable,
+            'latestVer' => $latestVer
+        ));
     }
 
     /**
-     * This is the "contact" action. It displays the "Contact Us" page.
-     * @return \Zend\View\Model\ViewModel
+     * This is the "barcode" action. It generate the HELLO-WORLD barcode image.     
      */
-    public function contactAction() {
-                
-        $this->navigation()->addMenu('contact');
-        $this->navigation()->addBreadcrumbs(array(
-            'Home'=>$this->url()->fromRoute('home'),
-            'Contact Us'=>$this->url()->fromRoute('contact')
-            ));
-        
-        return new ViewModel();
-    }
-
     public function barcodeAction() {
-        // Only the text to draw is required
-        $barcodeOptions = array('text' => 'HELLO-WORLD');
-
-        // No required options
+                
+        $barcodeOptions = array('text' => 'HELLO-WORLD');        
         $rendererOptions = array();
-        Barcode::factory(
+        
+        $barcode = Barcode::factory(
                 'code39', 'image', $barcodeOptions, $rendererOptions
-                )->render();
+                );
+        $barcode->render();
 
         return false;
     }  

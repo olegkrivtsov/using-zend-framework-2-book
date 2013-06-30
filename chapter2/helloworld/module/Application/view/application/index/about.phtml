@@ -9,5 +9,15 @@ $this->headTitle('About');
 </p>
 
 <p>
-    (c) <?php echo date('Y') ?> by Your Company.
+    Your Zend Framework version is 
+    <?php echo $this->zendFrameworkVer; ?>
 </p>
+
+<?php if($this->isNewerVerAvailable): ?>
+
+<p>
+    Your Zend Framework version is outdated. The latest available 
+    version is <?php echo $this->latestVer; ?>.
+</p>
+
+<?php endif; ?>

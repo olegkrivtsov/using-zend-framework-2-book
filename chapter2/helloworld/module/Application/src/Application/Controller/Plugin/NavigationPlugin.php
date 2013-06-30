@@ -31,12 +31,7 @@ class NavigationPlugin extends AbstractPlugin{
                         'label' => 'About',
                         'link' => $controller->url()->fromRoute('about', array('controller' => 'index', 'action' => 'about')),
                         'active' => $activeItemId=='about'?true:false
-                    ),
-                    array(
-                        'label' => 'Contact Us',
-                        'link' => $controller->url()->fromRoute('contact', array('controller' => 'index', 'action' => 'contact')),
-                        'active' => $activeItemId=='contact'?true:false
-                    ),
+                    ),                    
                 )                
             )
         );
