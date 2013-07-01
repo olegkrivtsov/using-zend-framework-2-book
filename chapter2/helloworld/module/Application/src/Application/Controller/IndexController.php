@@ -29,12 +29,7 @@ class IndexController extends AbstractActionController {
      * @return \Zend\View\Model\ViewModel
      */
     public function indexAction() {
-        
-        
-        $this->navigation()->addBreadcrumbs(array(
-            'Home'=>$this->url()->fromRoute('home')
-            ));
-        
+                
         return new ViewModel();
     }
 
@@ -42,13 +37,7 @@ class IndexController extends AbstractActionController {
      * This is the "about" action. It is used to display the "About" page.
      * @return \Zend\View\Model\ViewModel
      */
-    public function aboutAction() {
-        
-        $this->navigation()->addMenu('about');
-        $this->navigation()->addBreadcrumbs(array(
-            'Home'=>$this->url()->fromRoute('home'),
-            'About'=>$this->url()->fromRoute('about')
-            ));
+    public function aboutAction() {              
         
         $zendFrameworkVer = \Zend\Version\Version::VERSION;
         $isNewerVerAvailable = \Zend\Version\Version::compareVersion($zendFrameworkVer);

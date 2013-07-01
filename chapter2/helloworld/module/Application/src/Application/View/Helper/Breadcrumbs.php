@@ -2,38 +2,33 @@
 
 namespace Application\View\Helper;
 
+use Zend\View\AbstractHelper;
+
 /**
  * This view helper class displays breadcrumbs.
  * 
  */
-class Breadcrumbs {
+class Breadcrumbs extends \Zend\View\Helper\AbstractHelper {
  
     /**
      * Menu items.
      * @var array 
      */
-    protected $items;
+    private $items = array();
     
     /**
      * Constructor.
-     * @param array $config Options.
      */
-    public function __construct($config) {
-        
-        if(isset($config['items'])) {
-            $this->items = $config['items'];
-        } else {
-            throw new \Exception('No items specified');
-        }
-        
+    public function __construct($items=array()) {                
+        $this->items = $items;
     }
     
     /**
-     * Returns HTML code of the breadcrumbs.
-     * @return string
+     * 
+     * @param type $items
      */
-    public function __toString() {
-        return $this->render();
+    public function setItems($items) {
+        $this->items = $items;
     }
     
     /**
@@ -41,7 +36,10 @@ class Breadcrumbs {
      * @return string HTML code of the breadcrumbs.
      */
     public function render() {
-            
+        
+        if(count($this->items)==0)
+            return '';
+        
         // Resulting HTML code will be stored in this var
         $result = '<ul class="breadcrumb">';
         

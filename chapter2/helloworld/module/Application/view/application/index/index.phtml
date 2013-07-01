@@ -1,6 +1,11 @@
 <?php
 $this->headTitle('Welcome');
-$this->menu()->setActiveItemId('home');
+
+$this->mainMenu()->setActiveItemId('home');
+
+$this->pageBreadcrumbs()->setItems(array(
+            'Home'=>$this->url('home')
+            ));
 ?>
 
 <h1>Welcome</h1>

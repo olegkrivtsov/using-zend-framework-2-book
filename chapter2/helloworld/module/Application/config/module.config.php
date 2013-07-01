@@ -96,10 +96,11 @@ return array(
             'Application\Controller\Index' => 'Application\Controller\IndexController'
         ),
     ),
-    'controller_plugins' => array(
-        'invokables' => array(
-            'navigation' => 'Application\Controller\Plugin\NavigationPlugin',
-        )
+    'view_helpers' => array(
+       'invokables' => array(
+          'mainMenu' => 'Application\View\Helper\Menu',          
+          'pageBreadcrumbs' => 'Application\View\Helper\Breadcrumbs',          
+       ),
     ),
     'view_manager' => array(
         'display_not_found_reason' => true,

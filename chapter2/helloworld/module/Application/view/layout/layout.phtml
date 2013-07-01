@@ -29,9 +29,25 @@
                 </div>
             </div>
             
-            <?php echo $this->navbar; ?>
+            <?php             
             
-            <?php echo $this->breadcrumbs; ?>
+                $this->mainMenu()->setItems(array(
+                    array(
+                        'id' => 'home',
+                        'label' => 'Home',
+                        'link' => $this->url('home')
+                    ),
+                    array(
+                        'id' => 'about',
+                        'label' => 'About',
+                        'link' => $this->url('about')
+                    ),
+                ));
+            
+                echo $this->mainMenu()->render($this->activeMenuItem); 
+            ?>
+            
+            <?php echo $this->pageBreadcrumbs()->render(); ?>
             
             <?php echo $this->content; ?>
             <hr>

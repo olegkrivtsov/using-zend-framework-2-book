@@ -14,51 +14,33 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
      * Menu items.
      * @var array 
      */
-    protected $items;
+    protected $items = array();
     
     /**
-     *
+     * Active item's ID.
      * @var type 
      */
-    protected $activeItemId = 'home';
+    protected $activeItemId = '';
     
     /**
      * Constructor.
-     * @param array $config
      */
-    public function getItems() {
-        
-        $urlHelper = $this->getView()->url();
-        
-        $this->items = array(
-                    array(
-                        'label' => 'Home',
-                        'link' => $urlHelper->fromRoute('home', array('controller' => 'index', 'action' => 'index')),
-                        'id' => 'home'
-                    ),
-                    array(
-                        'label' => 'About',
-                        'link' => 'b',//$controller->url()->fromRoute('about', array('controller' => 'index', 'action' => 'about')),
-                        'id' => 'about'
-                    ),                    
-                );
-        
-        $viewModel = new ViewModel(
-                array('menu' => $this)
-               );
-        $viewModel->setTemplate('layout/navbar');
-        $this->getView()->layout()->addChild($viewModel, 'navbar'); 
-        
+    public function __construct($items=array()) {
+        $this->items = $items;
     }
     
     /**
-     * Returns HTML code of the menu.
-     * @return string
+     * Sets menu items.
+     * @param type $items
      */
-    public function __toString() {
-        return $this->render();
+    public function setItems($items) {
+        $this->items = $items;
     }
     
+    /**
+     * 
+     * @param type $activeItemId
+     */
     public function setActiveItemId($activeItemId) {
         $this->activeItemId = $activeItemId;
     }
@@ -67,7 +49,7 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
      * Renders the menu.
      * @return string HTML code of the menu.
      */
-    public function render($activeItemId='home') {
+    public function render() {
         
         $result = '<div class="navbar">';
         $result .= '<div class="navbar-inner">';        
@@ -76,10 +58,8 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
         $result .= '<div class="nav">';
         $result .= '<ul class="nav">';
         
-        $this->getItems();
-        
         foreach($this->items as $item) {
-            $result .= $this->renderItem($item, $activeItemId);
+            $result .= $this->renderItem($item);
         }
         
         $result .= '</ul>';
@@ -98,10 +78,10 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
      * @param array $item
      * @return string HTML code of the item.
      */
-    protected function renderItem($item, $activeItemId) {
+    protected function renderItem($item) {
         
         $id = isset($item['id'])?$item['id']:'';
-        $isActive = $id==$activeItemId;
+        $isActive = $id==$this->activeItemId;
         $label = isset($item['label'])?$item['label']:'';
         $link = isset($item['link'])?$item['link']:'#';
         
