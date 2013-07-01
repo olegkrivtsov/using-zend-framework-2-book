@@ -11,9 +11,8 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-use Zend\ModuleManager\Feature\ViewHelperProviderInterface;    
 
-class Module implements ViewHelperProviderInterface
+class Module 
 {
     public function onBootstrap(MvcEvent $e)
     {
@@ -36,18 +35,5 @@ class Module implements ViewHelperProviderInterface
                 ),
             ),
         );
-    }
-    
-    public function getViewHelperConfig()
-    {
-        return array(
-            'factories' => array(
-                'menu' => function($helperPluginManager) {                    
-                    $helper = new \Application\View\Helper\Menu();
-                    $helper->setView($helperPluginManager->get('viewmodel'));
-                    return $helper;
-                }
-            )
-        );   
-   }
+    }        
 }

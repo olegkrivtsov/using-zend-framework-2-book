@@ -11,21 +11,22 @@ use Zend\View\AbstractHelper;
 class Breadcrumbs extends \Zend\View\Helper\AbstractHelper {
  
     /**
-     * Menu items.
+     * Array of items.
      * @var array 
      */
     private $items = array();
     
     /**
      * Constructor.
+     * @param array $items Array of items (optional).
      */
     public function __construct($items=array()) {                
         $this->items = $items;
     }
     
     /**
-     * 
-     * @param type $items
+     * Sets the items.
+     * @param array $items Items.
      */
     public function setItems($items) {
         $this->items = $items;
@@ -38,7 +39,7 @@ class Breadcrumbs extends \Zend\View\Helper\AbstractHelper {
     public function render() {
         
         if(count($this->items)==0)
-            return '';
+            return ''; // Do nothing if there are no items.
         
         // Resulting HTML code will be stored in this var
         $result = '<ul class="breadcrumb">';

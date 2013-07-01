@@ -5,25 +5,26 @@ namespace Application\View\Helper;
 use Zend\View\AbstractHelper;
 
 /**
- * This class displays menu bar.
+ * This view helper class displays a menu bar.
  * 
  */
 class Menu extends \Zend\View\Helper\AbstractHelper {
  
     /**
-     * Menu items.
+     * Menu items array.
      * @var array 
      */
     protected $items = array();
     
     /**
      * Active item's ID.
-     * @var type 
+     * @var string  
      */
     protected $activeItemId = '';
     
     /**
      * Constructor.
+     * @param array $items Menu items.
      */
     public function __construct($items=array()) {
         $this->items = $items;
@@ -31,15 +32,15 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
     
     /**
      * Sets menu items.
-     * @param type $items
+     * @param array $items Menu items.
      */
     public function setItems($items) {
         $this->items = $items;
     }
     
     /**
-     * 
-     * @param type $activeItemId
+     * Sets ID of the active items.
+     * @param string $activeItemId
      */
     public function setActiveItemId($activeItemId) {
         $this->activeItemId = $activeItemId;
@@ -50,6 +51,9 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
      * @return string HTML code of the menu.
      */
     public function render() {
+        
+        if(count($this->items)==0)
+            return ''; // Do nothing if there are no items.
         
         $result = '<div class="navbar">';
         $result .= '<div class="navbar-inner">';        
@@ -75,15 +79,15 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
     
     /**
      * Renders an item.
-     * @param array $item
+     * @param array $item The menu item info.
      * @return string HTML code of the item.
      */
     protected function renderItem($item) {
         
-        $id = isset($item['id'])?$item['id']:'';
-        $isActive = $id==$this->activeItemId;
-        $label = isset($item['label'])?$item['label']:'';
-        $link = isset($item['link'])?$item['link']:'#';
+        $id = isset($item['id']) ? $item['id'] : '';
+        $isActive = ($id==$this->activeItemId);
+        $label = isset($item['label']) ? $item['label'] : '';
+        $link = isset($item['link']) ? $item['link'] : '#';
         
         $result = $isActive?'<li class="active">':'<li>';
         $result .= '<a href="'.$link.'">'.$label.'</a>';

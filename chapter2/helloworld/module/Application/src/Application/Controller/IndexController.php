@@ -54,15 +54,20 @@ class IndexController extends AbstractActionController {
      * This is the "barcode" action. It generate the HELLO-WORLD barcode image.     
      */
     public function barcodeAction() {
-                
+        
+        // Set barcode options
         $barcodeOptions = array('text' => 'HELLO-WORLD');        
         $rendererOptions = array();
         
+        // Create barcode object
         $barcode = Barcode::factory(
                 'code39', 'image', $barcodeOptions, $rendererOptions
                 );
+        
+        // The line below will output barcode image to standard output stream.
         $barcode->render();
 
+        // Return false to disable default view rendering 
         return false;
     }  
 }
