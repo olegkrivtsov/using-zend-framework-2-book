@@ -19,5 +19,8 @@ $this->pageBreadcrumbs()->setItems(array(
 </p>
 
 <img src="<?php echo $this->url('application/default', 
-          array('controller'=>'index', 'action'=>'barcode')); ?>"/>
+          array('controller'=>'index', 
+                'action'=>'barcode', 
+                'type'=>'code39', 
+                'label'=>'HELLO-WORLD')); ?>"/>
 

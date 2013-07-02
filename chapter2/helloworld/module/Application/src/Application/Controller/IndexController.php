@@ -55,13 +55,17 @@ class IndexController extends AbstractActionController {
      */
     public function barcodeAction() {
         
+        // Get parameters from URL
+        $barcodeType = $this->params()->fromRoute('type', 'code39');
+        $label = $this->params()->fromRoute('label', 'HELLO-WORLD');
+        
         // Set barcode options
-        $barcodeOptions = array('text' => 'HELLO-WORLD');        
+        $barcodeOptions = array('text' => $label);        
         $rendererOptions = array();
         
         // Create barcode object
         $barcode = Barcode::factory(
-                'code39', 'image', $barcodeOptions, $rendererOptions
+                $barcodeType, 'image', $barcodeOptions, $rendererOptions
                 );
         
         // The line below will output barcode image to standard output stream.
