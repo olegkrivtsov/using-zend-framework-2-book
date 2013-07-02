@@ -1,0 +1,28 @@
+<?php
+
+$this->headTitle('Contact Us');
+
+$this->mainMenu()->setActiveItemId('contactUs');
+
+$this->pageBreadcrumbs()->setItems(array(
+            'Home'=>$this->url('home'),
+            'Contact Us'=>$this->url('contactUs')
+            ));
+?>
+
+<h1>Contact Us</h1>
+
+<p>
+    Please fill out the following form to contact us. 
+    We appreciate your feedback.
+</p>
+
+<?php 
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('contactUs'));
+$form->prepare();
+echo $this->form()->render($form); 
+
+?>
+

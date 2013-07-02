@@ -30,13 +30,13 @@ return array(
                     ),
                 ),
             ),
-            'contact' => array(
+            'contactUs' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/contact',
+                    'route'    => '/contactUs',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
-                        'action'     => 'contact',
+                        'action'     => 'contactUs',
                     ),
                 ),
             ),

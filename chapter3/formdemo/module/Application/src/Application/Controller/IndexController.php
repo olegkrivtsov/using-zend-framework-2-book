@@ -14,6 +14,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Barcode\Barcode;
 use Zend\Version\Version;
+use Application\Form\ContactForm;
 
 /**
  * This is the main controller class of the Hello World application. The 
@@ -73,5 +74,26 @@ class IndexController extends AbstractActionController {
 
         // Return false to disable default view rendering 
         return false;
-    }  
+    } 
+    
+    /**
+     * This is the "contact" action which displays the "Contact Us" form.     
+     */
+    public function contactUsAction() {
+        
+        $form = new \Application\Form\ContactForm;
+        
+        // Check if user has submitted the form
+        if($this->getRequest()->isPost()) {
+            
+            
+        } 
+        
+        // Pass form variable to view
+        return new ViewModel(array(
+            'form' => $form
+        ));
+    }
 }
+
+
