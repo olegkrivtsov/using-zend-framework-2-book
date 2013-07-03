@@ -55,6 +55,38 @@ class ContactForm extends \Zend\Form\Form
             ),
         ));
         
+        // Add image captcha
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Captcha',
+            'name' => 'captcha',
+            'options' => array(
+                'label' => 'Human check',
+                'captcha' => array(
+                    'class' => 'Image',
+                    'imgDir' => './public/img',
+                    'imgUrl' => 'img',
+                    'font' => '/home/devel/share/using-zend-framework-2-book/chapter3/formdemo/data/fonts/arial.ttf',
+                    'width' => 250,
+                    'height' => 100,
+                    'dotNoiseLevel' => 40,
+                    'lineNoiseLevel' => 3
+                ),
+            ),            
+        ));
+        
+        // Add figlet captcha
+        /*$this->add(array(
+            'type' => 'Zend\Form\Element\Captcha',
+            'name' => 'captcha',
+            'options' => array(
+                'label' => 'Human check',
+                'captcha' => array(
+                    'class' => 'Figlet',
+                    'worldLen' => 5                    
+                ),
+            ),            
+        ));*/        
+        
         // Add the submit button
         $this->add(array(
             'name' => 'submit',

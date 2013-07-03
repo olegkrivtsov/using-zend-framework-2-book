@@ -18,8 +18,8 @@ of the code archive is presented below.
 	chapter2	
 		helloworld
 	chapter3
-		blog
-		...
+		formdemo
+	...
 
 For example, if you want to see the code examples for Chapter 2, 
 go to the `chapter2` subdirectory of the top-level code directory.
