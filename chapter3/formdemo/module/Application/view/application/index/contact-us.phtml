@@ -8,6 +8,12 @@ $this->pageBreadcrumbs()->setItems(array(
             'Home'=>$this->url('home'),
             'Contact Us'=>$this->url('contactUs')
             ));
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('contactUs'));
+$form->setAttribute('class', 'form-horizontal');
+$form->prepare();
+
 ?>
 
 <h1>Contact Us</h1>
@@ -17,12 +23,42 @@ $this->pageBreadcrumbs()->setItems(array(
     We appreciate your feedback.
 </p>
 
-<?php 
+<?php echo $this->form()->openTag($form); ?>
 
-$form = $this->form;
-$form->setAttribute('action', $this->url('contactUs'));
-$form->prepare();
-echo $this->form()->render($form); 
+<fieldset>
+    
+    <div class="control-group">    
+        <?php echo $this->formLabel($form->get('email')->setLabelAttributes(array('class'=>'control-label'))); ?>
+        <div class="controls">            
+            <?php echo $this->formText($form->get('email')->setAttributes(array('class'=>'input-xxlarge'))); ?>
+            <?php echo $this->formElementErrors($form->get('email')); ?>          
+        </div>
+    </div>
+    
+    <div class="control-group">    
+        <?php echo $this->formLabel($form->get('subject')->setLabelAttributes(array('class'=>'control-label'))); ?>
+        <div class="controls">            
+            <?php echo $this->formText($form->get('subject')->setAttributes(array('class'=>'input-xxlarge'))); ?>
+            <?php echo $this->formElementErrors($form->get('subject')); ?>          
+        </div>
+    </div>
+    
+    <div class="control-group">    
+        <?php echo $this->formLabel($form->get('body')->setLabelAttributes(array('class'=>'control-label'))); ?>
+        <div class="controls">            
+            <?php echo $this->formTextArea($form->get('body')->setAttributes(array('rows'=>10, 'class'=>'input-xxlarge'))); ?>
+            <?php echo $this->formElementErrors($form->get('body')); ?>          
+        </div>
+    </div>
 
-?>
+    <div class="control-group">
+        <div class="controls">        
+            <?php echo $this->formSubmit($form->get('submit')->setAttributes(array('class'=>'btn btn-primary'))); ?>
+        </div>
+    </div>
+
+    
+</fieldset>
+
+<?php echo $this->form()->closeTag(); ?>
 
