@@ -18,6 +18,17 @@ $form->prepare();
 
 <h1>Contact Us</h1>
 
+<?php if($this->isSubmitted):?>
+
+<?php 
+
+    foreach($this->flashMessenger()->getFlashMessages() as $message) {
+        echo $message;
+    }
+?>
+
+<?php else: ?>
+
 <p>
     Please fill out the following form to contact us. 
     We appreciate your feedback.
@@ -50,6 +61,14 @@ $form->prepare();
             <?php echo $this->formElementErrors($form->get('body')); ?>          
         </div>
     </div>
+    
+    <div class="control-group">    
+        <?php echo $this->formLabel($form->get('captcha')->setLabelAttributes(array('class'=>'control-label'))); ?>
+        <div class="controls">            
+            <?php echo $this->formCaptcha($form->get('captcha')); ?>
+            <?php echo $this->formElementErrors($form->get('captcha')); ?>          
+        </div>
+    </div>
 
     <div class="control-group">
         <div class="controls">        
@@ -62,3 +81,4 @@ $form->prepare();
 
 <?php echo $this->form()->closeTag(); ?>
 
+<?php endif; ?>

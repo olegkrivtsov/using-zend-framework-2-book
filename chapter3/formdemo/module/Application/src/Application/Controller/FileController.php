@@ -1,32 +1,18 @@
 <?php
 
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
-
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Zend\Barcode\Barcode;
-use Zend\Version\Version;
-use Application\Form\ContactForm;
 
 /**
- * This is the main controller class of the Hello World application. The 
- * controller class is used to receive user input, instantiate needed models, 
- * pass the data to the models and pass the results returned by models to the 
- * view for rendering.
+ * This controller contains actions for managing image files.
  */
-class IndexController extends AbstractActionController {
+class FileController extends AbstractActionController {
 
     /**
      * This is the default "index" action of the controller. It displays the 
-     * Home page.
+     * list of uploaded files.
      * @return \Zend\View\Model\ViewModel
      */
     public function indexAction() {
