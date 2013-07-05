@@ -1,0 +1,30 @@
+<?php
+$this->headTitle('About');
+
+$this->mainMenu()->setActiveItemId('about');
+
+$this->pageBreadcrumbs()->setItems(array(
+            'Home'=>$this->url('home'),
+            'About'=>$this->url('about')
+            ));
+?>
+
+<h1>About</h1>
+
+<p>
+    The Hello World application.
+</p>
+
+<p>
+    Your Zend Framework version is 
+    <?php echo $this->zendFrameworkVer; ?>
+</p>
+
+<?php if($this->isNewerVerAvailable): ?>
+
+<p>
+    Your Zend Framework version is outdated. The latest available 
+    version is <?php echo $this->latestVer; ?>.
+</p>
+
+<?php endif; ?>
