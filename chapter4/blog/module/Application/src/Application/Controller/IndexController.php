@@ -24,12 +24,20 @@ use Zend\Version\Version;
 class IndexController extends AbstractActionController {
 
     /**
+     * ORM entity manager.
+     * @var Doctrine\ORM\EntityManager
+     */
+    protected $entityManager;
+
+    /**
      * This is the default "index" action of the controller. It displays the 
      * Home page.
      * @return \Zend\View\Model\ViewModel
      */
     public function indexAction() {
-                
+
+        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        
         return new ViewModel();
     }
 
@@ -37,12 +45,12 @@ class IndexController extends AbstractActionController {
      * This is the "about" action. It is used to display the "About" page.
      * @return \Zend\View\Model\ViewModel
      */
-    public function aboutAction() {              
-        
+    public function aboutAction() {
+
         $zendFrameworkVer = \Zend\Version\Version::VERSION;
         $isNewerVerAvailable = \Zend\Version\Version::compareVersion($zendFrameworkVer);
         $latestVer = \Zend\Version\Version::getLatest();
-        
+
         return new ViewModel(array(
             'zendFrameworkVer' => $zendFrameworkVer,
             'isNewerVerAvailable' => $isNewerVerAvailable,
@@ -54,24 +62,41 @@ class IndexController extends AbstractActionController {
      * This is the "barcode" action. It generate the HELLO-WORLD barcode image.     
      */
     public function barcodeAction() {
-        
+
         // Get parameters from URL
         $barcodeType = $this->params()->fromRoute('type', 'code39');
         $label = $this->params()->fromRoute('label', 'HELLO-WORLD');
-        
+
         // Set barcode options
-        $barcodeOptions = array('text' => $label);        
+        $barcodeOptions = array('text' => $label);
         $rendererOptions = array();
-        
+
         // Create barcode object
         $barcode = Barcode::factory(
-                $barcodeType, 'image', $barcodeOptions, $rendererOptions
-                );
-        
+                        $barcodeType, 'image', $barcodeOptions, $rendererOptions
+        );
+
         // The line below will output barcode image to standard output stream.
         $barcode->render();
 
         // Return false to disable default view rendering 
         return false;
-    }  
+    }
+
+    /**
+     * Returns ORM entity manager. Through the manager we can access database
+     * tables.
+     * @return \Doctrine\ORM\EntityManager
+     */
+    protected function getEntityManager() {
+
+        if (null === $this->_entityManager) {
+            $this->_entityManager =
+                    $this->getServiceLocator()
+                    ->get('doctrine.entitymanager.orm_default');
+        }
+
+        return $this->_entityManager;
+    }
+
 }
