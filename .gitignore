@@ -1,10 +1,5 @@
-/chapter2/helloworld/nbproject
-/chapter3/formdemo/nbproject/private/
-/chapter3/formdemo/nbproject
+/formdemo/nbproject
+/formdemo/vendor
 
-/chapter3/formdemo/vendor
-/chapter4/doctrinedemo/nbproject/private/
-/chapter4/blog/nbproject/private
-
-/chapter4/blog/nbproject
-/chapter4/blog/vendor
+/blog/nbproject
+/blog/vendor

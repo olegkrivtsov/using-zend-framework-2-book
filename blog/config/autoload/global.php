@@ -12,5 +12,41 @@
  */
 
 return array(
-    // ...
+    'doctrine' => array(
+        'connection' => array(
+            'orm_default' => array(
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'params' => array(
+                    'host'     => '127.0.0.1',                    
+                    'user'     => 'extmat',
+                    'password' => 'eXm@tLst1',
+                    'dbname'   => 'extremist_materials_list',
+                )
+            ),
+            
+            // Database configuration used for unit tests
+            'orm_test' => array(
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'params' => array(
+                    'host'     => '127.0.0.1',                    
+                    'user'     => 'extmat',
+                    'password' => 'eXm@tLst1',
+                    'dbname'   => 'test_extremist_materials_list',
+                )
+            ),
+        ),
+        // Entity Manager instantiation settings
+        'entitymanager' => array(
+            // configuration for the `doctrine.entitymanager.orm_test` service
+            'orm_test' => array(
+                // connection instance to use. The retrieved service name will
+                // be `doctrine.connection.$thisSetting`
+                'connection'    => 'orm_test',
+
+                // configuration instance to use. The retrieved service name will
+                // be `doctrine.configuration.$thisSetting`
+                'configuration' => 'orm_default'
+            )
+        ),
+    ),
 );

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b611c07b6445a909eee270d68e0d0422",
+    "hash": "eb96ad11ab5303267239eee0e40ae1f3",
     "packages": [
         {
             "name": "doctrine/common",
@@ -425,6 +425,65 @@
             "time": "2013-06-11 07:15:14"
         },
         {
+            "name": "zendframework/zend-developer-tools",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/ZendDeveloperTools.git",
+                "reference": "5deef66fa81b4ca3277867562099e96d67e6b1a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/5deef66fa81b4ca3277867562099e96d67e6b1a0",
+                "reference": "5deef66fa81b4ca3277867562099e96d67e6b1a0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "zendframework/zend-eventmanager": "2.*",
+                "zendframework/zend-mvc": "2.*",
+                "zendframework/zend-servicemanager": "2.*",
+                "zendframework/zend-stdlib": "2.*",
+                "zendframework/zend-version": "2.*"
+            },
+            "suggest": {
+                "bjyoungblood/bjy-profiler": "Version: dev-master, allows the usage of the (Zend) Db collector."
+            },
+            "type": "zf-module",
+            "autoload": {
+                "psr-0": {
+                    "ZendDeveloperTools": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Evan Coury",
+                    "email": "me@evancoury.com",
+                    "homepage": "http://blog.evan.pro/"
+                },
+                {
+                    "name": "Eric Boh",
+                    "email": "cossish@gmail.com"
+                }
+            ],
+            "description": "Module for developer and debug tools for working with the ZF2 MVC layer.",
+            "homepage": "https://github.com/zendframework/ZendDeveloperTools",
+            "keywords": [
+                "debug",
+                "developer",
+                "module",
+                "zf2"
+            ],
+            "time": "2013-07-07 13:30:46"
+        },
+        {
             "name": "zendframework/zendframework",
             "version": "2.2.1",
             "source": {
@@ -545,7 +604,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "zendframework/zendframework": 5
+        "zendframework/zendframework": 5,
+        "zendframework/zend-developer-tools": 20
     },
     "platform": {
         "php": ">=5.3.3"
