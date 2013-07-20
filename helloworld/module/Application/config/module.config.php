@@ -29,7 +29,18 @@ return array(
                         'action'     => 'about',
                     ),
                 ),
-            ),            
+            ),
+            'doc' => array(
+                'type' => 'Zend\Mvc\Router\Http\Regex',
+                'options' => array(
+                    'regex'    => '/doc(?<page>\/[a-zA-Z0-9_\-]+)',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'doc',
+                    ),
+                    'spec'=>'/doc/%page%'
+                ),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them

@@ -8,3 +8,5 @@
 
 /chapter4/blog/nbproject
 /chapter4/blog/vendor
+
+/helloworld/vendor/bin/autoload_classmap.php

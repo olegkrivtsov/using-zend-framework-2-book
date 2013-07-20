@@ -39,10 +39,15 @@ class IndexController extends AbstractActionController {
      */
     public function aboutAction() {              
         
-        $zendFrameworkVer = \Zend\Version\Version::VERSION;
-        $isNewerVerAvailable = \Zend\Version\Version::compareVersion($zendFrameworkVer);
-        $latestVer = \Zend\Version\Version::getLatest();
+        // Get current ZF version
+        $zendFrameworkVer = Version::VERSION;        
+        // Fetch the latest available version of ZF
+        $latestVer = Version::getLatest();
+        // Test if newer version is available
+        $isNewerVerAvailable = Version::compareVersion($latestVer);
         
+        // Return variables to view script with the help of
+        // ViewObject variable container
         return new ViewModel(array(
             'zendFrameworkVer' => $zendFrameworkVer,
             'isNewerVerAvailable' => $isNewerVerAvailable,
@@ -50,6 +55,26 @@ class IndexController extends AbstractActionController {
         ));
     }
 
+    /**
+     * 
+     */
+    public function docAction() {
+        
+        $pageTemplate = 'application/index/doc'.$this->params()->fromRoute('page', 'documentation.phtml');        
+        $filePath = __DIR__.'/../../../view/'.$pageTemplate.'.phtml';
+        if(!file_exists($filePath) || !is_readable($filePath)) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+        
+        $viewModel = new ViewModel(array(
+            'page'=>$pageTemplate
+        ));
+        $viewModel->setTemplate($pageTemplate);
+        
+        return $viewModel;
+    }
+    
     /**
      * This is the "barcode" action. It generate the HELLO-WORLD barcode image.     
      */
