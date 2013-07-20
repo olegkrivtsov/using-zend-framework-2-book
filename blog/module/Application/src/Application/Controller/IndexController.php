@@ -14,6 +14,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Barcode\Barcode;
 use Zend\Version\Version;
+use Doctrine\ORM\EntityManager;
 
 /**
  * This is the main controller class of the Hello World application. The 
@@ -22,13 +23,7 @@ use Zend\Version\Version;
  * view for rendering.
  */
 class IndexController extends AbstractActionController {
-
-    /**
-     * ORM entity manager.
-     * @var Doctrine\ORM\EntityManager
-     */
-    protected $entityManager;
-
+    
     /**
      * This is the default "index" action of the controller. It displays the 
      * Home page.
@@ -36,7 +31,8 @@ class IndexController extends AbstractActionController {
      */
     public function indexAction() {
 
-        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        $entityManager = $this->getServiceLocator()
+                ->get('doctrine.entitymanager.orm_default');
         
         return new ViewModel();
     }
