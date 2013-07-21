@@ -41,6 +41,20 @@ return array(
                     'spec'=>'/doc/%page%'
                 ),
             ),
+            'barcode' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/barcode[/:type/:label]',
+                    'constraints' => array(
+                        'type' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'label' => '[a-zA-Z][a-zA-Z0-9_-]*'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'barcode',
+                    ),
+                ),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -60,7 +74,7 @@ return array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action][/:type/:label]]',
+                            'route'    => '/[:controller[/:action]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -74,7 +88,7 @@ return array(
                 ),
             ),
         ),
-    ),
+    ),    
     'service_manager' => array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',

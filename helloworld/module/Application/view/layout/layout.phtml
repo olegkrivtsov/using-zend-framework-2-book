@@ -38,6 +38,12 @@
                         'link' => $this->url('home')
                     ),
                     array(
+                        'id' => 'downloads',
+                        'label' => 'Downloads',
+                        'link' => $this->url("application/default", 
+                                        array('controller'=>'index', 'action'=>'downloads'))
+                    ),
+                    array(
                         'id' => 'support',
                         'label' => 'Support',
                         'link' => $this->url('doc', array('page'=>'contents'))
