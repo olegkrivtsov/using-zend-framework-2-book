@@ -33,12 +33,12 @@ return array(
             'doc' => array(
                 'type' => 'Zend\Mvc\Router\Http\Regex',
                 'options' => array(
-                    'regex'    => '/doc(?<page>\/[a-zA-Z0-9_\-]+)',
+                    'regex'    => '/doc(?<page>\/[a-zA-Z0-9_\-]+)\.html',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action'     => 'doc',
                     ),
-                    'spec'=>'/doc/%page%'
+                    'spec'=>'/doc/%page%.html'
                 ),
             ),
             'barcode' => array(
@@ -47,7 +47,7 @@ return array(
                     'route' => '/barcode[/:type/:label]',
                     'constraints' => array(
                         'type' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'label' => '[a-zA-Z][a-zA-Z0-9_-]*'
+                        'label' => '[a-zA-Z0-9_-]*'
                     ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
