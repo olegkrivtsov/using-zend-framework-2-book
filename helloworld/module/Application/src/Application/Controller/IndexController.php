@@ -129,6 +129,23 @@ class IndexController extends AbstractActionController {
         return $viewModel;
     }
     
+    public function staticAction() {
+     
+        // Get path to view template from route params
+        $pageTemplate = $this->params()->fromRoute('page', null);
+        if($pageTemplate==null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+        
+        // Render the page
+        $viewModel = new ViewModel(array(
+            'page'=>$pageTemplate
+        ));
+        $viewModel->setTemplate($pageTemplate);
+        return $viewModel;
+    }
+    
     /**
      * This is the "barcode" action. It generate the HELLO-WORLD barcode image.     
      */
@@ -153,4 +170,32 @@ class IndexController extends AbstractActionController {
         // Return false to disable default view rendering. 
         return false;
     }  
+    
+    /**
+     * This action has no special meaning except the demonstration of the use 
+     * of Wildcard route type.     
+     * To see how this works, type "http://localhost/blog/year/2013/month/April/name/my-vacation"
+     */
+    public function blogAction() {
+        
+        // Get parameters from the route.
+        $year = $this->params()->fromRoute('year', null);
+        $month = $this->params()->fromRoute('month', null);
+        $name = $this->params()->fromRoute('name', null);
+        
+        if($name!=null)
+            echo 'You requested to see the blog post named "'.$name.'"';
+        else
+            echo 'You requested to see all blog posts';
+        
+        if($year!=null && $month!=null)
+            echo ' published in '.$month.' '.$year;
+        else if($year!=null)
+            echo ' published in '.$year;
+        else
+            echo ' published in the past';
+            
+        // Suppress default view rendering.
+        return $this->getResponse();
+    }
 }
