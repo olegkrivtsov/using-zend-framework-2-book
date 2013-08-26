@@ -10,17 +10,4 @@ The book's text is illustrated with code samples. Each sample is a complete web-
 you can install and run yourself to see Zend Framework 2 in action. You even can use
 the samples as a base for your own web sites.
 
-Code samples are organized by chapters. The structure
-of the code archive is presented below. 
-
-	chapter1
-		(no samples)
-	chapter2	
-		helloworld
-	chapter3
-		formdemo
-	...
-
-For example, if you want to see the code examples for Chapter 2, 
-go to the `chapter2` subdirectory of the top-level code directory.
 
