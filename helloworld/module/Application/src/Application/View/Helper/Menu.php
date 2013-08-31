@@ -55,12 +55,9 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
         if(count($this->items)==0)
             return ''; // Do nothing if there are no items.
         
-        $result = '<div class="navbar">';
-        $result .= '<div class="navbar-inner">';        
-        $result .= '<div class="container">';
-        $result .= '<div class="nav-collapse collapse">';
-        $result .= '<div class="nav">';
-        $result .= '<ul class="nav">';
+        $result = '<nav class="navbar navbar-default" role="navigation">';
+        $result .= '<div class="collapse navbar-collapse navbar-ex1-collapse">';        
+        $result .= '<ul class="nav navbar-nav">';
         
         foreach($this->items as $item) {
             $result .= $this->renderItem($item);
@@ -68,10 +65,7 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
         
         $result .= '</ul>';
         $result .= '</div>';
-        $result .= '</div>';
-        $result .= '</div>';
-        $result .= '</div>';
-        $result .= '</div>';
+        $result .= '</nav>';
         
         return $result;
         

@@ -9,28 +9,28 @@
 
         <!-- Le styles -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
                         ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
                         ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
 
         <!-- Scripts -->
-        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-                                      ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-                                      ->prependFile($this->basePath() . '/js/jquery.min.js') ?>
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/jquery.min.js')
+            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
 
     </head>
     <body>  
-        
-        <div class="container">           
-            
+        <div class="container">               
             <div class="row">
-                <div class="span4">
+                <div class="col-md-4">
                     <div class="app-caption">Hello World!</div>
                 </div>
             </div>
-            
-            <?php             
-            
+         
+            <?php      
                 $this->mainMenu()->setItems(array(
                     array(
                         'id' => 'home',
@@ -54,12 +54,12 @@
                         'link' => $this->url('about')
                     ),
                 ));
-            
+
                 echo $this->mainMenu()->render($this->activeMenuItem); 
             ?>
-            
+
             <?php echo $this->pageBreadcrumbs()->render(); ?>
-            
+
             <?php echo $this->content; ?>
             <hr>
             <footer>

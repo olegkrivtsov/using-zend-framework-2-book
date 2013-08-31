@@ -42,7 +42,7 @@ class Breadcrumbs extends \Zend\View\Helper\AbstractHelper {
             return ''; // Do nothing if there are no items.
         
         // Resulting HTML code will be stored in this var
-        $result = '<ul class="breadcrumb">';
+        $result = '<ol class="breadcrumb">';
         
         // Get item count
         $itemCount = count($this->items); 
@@ -62,7 +62,7 @@ class Breadcrumbs extends \Zend\View\Helper\AbstractHelper {
             $itemNum++;
         }
         
-        $result .= '</ul>';
+        $result .= '</ol>';
         
         return $result;
         
@@ -83,11 +83,7 @@ class Breadcrumbs extends \Zend\View\Helper\AbstractHelper {
             $result .= '<a href="'.$link.'">'.$label.'</a>';
         else
             $result .= $label;
-        
-        // Render divider
-        if(!$isActive)
-           $result .= '<span class="divider">/</span>';
-            
+                    
         $result .= '</li>';
     
         return $result;

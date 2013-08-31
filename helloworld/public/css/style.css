@@ -1,5 +1,4 @@
 body {
-    padding-top: 60px;
     padding-bottom: 40px;
 }
 
@@ -35,3 +34,10 @@ div.container a.brand {
     margin-left: 0;
     padding: 8px 20px 12px 40px;
 }
+div.app-caption {
+    padding: 25px 0px;    
+    font-size:3.0em;
+    font-weight: bold;
+    color:#6aacaf
+}
+
