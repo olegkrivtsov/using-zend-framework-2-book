@@ -112,8 +112,6 @@ return array(
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'type'       => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'label'      => '[a-zA-Z][a-zA-Z0-9_-]*'
                             ),
                             'defaults' => array(
                             ),
@@ -122,7 +120,7 @@ return array(
                 ),
             ),
         ),
-    ),    
+    ),
     'service_manager' => array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
@@ -169,6 +167,13 @@ return array(
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
+        ),
+    ),
+    // Placeholder for console routes
+    'console' => array(
+        'router' => array(
+            'routes' => array(
+            ),
         ),
     ),
 );
