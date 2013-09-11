@@ -46,7 +46,18 @@
                     array(
                         'id' => 'support',
                         'label' => 'Support',
-                        'link' => $this->url('doc', array('page'=>'contents'))
+                        'dropdown' => array(
+                            array(
+                                'id' => 'documentation',
+                                'label' => 'Documentation',
+                                'link' => $this->url('doc', array('page'=>'contents'))
+                            ),
+                            array(
+                                'id' => 'help',
+                                'label' => 'Help',
+                                'link' => $this->url('static', array('page'=>'help'))
+                            )
+                        )                        
                     ),
                     array(
                         'id' => 'about',
