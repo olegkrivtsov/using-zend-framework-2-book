@@ -97,7 +97,7 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
                 $link = isset($item['link']) ? $item['link'] : '#';
                 $label = isset($item['label']) ? $item['label'] : '';
                 
-                $result .= $isActive?'<li class="active">':'<li>';
+                $result .= '<li>';
                 $result .= '<a href="'.$link.'">'.$label.'</a>';
                 $result .= '</li>';
             }
