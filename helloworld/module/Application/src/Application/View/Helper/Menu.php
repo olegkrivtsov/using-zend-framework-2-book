@@ -103,6 +103,7 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
             }
             $result .= '</ul>';
             $result .= '</a>';
+            $result .= '</li>';
             
         } else {        
             $link = isset($item['link']) ? $item['link'] : '#';
