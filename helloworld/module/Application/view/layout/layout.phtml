@@ -26,10 +26,11 @@
         <div class="container">               
             <div class="row">
                 <div class="col-md-4">
-                    <div class="app-caption">Hello World!</div>
-                </div>
+                            <div class="app-caption">Hello World!</div>
+                </div>                
             </div>
-         
+            <div class="row">
+                <div class="col-md-12">
             <?php      
                 $this->mainMenu()->setItems(array(
                     array(
@@ -57,14 +58,25 @@
 
                 echo $this->mainMenu()->render($this->activeMenuItem); 
             ?>
-
-            <?php echo $this->pageBreadcrumbs()->render(); ?>
-
-            <?php echo $this->content; ?>
-            <hr>
-            <footer>
-                <p>&copy; <?php echo date('Y') ?> by Your Company. <?php echo $this->translate('All rights reserved.') ?></p>
-            </footer>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php echo $this->pageBreadcrumbs()->render(); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php echo $this->content; ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                <hr>                
+                <p>
+                    &copy; <?php echo date('Y') ?> by Your Company. <?php echo $this->translate('All rights reserved.') ?>
+                </p>                               
+            </div>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>
     </body>
