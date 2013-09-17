@@ -56,9 +56,20 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
             return ''; // Do nothing if there are no items.
         
         $result = '<nav class="navbar navbar-default" role="navigation">';
+        $result .= '<div class="navbar-header">';
+        $result .= '<button type="button" class="navbar-toggle" data-toggle="collapse"';
+        $result .= 'data-target=".navbar-ex1-collapse">';
+        $result .= '<span class="sr-only">Toggle navigation</span>';
+        $result .= '<span class="icon-bar"></span>';
+        $result .= '<span class="icon-bar"></span>';
+        $result .= '<span class="icon-bar"></span>';
+        $result .= '</button>';
+        $result .= '</div>';
+        
         $result .= '<div class="collapse navbar-collapse navbar-ex1-collapse">';        
         $result .= '<ul class="nav navbar-nav">';
         
+        // Render items
         foreach($this->items as $item) {
             $result .= $this->renderItem($item);
         }
@@ -88,7 +99,7 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
             
             $dropdownItems = $item['dropdown'];
             
-            $result .= $isActive?'<li class="dropdown active">':'<li class="dropdown">';
+            $result .= '<li class="dropdown ' . ($isActive?'active':'') . '">';
             $result .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown">';
             $result .= $label . ' <b class="caret"></b>';
            

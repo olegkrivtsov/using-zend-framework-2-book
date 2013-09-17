@@ -146,7 +146,8 @@ return array(
         ),
     ),
     
-    // The following registers our custom view helper classes in view plugin manager.
+    // The following registers our custom view 
+    // helper classes in view plugin manager.
     'view_helpers' => array(
        'invokables' => array(
           'mainMenu' => 'Application\View\Helper\Menu',          

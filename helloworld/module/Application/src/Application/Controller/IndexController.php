@@ -129,6 +129,10 @@ class IndexController extends AbstractActionController {
         return $viewModel;
     }
     
+    /**
+     * This is the "static" action which displays a static
+     * documentation page.
+     */
     public function staticAction() {
      
         // Get path to view template from route params
