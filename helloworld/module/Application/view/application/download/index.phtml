@@ -14,7 +14,7 @@ $this->pageBreadcrumbs()->setItems(array(
 <ul>
     <li>
         <a href="<?php echo $this->url("application/default", 
-            array('controller'=>'index', 'action'=>'download'), array('query'=>array('file'=>'sample.txt'))); ?>">
+            array('controller'=>'download', 'action'=>'file'), array('query'=>array('name'=>'sample.txt'))); ?>">
             sample.txt
         </a>
     </li>
