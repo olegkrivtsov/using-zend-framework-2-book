@@ -13,15 +13,23 @@ $this->headScript()->appendFile('/js/typeahead.min.js', 'text/javascript');
 <h1>Typeahead</h1>
 
 <p>
-    Type something in the text field below:
+    Type a continent name (e.g. Africa) in the text field below:
 </p>
 
-<input type="text" class="typeahead-devs" title="Type here"/>
+<input type="text" class="typeahead" title="Type here"/>
 
 <script type="text/javascript">
     
-    $('input.typeahead-devs').typeahead({
-        name: 'accounts',
-        local: ['timtrueman', 'JakeHarding', 'vskarich']
+    $('input.typeahead').typeahead({
+        name: 'continents',
+        local: 
+        [
+            'Africa', 
+            'Antarctica',
+            'Asia',
+            'Europe',
+            'South America', 
+            'North America'            
+        ]
     });
 </script>
