@@ -142,11 +142,13 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Download' => 'Application\Controller\DownloadController',
         ),
     ),
     
-    // The following registers our custom view helper classes in view plugin manager.
+    // The following registers our custom view 
+    // helper classes in view plugin manager.
     'view_helpers' => array(
        'invokables' => array(
           'mainMenu' => 'Application\View\Helper\Menu',          

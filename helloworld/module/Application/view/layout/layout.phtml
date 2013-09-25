@@ -25,57 +25,73 @@
     <body>  
         <div class="container">               
             <div class="row">
+                <!-- Page header -->
                 <div class="col-md-4">
-                    <div class="app-caption">Hello World!</div>
-                </div>
+                            <div class="app-caption">Hello World!</div>
+                </div>                
             </div>
-         
-            <?php      
-                $this->mainMenu()->setItems(array(
-                    array(
-                        'id' => 'home',
-                        'label' => 'Home',
-                        'link' => $this->url('home')
-                    ),
-                    array(
-                        'id' => 'downloads',
-                        'label' => 'Downloads',
-                        'link' => $this->url("application/default", 
-                                        array('controller'=>'index', 'action'=>'downloads'))
-                    ),
-                    array(
-                        'id' => 'support',
-                        'label' => 'Support',
-                        'dropdown' => array(
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Navigation bar -->
+                    <?php      
+                        $this->mainMenu()->setItems(array(
                             array(
-                                'id' => 'documentation',
-                                'label' => 'Documentation',
-                                'link' => $this->url('doc', array('page'=>'contents'))
+                                'id' => 'home',
+                                'label' => 'Home',
+                                'link' => $this->url('home')
                             ),
                             array(
-                                'id' => 'help',
-                                'label' => 'Help',
-                                'link' => $this->url('static', array('page'=>'help'))
-                            )
-                        )                        
-                    ),
-                    array(
-                        'id' => 'about',
-                        'label' => 'About',
-                        'link' => $this->url('about')
-                    ),
-                ));
+                                'id' => 'downloads',
+                                'label' => 'Downloads',
+                                'link' => $this->url("application/default", 
+                                                array('controller'=>'download', 'action'=>'index'))
+                            ),
+                            array(
+                                'id' => 'support',
+                                'label' => 'Support',
+                                'dropdown' => array(
+                                    array(
+                                        'id' => 'documentation',
+                                        'label' => 'Documentation',
+                                        'link' => $this->url('doc', array('page'=>'contents'))
+                                    ),
+                                    array(
+                                        'id' => 'help',
+                                        'label' => 'Help',
+                                        'link' => $this->url('static', array('page'=>'help'))
+                                    )
+                                )                        
+                            ),
+                            array(
+                                'id' => 'about',
+                                'label' => 'About',
+                                'link' => $this->url('about')
+                            ),
+                        ));
 
-                echo $this->mainMenu()->render(); 
-            ?>
-
-            <?php echo $this->pageBreadcrumbs()->render(); ?>
-
-            <?php echo $this->content; ?>
-            <hr>
-            <footer>
-                <p>&copy; <?php echo date('Y') ?> by Your Company. <?php echo $this->translate('All rights reserved.') ?></p>
-            </footer>
+                        echo $this->mainMenu()->render($this->activeMenuItem); 
+                    ?>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Breadcrumbs -->
+                    <?php echo $this->pageBreadcrumbs()->render(); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Page content placeholder -->
+                    <?php echo $this->content; ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                <hr>                
+                <p>
+                    &copy; <?php echo date('Y') ?> by Your Company. <?php echo $this->translate('All rights reserved.') ?>
+                </p>                               
+            </div>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>
     </body>

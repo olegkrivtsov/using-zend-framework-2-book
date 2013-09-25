@@ -1,13 +1,5 @@
 <?php
 
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
-
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
@@ -131,6 +123,10 @@ class IndexController extends AbstractActionController {
         return $viewModel;
     }
     
+    /**
+     * This is the "static" action which displays a static
+     * documentation page.
+     */
     public function staticAction() {
      
         // Get path to view template from route params

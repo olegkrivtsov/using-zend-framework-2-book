@@ -88,6 +88,4 @@ class Breadcrumbs extends \Zend\View\Helper\AbstractHelper {
     
         return $result;
     }
-    
-    
 }
