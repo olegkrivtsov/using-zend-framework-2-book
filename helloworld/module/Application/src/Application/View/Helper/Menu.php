@@ -115,6 +115,4 @@ class Menu extends \Zend\View\Helper\AbstractHelper {
     
         return $result;
     }
-    
-    
 }

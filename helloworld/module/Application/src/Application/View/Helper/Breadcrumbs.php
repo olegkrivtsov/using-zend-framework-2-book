@@ -54,7 +54,7 @@ class Breadcrumbs extends \Zend\View\Helper\AbstractHelper {
             
             // Make the last item inactive
             $isActive = ($itemNum==$itemCount?true:false);
-            
+                        
             // Render current item
             $result .= $this->renderItem($label, $link, $isActive);
                         

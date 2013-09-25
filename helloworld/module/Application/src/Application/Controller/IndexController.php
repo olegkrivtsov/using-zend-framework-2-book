@@ -39,6 +39,8 @@ class IndexController extends AbstractActionController {
      */
     public function aboutAction() {              
         
+        $this->layout()->setTemplate('layout/column1');
+        
         // Get current ZF version
         $zendFrameworkVer = Version::VERSION;        
         // Fetch the latest available version of ZF
