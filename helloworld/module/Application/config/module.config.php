@@ -146,7 +146,11 @@ return array(
             'Application\Controller\Download' => 'Application\Controller\DownloadController',
         ),
     ),
-    
+    'controller_plugins' => array(
+        'invokables' => array(
+            'pageComposer' => 'Application\Controller\Plugin\PageComposerPlugin'            
+        ),
+    ),    
     // The following registers our custom view 
     // helper classes in view plugin manager.
     'view_helpers' => array(
