@@ -20,16 +20,20 @@ $this->headScript()->appendFile('/js/typeahead.min.js', 'text/javascript');
 
 <script type="text/javascript">
     
-    $('input.typeahead').typeahead({
-        name: 'continents',
-        local: 
-        [
-            'Africa', 
-            'Antarctica',
-            'Asia',
-            'Europe',
-            'South America', 
-            'North America'            
-        ]
+    $( document ).ready(function() {
+    
+        $('input.typeahead').typeahead({
+            name: 'continents',
+            local: 
+            [
+                'Africa', 
+                'Antarctica',
+                'Asia',
+                'Europe',
+                'South America', 
+                'North America'            
+            ]
+        });
+        
     });
 </script>
