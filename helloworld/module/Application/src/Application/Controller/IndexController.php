@@ -196,4 +196,42 @@ class IndexController extends AbstractActionController {
         // Suppress default view rendering.
         return $this->getResponse();
     }
+    
+    /**
+     * An action that demonstrates the usage of partial views.
+     */
+    public function partialDemoAction() {
+        
+        $products = array(
+            array(
+                'id' => 1,
+                'name' => 'Digital Camera',
+                'price' => 99.95,
+            ),
+            array(
+                'id' => 2,
+                'name' => 'Tripod',
+                'price' => 29.95,
+            ),
+            array(
+                'id' => 3,
+                'name' => 'Camera Case',
+                'price' => 2.99,
+            ),
+            array(
+                'id' => 4,
+                'name' => 'Batteries',
+                'price' => 39.99,
+            ),
+            array(
+                'id' => 5,
+                'name' => 'Charger',
+                'price' => 29.99,
+            ),
+        );
+        
+        return new ViewModel(array(
+                'products' => $products
+            ));
+    }
 }
