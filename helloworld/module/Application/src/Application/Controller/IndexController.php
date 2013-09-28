@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Barcode\Barcode;
 use Zend\Version\Version;
+use Zend\Mvc\MvcEvent;
 
 /**
  * This is the main controller class of the Hello World application. The 
@@ -14,7 +15,7 @@ use Zend\Version\Version;
  * view for rendering.
  */
 class IndexController extends AbstractActionController {
-
+    
     /**
      * This is the default "index" action of the controller. It displays the 
      * Home page.
@@ -30,9 +31,7 @@ class IndexController extends AbstractActionController {
      * @return \Zend\View\Model\ViewModel
      */
     public function aboutAction() {              
-        
-        $this->layout()->setTemplate('layout/column1');
-        
+                
         // Get current ZF version
         $zendFrameworkVer = Version::VERSION;        
         // Fetch the latest available version of ZF
@@ -234,4 +233,20 @@ class IndexController extends AbstractActionController {
                 'products' => $products
             ));
     }
+    
+    /** 
+     * We override the parent class' onDispatch() method to
+     * set an alternative layout for all actions in this controller.
+     */
+    public function onDispatch(MvcEvent $e) {
+        
+        // Call the base class' onDispatch() first and grab the response
+        $response = parent::onDispatch($e);        
+        
+        // Set alternative layout
+        $this->layout()->setTemplate('layout/layout2');                
+        
+        // Return the response
+        return $response;
+    }    
 }
