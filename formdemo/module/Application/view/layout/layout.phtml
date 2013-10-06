@@ -39,33 +39,16 @@
                                 'id' => 'home',
                                 'label' => 'Home',
                                 'link' => $this->url('home')
-                            ),
-                            array(
-                                'id' => 'downloads',
-                                'label' => 'Downloads',
-                                'link' => $this->url("application/default", 
-                                                array('controller'=>'download', 'action'=>'index'))
-                            ),
-                            array(
-                                'id' => 'support',
-                                'label' => 'Support',
-                                'dropdown' => array(
-                                    array(
-                                        'id' => 'documentation',
-                                        'label' => 'Documentation',
-                                        'link' => $this->url('doc', array('page'=>'contents'))
-                                    ),
-                                    array(
-                                        'id' => 'help',
-                                        'label' => 'Help',
-                                        'link' => $this->url('static', array('page'=>'help'))
-                                    )
-                                )                        
-                            ),
+                            ),                            
                             array(
                                 'id' => 'about',
                                 'label' => 'About',
                                 'link' => $this->url('about')
+                            ),
+                            array(
+                                'id' => 'contact',
+                                'label' => 'Contact Us',
+                                'link' => $this->url('contact')
                             ),
                         ));
 

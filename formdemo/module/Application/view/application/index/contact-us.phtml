@@ -6,11 +6,11 @@ $this->mainMenu()->setActiveItemId('contactUs');
 
 $this->pageBreadcrumbs()->setItems(array(
             'Home'=>$this->url('home'),
-            'Contact Us'=>$this->url('contactUs')
+            'Contact Us'=>$this->url('contact')
             ));
 
 $form = $this->form;
-$form->setAttribute('action', $this->url('contactUs'));
+$form->setAttribute('action', $this->url('contact'));
 $form->setAttribute('class', 'form-horizontal');
 $form->prepare();
 

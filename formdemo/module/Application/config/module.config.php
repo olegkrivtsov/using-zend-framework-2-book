@@ -30,65 +30,16 @@ return array(
                     ),
                 ),
             ),
-            'doc' => array(
-                'type' => 'Zend\Mvc\Router\Http\Regex',
+            'contact' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'regex'    => '/doc(?<page>\/[a-zA-Z0-9_\-]+)\.html',
+                    'route'    => '/contact',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
-                        'action'     => 'doc',
-                    ),
-                    'spec'=>'/doc/%page%.html'
-                ),
-            ),
-            'static' => array(
-                'type' => '\Application\Service\StaticRoute',
-                'options' => array(
-                    'dir_name'         => __DIR__ . '/../view',
-                    'template_prefix'  => 'application/index/static',
-                    'filename_pattern' => '/[a-z0-9_\-]+/',
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
-                        'action'     => 'static',
-                    ),                    
-                ),
-            ),
-            'barcode' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/barcode[/:type/:label]',
-                    'constraints' => array(
-                        'type' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'label' => '[a-zA-Z0-9_-]*'
-                    ),
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
-                        'action' => 'barcode',
+                        'action'     => 'contactUs',
                     ),
                 ),
-            ),
-            'blog' => array(
-                'type'    => 'Literal',
-                'options' => array(
-                    'route'    => '/blog',
-                    'defaults' => array(                        
-                    ),
-                ),
-                'may_terminate' => false,
-                'child_routes' => array(
-                    'wildcard' => array(
-                        'type' => 'Zend\Mvc\Router\Http\Wildcard',
-                        'options' => array(                    
-                            'key_value_delimiter' => '/',
-                            'param_delimiter' => '/',
-                            'defaults' => array(
-                                'controller' => 'Application\Controller\Index',
-                                'action'     => 'blog',
-                            ),
-                        ),
-                    ),
-                ),
-            ),            
+            ),                        
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -142,13 +93,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Download' => 'Application\Controller\DownloadController',
-        ),
-    ),
-    'controller_plugins' => array(
-        'invokables' => array(
-            'pageComposer' => 'Application\Controller\Plugin\PageComposerPlugin'            
+            'Application\Controller\Index' => 'Application\Controller\IndexController',            
         ),
     ),    
     // The following registers our custom view 

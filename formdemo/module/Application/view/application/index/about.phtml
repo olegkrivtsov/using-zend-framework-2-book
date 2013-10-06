@@ -8,26 +8,11 @@ $this->pageBreadcrumbs()->setItems(array(
             'About'=>$this->url('about'),
             ));
 
-$this->layout()->setTemplate('layout/layout2');
-        
 ?>
 
 <h1>About</h1>
 
 <p>
-    The Hello World application.
+    The Form Demo application.
 </p>
 
-<p>
-    Your Zend Framework version is 
-    <?php echo $this->zendFrameworkVer; ?>
-</p>
-
-<?php if($this->isNewerVerAvailable): ?>
-
-<p>
-    Your Zend Framework version is outdated. The latest available 
-    version is <?php echo $this->latestVer; ?>.
-</p>
-
-<?php endif; ?>
