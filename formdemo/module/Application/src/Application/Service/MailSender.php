@@ -16,25 +16,26 @@ class MailSender {
      * @param type $text
      * @return boolean
      */
-    public function sendMail($recipient, $subject, $text) {
+    public function sendMail($sender, $recipient, $subject, $text) {
 
-        // Create E-mail message
-        $mail = new Mail\Message();
-        $mail->setBody('This is the text of the email.');
-        $mail->setFrom('Freeaqingme@example.org', 'Sender\'s name');
-        $mail->addTo('Matthew@example.com', 'Name o. recipient');
-        $mail->setSubject('TestSubject');
-
-        // Send E-mail message
-        $transport = new Mail\Transport\Sendmail('-fno-reply@example.com');
-        
+        $result = false;
         try {
+        
+            // Create E-mail message
+            $mail = new Mail\Message();
+            $mail->setBody($text);
+            $mail->setFrom($sender);
+            $mail->addTo($recipient);
+            $mail->setSubject($subject);
+
+            // Send E-mail message
+            $transport = new Mail\Transport\Sendmail('-f'.$sender);
             $transport->send($mail);
+            $result = true;
         } catch(\Exception $e) {
-            return false;
+            $result = false;
         }
         
-        
-        return true;
+        return $result;
     }
 };

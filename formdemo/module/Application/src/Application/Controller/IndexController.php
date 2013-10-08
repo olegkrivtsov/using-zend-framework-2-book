@@ -60,9 +60,14 @@ class IndexController extends AbstractActionController {
                 
                 // Send E-mail
                 $mailSender = new \Application\Service\MailSender();
-                $mailSender->sendMail($email, $subject, $body);
+                if(!$mailSender->sendMail('no-reply@example.com', $email, $subject, $body)) {
+                    // In case of error, redirect to "Error Sending Email" page
+                    return $this->redirect()->toRoute('application/default', 
+                        array('controller'=>'index', 'action'=>'sendError'));
+                }
                 
-                $this->redirect()->toRoute('application/default', 
+                // In case of error, redirect to "Thank You" page
+                return $this->redirect()->toRoute('application/default', 
                         array('controller'=>'index', 'action'=>'thankYou'));
             }            
         } 
@@ -79,6 +84,15 @@ class IndexController extends AbstractActionController {
      * @return \Zend\View\Model\ViewModel
      */
     public function thankYouAction() {
+                
+        return new ViewModel();
+    }
+    
+    /**
+     * 
+     * @return \Zend\View\Model\ViewModel
+     */
+    public function sendErrorAction() {
                 
         return new ViewModel();
     }

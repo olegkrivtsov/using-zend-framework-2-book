@@ -89,7 +89,7 @@ class ContactForm extends \Zend\Form\Form
                 'name'     => 'email',
                 'required' => true,
                 'filters'  => array(
-                    array('name' => 'StringTrim'),
+                    array('name' => 'StringTrim'),                    
                 ),                
                 'validators' => array(
                     array(
@@ -100,6 +100,45 @@ class ContactForm extends \Zend\Form\Form
                         ),
                     ),
                 ),
-            )));
+            )
+        ));
+        
+        $inputFilter->add($factory->createInput(array(
+                'name'     => 'subject',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StringTrim'),
+                    array('name' => 'StripTags'),
+                    array('name' => 'StripNewLines'),
+                ),                
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'min' => 1,
+                            'max' => 128
+                        ),
+                    ),
+                ),
+            )
+        ));
+        
+        $inputFilter->add($factory->createInput(array(
+                'name'     => 'subject',
+                'required' => true,
+                'filters'  => array(                    
+                    array('name' => 'StripTags'),
+                ),                
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'min' => 1,
+                            'max' => 4096
+                        ),
+                    ),
+                ),
+            )
+        ));
     }
 }

@@ -32,7 +32,7 @@ class CustomFormRow extends \Zend\View\Helper\AbstractHelper {
         
         $result .= '<div class="form-group">';
         $result .= $this->formLabel($element);
-        $result .= $this->formText($element);
+        $result .= $this->formElement($element);
         $result .= $this->formElementErrors($element);
         $result .= '</div>';
         
