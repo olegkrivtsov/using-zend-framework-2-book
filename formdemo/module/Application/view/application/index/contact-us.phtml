@@ -11,6 +11,20 @@ $this->pageBreadcrumbs()->setItems(array(
 
 $form = $this->form;
 $form->setAttribute('action', $this->url('contact'));
+$form->get('email')->setAttributes(array(
+    'class'=>'form-control', 
+    'placeholder'=>'name@example.com'
+    ));
+$form->get('subject')->setAttributes(array(
+    'class'=>'form-control', 
+    'placeholder'=>'Type subject here'
+    ));
+$form->get('body')->setAttributes(array(
+    'class'=>'form-control', 
+    'rows'=>6, 
+    'placeholder'=>'Type message text here'
+    ));
+$form->get('submit')->setAttributes(array('class'=>'btn btn-primary'));
 $form->prepare();
 
 ?>
@@ -27,23 +41,23 @@ $form->prepare();
         
         <div class="form-group">
             <?php echo $this->formLabel($form->get('email')); ?>
-            <?php echo $this->formText($form->get('email')->setAttributes(array('class'=>'form-control', 'placeholder'=>'name@example.com'))); ?>
+            <?php echo $this->formText($form->get('email')); ?>
             <?php echo $this->formElementErrors($form->get('email')); ?>                  
         </div>
         
         <div class="form-group">
             <?php echo $this->formLabel($form->get('subject')); ?>
-            <?php echo $this->formText($form->get('subject')->setAttributes(array('class'=>'form-control', 'placeholder'=>'Type message subject here'))); ?>
+            <?php echo $this->formText($form->get('subject')); ?>
             <?php echo $this->formElementErrors($form->get('subject')); ?>                  
         </div>
         
         <div class="form-group">
             <?php echo $this->formLabel($form->get('body')); ?>
-            <?php echo $this->formTextArea($form->get('body')->setAttributes(array('class'=>'form-control', 'rows'=>6,'placeholder'=>'Type message text here'))); ?>
+            <?php echo $this->formTextArea($form->get('body')); ?>
             <?php echo $this->formElementErrors($form->get('body')); ?>                  
         </div>
         
-        <?php echo $this->formSubmit($form->get('submit')->setAttributes(array('class'=>'btn btn-primary'))); ?>
+        <?php echo $this->formSubmit($form->get('submit')); ?>
         
         <?php echo $this->form()->closeTag(); ?>
     </div>    

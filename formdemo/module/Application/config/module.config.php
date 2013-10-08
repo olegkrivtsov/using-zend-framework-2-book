@@ -102,6 +102,7 @@ return array(
        'invokables' => array(
           'mainMenu' => 'Application\View\Helper\Menu',          
           'pageBreadcrumbs' => 'Application\View\Helper\Breadcrumbs',          
+          'customFormRow' => 'Application\View\Helper\CustomFormRow',          
        ),
     ),
     'view_manager' => array(
