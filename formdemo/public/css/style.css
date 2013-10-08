@@ -79,8 +79,13 @@ div.app-caption {
   margin: 0;
 }
 
-form ul li {
-    list-style: none;
-    color: red;
-    list-style-position: outside;
+form ul {
+    list-style-type:none;
+    padding: 0px;
+    margin: 0px 5px;
+}
+
+form ul li {    
+    color: red;    
+    
 }
