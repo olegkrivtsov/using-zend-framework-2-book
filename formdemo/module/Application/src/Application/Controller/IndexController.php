@@ -39,10 +39,47 @@ class IndexController extends AbstractActionController {
      */
     public function contactUsAction() {
         
+        // Create Contact Us form
         $form = new ContactForm();
         
+        // Check if user has submitted the form
+        if($this->getRequest()->isPost()) {
+            
+            // Fill in the form with POST data
+            $data = $this->getRequest()->getPost();            
+            $form->setData($data);
+            
+            // Validate form
+            if($form->isValid()) {
+                
+                // Get filtered and validated data
+                $data = $form->getData();
+                $email = $data['email'];
+                $subject = $data['subject'];
+                $body = $data['body'];
+                
+                // Send E-mail
+                $mailSender = new \Application\Service\MailSender();
+                $mailSender->sendMail($email, $subject, $body);
+                
+                $this->redirect()->toRoute('application/default', 
+                        array('controller'=>'index', 'action'=>'thankYou'));
+            }            
+        } 
+        
+        // Pass form variable to view
         return new ViewModel(array(
             'form' => $form
         ));
+    }
+    
+    /**
+     * This action displays the Thank You page. The user is redirected to this
+     * page on successful mail delivery.
+     * @return \Zend\View\Model\ViewModel
+     */
+    public function thankYouAction() {
+                
+        return new ViewModel();
     }
 }

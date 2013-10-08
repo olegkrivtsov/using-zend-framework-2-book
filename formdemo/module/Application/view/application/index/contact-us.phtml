@@ -11,74 +11,40 @@ $this->pageBreadcrumbs()->setItems(array(
 
 $form = $this->form;
 $form->setAttribute('action', $this->url('contact'));
-$form->setAttribute('class', 'form-horizontal');
 $form->prepare();
 
 ?>
 
 <h1>Contact Us</h1>
-
-<?php if($this->isSubmitted):?>
-
-<?php 
-
-    foreach($this->flashMessenger()->getFlashMessages() as $message) {
-        echo $message;
-    }
-?>
-
-<?php else: ?>
-
 <p>
     Please fill out the following form to contact us. 
-    We appreciate your feedback.
+    We appreciate your feedback. 
 </p>
 
-<?php echo $this->form()->openTag($form); ?>
-
-<fieldset>
-    
-    <div class="control-group">    
-        <?php echo $this->formLabel($form->get('email')->setLabelAttributes(array('class'=>'control-label'))); ?>
-        <div class="controls">            
-            <?php echo $this->formText($form->get('email')->setAttributes(array('class'=>'input-xxlarge'))); ?>
-            <?php echo $this->formElementErrors($form->get('email')); ?>          
+<div class="row">
+    <div class="col-md-6">
+        <?php echo $this->form()->openTag($form); ?>
+        
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('email')); ?>
+            <?php echo $this->formText($form->get('email')->setAttributes(array('class'=>'form-control', 'placeholder'=>'name@example.com'))); ?>
+            <?php echo $this->formElementErrors($form->get('email')); ?>                  
         </div>
-    </div>
-    
-    <div class="control-group">    
-        <?php echo $this->formLabel($form->get('subject')->setLabelAttributes(array('class'=>'control-label'))); ?>
-        <div class="controls">            
-            <?php echo $this->formText($form->get('subject')->setAttributes(array('class'=>'input-xxlarge'))); ?>
-            <?php echo $this->formElementErrors($form->get('subject')); ?>          
+        
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('subject')); ?>
+            <?php echo $this->formText($form->get('subject')->setAttributes(array('class'=>'form-control', 'placeholder'=>'Type message subject here'))); ?>
+            <?php echo $this->formElementErrors($form->get('subject')); ?>                  
         </div>
-    </div>
-    
-    <div class="control-group">    
-        <?php echo $this->formLabel($form->get('body')->setLabelAttributes(array('class'=>'control-label'))); ?>
-        <div class="controls">            
-            <?php echo $this->formTextArea($form->get('body')->setAttributes(array('rows'=>10, 'class'=>'input-xxlarge'))); ?>
-            <?php echo $this->formElementErrors($form->get('body')); ?>          
+        
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('body')); ?>
+            <?php echo $this->formTextArea($form->get('body')->setAttributes(array('class'=>'form-control', 'rows'=>6,'placeholder'=>'Type message text here'))); ?>
+            <?php echo $this->formElementErrors($form->get('body')); ?>                  
         </div>
-    </div>
-    
-    <div class="control-group">    
-        <?php echo $this->formLabel($form->get('captcha')->setLabelAttributes(array('class'=>'control-label'))); ?>
-        <div class="controls">            
-            <?php echo $this->formCaptcha($form->get('captcha')); ?>
-            <?php echo $this->formElementErrors($form->get('captcha')); ?>          
-        </div>
-    </div>
-
-    <div class="control-group">
-        <div class="controls">        
-            <?php echo $this->formSubmit($form->get('submit')->setAttributes(array('class'=>'btn btn-primary'))); ?>
-        </div>
-    </div>
-
-    
-</fieldset>
-
-<?php echo $this->form()->closeTag(); ?>
-
-<?php endif; ?>
+        
+        <?php echo $this->formSubmit($form->get('submit')->setAttributes(array('class'=>'btn btn-primary'))); ?>
+        
+        <?php echo $this->form()->closeTag(); ?>
+    </div>    
+</div>    

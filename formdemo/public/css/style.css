@@ -78,3 +78,9 @@ div.app-caption {
 .tt-suggestion p {
   margin: 0;
 }
+
+form ul li {
+    list-style: none;
+    color: red;
+    list-style-position: outside;
+}

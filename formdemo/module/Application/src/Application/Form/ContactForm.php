@@ -3,6 +3,9 @@
 namespace Application\Form;
 
 use Zend\Form\Form;
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
+
 
 /**
  * This form is used to collect user feedback data like user E-mail, 
@@ -18,6 +21,12 @@ class ContactForm extends \Zend\Form\Form
     {
         // Define form name
         parent::__construct('contact-form');
+     
+        $this->addElements();
+        $this->addInputFilter();
+    }
+    
+    public function addElements() {
         
         // Set POST method for this form
         $this->setAttribute('method', 'post');
@@ -55,38 +64,6 @@ class ContactForm extends \Zend\Form\Form
             ),
         ));
         
-        // Add image captcha
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Captcha',
-            'name' => 'captcha',
-            'options' => array(
-                'label' => 'Human check',
-                'captcha' => array(
-                    'class' => 'Image',
-                    'imgDir' => './public/img',
-                    'imgUrl' => 'img',
-                    'font' => '/home/devel/share/using-zend-framework-2-book/chapter3/formdemo/data/fonts/arial.ttf',
-                    'width' => 250,
-                    'height' => 100,
-                    'dotNoiseLevel' => 40,
-                    'lineNoiseLevel' => 3
-                ),
-            ),            
-        ));
-        
-        // Add figlet captcha
-        /*$this->add(array(
-            'type' => 'Zend\Form\Element\Captcha',
-            'name' => 'captcha',
-            'options' => array(
-                'label' => 'Human check',
-                'captcha' => array(
-                    'class' => 'Figlet',
-                    'worldLen' => 5                    
-                ),
-            ),            
-        ));*/        
-        
         // Add the submit button
         $this->add(array(
             'name' => 'submit',
@@ -96,5 +73,33 @@ class ContactForm extends \Zend\Form\Form
                 'id' => 'submitbutton',
             ),
         ));
+    }
+    
+    /**
+     * Create input filter (used for form validation).
+     */
+    public function addInputFilter() {
+        
+        $inputFilter = new InputFilter();        
+        $this->setInputFilter($inputFilter);
+        
+        $factory = new InputFactory();
+        
+        $inputFilter->add($factory->createInput(array(
+                'name'     => 'email',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StringTrim'),
+                ),                
+                'validators' => array(
+                    array(
+                        'name'    => 'EmailAddress',
+                        'options' => array(
+                            'allow' => \Zend\Validator\Hostname::ALLOW_DNS,
+                            'useMxCheck'    => false,                            
+                        ),
+                    ),
+                ),
+            )));
     }
 }
