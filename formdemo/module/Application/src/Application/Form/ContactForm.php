@@ -10,7 +10,7 @@ use Zend\InputFilter\InputFilter;
  * This form is used to collect user feedback data like user E-mail, 
  * message subject and text.
  */
-class ContactForm extends \Zend\Form\Form
+class ContactForm extends Form
 {
     /**
      * Constructor.     
@@ -20,18 +20,18 @@ class ContactForm extends \Zend\Form\Form
         // Define form name
         parent::__construct('contact-form');
      
+        // Set POST method for this form
+        $this->setAttribute('method', 'post');
+                
         $this->addElements();
-        $this->addInputFilter();
+        $this->addInputFilter();        
     }
     
     /**
      * This method adds elements to form (input fields and submit button).
      */
     protected function addElements() {
-        
-        // Set POST method for this form
-        $this->setAttribute('method', 'post');
-        
+                
         // Add "email" field
         $this->add(array(
             'name' => 'email',
