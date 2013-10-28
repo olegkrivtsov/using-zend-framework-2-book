@@ -17,19 +17,19 @@ class ContactForm extends \Zend\Form\Form
      * Constructor.
      * @param string $name Form name.
      */
-    public function __construct($name = null)
+    public function __construct()
     {
         // Define form name
         parent::__construct('contact-form');
      
+        // Set POST method for this form
+        $this->setAttribute('method', 'post');
+        
         $this->addElements();
         $this->addInputFilter();
     }
     
-    public function addElements() {
-        
-        // Set POST method for this form
-        $this->setAttribute('method', 'post');
+    public function addElements() {               
         
         // Add "email" field
         $this->add(array(
@@ -69,8 +69,7 @@ class ContactForm extends \Zend\Form\Form
             'name' => 'submit',
             'attributes' => array(
                 'type'  => 'submit',
-                'value' => 'Submit',
-                'id' => 'submitbutton',
+                'value' => 'Submit'
             ),
         ));
     }
