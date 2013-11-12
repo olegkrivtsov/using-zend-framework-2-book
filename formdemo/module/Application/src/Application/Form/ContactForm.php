@@ -33,13 +33,13 @@ class ContactForm extends \Zend\Form\Form
         
         // Add "email" field
         $this->add(array(
+            'type' => 'text',
             'name' => 'email',
             'attributes' => array(
-                'type'  => 'text',
             ),
             'options' => array(
-                'label' => 'Your E-mail',
-            ),
+                'label' => 'E-mail',                
+            ),            
         ));
         
         // Add "subject" field
@@ -82,9 +82,7 @@ class ContactForm extends \Zend\Form\Form
         $inputFilter = new InputFilter();        
         $this->setInputFilter($inputFilter);
         
-        $factory = new InputFactory();
-        
-        $inputFilter->add($factory->createInput(array(
+        $inputFilter->add(array(
                 'name'     => 'email',
                 'required' => true,
                 'filters'  => array(
@@ -100,9 +98,9 @@ class ContactForm extends \Zend\Form\Form
                     ),
                 ),
             )
-        ));
+        );
         
-        $inputFilter->add($factory->createInput(array(
+        $inputFilter->add(array(
                 'name'     => 'subject',
                 'required' => true,
                 'filters'  => array(
@@ -120,9 +118,9 @@ class ContactForm extends \Zend\Form\Form
                     ),
                 ),
             )
-        ));
+        );
         
-        $inputFilter->add($factory->createInput(array(
+        $inputFilter->add(array(
                 'name'     => 'subject',
                 'required' => true,
                 'filters'  => array(                    
@@ -138,6 +136,7 @@ class ContactForm extends \Zend\Form\Form
                     ),
                 ),
             )
-        ));
+        );
     }
 }
+
