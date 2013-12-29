@@ -3,7 +3,6 @@
 namespace Application\Form;
 
 use Zend\Form\Form;
-use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 
 /**
@@ -24,7 +23,8 @@ class ContactForm extends Form
         $this->setAttribute('method', 'post');
                 
         $this->addElements();
-        $this->addInputFilter();        
+        $this->addInputFilter();  
+        
     }
     
     /**
@@ -34,6 +34,7 @@ class ContactForm extends Form
                 
         // Add "email" field
         $this->add(array(
+            'type'  => 'text',
             'name' => 'email',
             'attributes' => array(
                 'type'  => 'text',
@@ -77,16 +78,14 @@ class ContactForm extends Form
     }
     
     /**
-     * This method creates input filter (used for form validation).
+     * This method creates input filter (used for form filtering/validation).
      */
     private function addInputFilter() {
         
         $inputFilter = new InputFilter();        
         $this->setInputFilter($inputFilter);
         
-        $factory = new InputFactory();
-        
-        $inputFilter->add($factory->createInput(array(
+        $inputFilter->add(array(
                 'name'     => 'email',
                 'required' => true,
                 'filters'  => array(
@@ -94,7 +93,7 @@ class ContactForm extends Form
                 ),                
                 'validators' => array(
                     array(
-                        'name'    => 'EmailAddress',
+                        'name' => 'EmailAddress',
                         'options' => array(
                             'allow' => \Zend\Validator\Hostname::ALLOW_DNS,
                             'useMxCheck'    => false,                            
@@ -102,9 +101,9 @@ class ContactForm extends Form
                     ),
                 ),
             )
-        ));
+        );
         
-        $inputFilter->add($factory->createInput(array(
+        $inputFilter->add(array(
                 'name'     => 'subject',
                 'required' => true,
                 'filters'  => array(
@@ -122,10 +121,10 @@ class ContactForm extends Form
                     ),
                 ),
             )
-        ));
+        );
         
-        $inputFilter->add($factory->createInput(array(
-                'name'     => 'subject',
+        $inputFilter->add(array(
+                'name'     => 'body',
                 'required' => true,
                 'filters'  => array(                    
                     array('name' => 'StripTags'),
@@ -140,6 +139,6 @@ class ContactForm extends Form
                     ),
                 ),
             )
-        ));
+        );                
     }
 }

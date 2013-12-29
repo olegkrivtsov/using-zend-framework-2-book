@@ -5,6 +5,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Form\ContactForm;
+use Application\Service\MailSender;
 
 /**
  * This is the main controller class of the Form Demo application. The 
@@ -46,7 +47,8 @@ class IndexController extends AbstractActionController {
         if($this->getRequest()->isPost()) {
             
             // Fill in the form with POST data
-            $data = $this->getRequest()->getPost();            
+            $data = $this->params()->fromPost();            
+            
             $form->setData($data);
             
             // Validate form
@@ -59,14 +61,14 @@ class IndexController extends AbstractActionController {
                 $body = $data['body'];
                 
                 // Send E-mail
-                $mailSender = new \Application\Service\MailSender();
+                $mailSender = new MailSender();
                 if(!$mailSender->sendMail('no-reply@example.com', $email, $subject, $body)) {
                     // In case of error, redirect to "Error Sending Email" page
                     return $this->redirect()->toRoute('application/default', 
                         array('controller'=>'index', 'action'=>'sendError'));
                 }
                 
-                // In case of error, redirect to "Thank You" page
+                // Redirect to "Thank You" page
                 return $this->redirect()->toRoute('application/default', 
                         array('controller'=>'index', 'action'=>'thankYou'));
             }            
@@ -89,7 +91,8 @@ class IndexController extends AbstractActionController {
     }
     
     /**
-     * 
+     * This action displays the Send Error page. The user is redirected to this
+     * page on mail delivery error.
      * @return \Zend\View\Model\ViewModel
      */
     public function sendErrorAction() {
