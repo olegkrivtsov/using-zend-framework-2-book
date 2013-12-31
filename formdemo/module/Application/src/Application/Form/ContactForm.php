@@ -6,7 +6,6 @@ use Zend\Form\Form;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 
-
 /**
  * This form is used to collect user feedback data like user E-mail, 
  * message subject and text.
@@ -14,32 +13,34 @@ use Zend\InputFilter\InputFilter;
 class ContactForm extends \Zend\Form\Form
 {
     /**
-     * Constructor.
-     * @param string $name Form name.
+     * Constructor.     
      */
     public function __construct()
     {
         // Define form name
         parent::__construct('contact-form');
      
-        // Set POST method for this form
-        $this->setAttribute('method', 'post');
-        
         $this->addElements();
         $this->addInputFilter();
     }
     
-    public function addElements() {               
+    /**
+     * This method adds elements to form (input fields and submit button).
+     */
+    protected function addElements() {
+        
+        // Set POST method for this form
+        $this->setAttribute('method', 'post');
         
         // Add "email" field
         $this->add(array(
-            'type' => 'text',
             'name' => 'email',
             'attributes' => array(
+                'type'  => 'text',
             ),
             'options' => array(
-                'label' => 'E-mail',                
-            ),            
+                'label' => 'Your E-mail',
+            ),
         ));
         
         // Add "subject" field
@@ -69,20 +70,23 @@ class ContactForm extends \Zend\Form\Form
             'name' => 'submit',
             'attributes' => array(
                 'type'  => 'submit',
-                'value' => 'Submit'
+                'value' => 'Submit',
+                'id' => 'submitbutton',
             ),
         ));
     }
     
     /**
-     * Create input filter (used for form validation).
+     * This method creates input filter (used for form validation).
      */
-    public function addInputFilter() {
+    private function addInputFilter() {
         
         $inputFilter = new InputFilter();        
         $this->setInputFilter($inputFilter);
         
-        $inputFilter->add(array(
+        $factory = new InputFactory();
+        
+        $inputFilter->add($factory->createInput(array(
                 'name'     => 'email',
                 'required' => true,
                 'filters'  => array(
@@ -98,9 +102,9 @@ class ContactForm extends \Zend\Form\Form
                     ),
                 ),
             )
-        );
+        ));
         
-        $inputFilter->add(array(
+        $inputFilter->add($factory->createInput(array(
                 'name'     => 'subject',
                 'required' => true,
                 'filters'  => array(
@@ -118,9 +122,9 @@ class ContactForm extends \Zend\Form\Form
                     ),
                 ),
             )
-        );
+        ));
         
-        $inputFilter->add(array(
+        $inputFilter->add($factory->createInput(array(
                 'name'     => 'subject',
                 'required' => true,
                 'filters'  => array(                    
@@ -136,7 +140,6 @@ class ContactForm extends \Zend\Form\Form
                     ),
                 ),
             )
-        );
+        ));
     }
 }
-
