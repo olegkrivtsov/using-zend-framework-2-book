@@ -6,11 +6,11 @@ $this->mainMenu()->setActiveItemId('contactUs');
 
 $this->pageBreadcrumbs()->setItems(array(
             'Home'=>$this->url('home'),
-            'Contact Us'=>$this->url('contact')
+            'Contact Us'=>$this->url('contactus')
             ));
 
 $form = $this->form;
-$form->setAttribute('action', $this->url('contact'));
+$form->setAttribute('action', $this->url('contactus'));
 $form->get('email')->setAttributes(array(
     'class'=>'form-control', 
     'placeholder'=>'name@example.com'
@@ -41,23 +41,23 @@ $form->prepare();
         
         <div class="form-group">
             <?php echo $this->formLabel($form->get('email')); ?>
-            <?php echo $this->formText($form->get('email')); ?>
+            <?php echo $this->formElement($form->get('email')); ?>
             <?php echo $this->formElementErrors($form->get('email')); ?>                  
         </div>
         
         <div class="form-group">
             <?php echo $this->formLabel($form->get('subject')); ?>
-            <?php echo $this->formText($form->get('subject')); ?>
+            <?php echo $this->formElement($form->get('subject')); ?>
             <?php echo $this->formElementErrors($form->get('subject')); ?>                  
         </div>
         
         <div class="form-group">
             <?php echo $this->formLabel($form->get('body')); ?>
-            <?php echo $this->formTextArea($form->get('body')); ?>
+            <?php echo $this->formElement($form->get('body')); ?>
             <?php echo $this->formElementErrors($form->get('body')); ?>                  
         </div>
         
-        <?php echo $this->formSubmit($form->get('submit')); ?>
+        <?php echo $this->formElement($form->get('submit')); ?>
         
         <?php echo $this->form()->closeTag(); ?>
     </div>    

@@ -33,11 +33,11 @@ class ContactForm extends Form
     protected function addElements() {
                 
         // Add "email" field
-        $this->add(array(
+        $this->add(array(            
             'type'  => 'text',
             'name' => 'email',
             'attributes' => array(
-                'type'  => 'text',
+                'id' => 'email'
             ),
             'options' => array(
                 'label' => 'Your E-mail',
@@ -46,9 +46,10 @@ class ContactForm extends Form
         
         // Add "subject" field
         $this->add(array(
+            'type'  => 'text',
             'name' => 'subject',
-            'attributes' => array(
-                'type'  => 'text',
+            'attributes' => array(                
+                'id' => 'subject'
             ),
             'options' => array(
                 'label' => 'Subject',
@@ -57,9 +58,10 @@ class ContactForm extends Form
         
         // Add "body" field
         $this->add(array(
+            'type'  => 'textarea',
             'name' => 'body',
-            'attributes' => array(
-                'type'  => 'text',
+            'attributes' => array(                
+                'id' => 'body'
             ),
             'options' => array(
                 'label' => 'Message Body',
