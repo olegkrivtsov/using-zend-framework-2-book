@@ -57,6 +57,13 @@ $form->prepare();
             <?php echo $this->formElementErrors($form->get('body')); ?>                  
         </div>
         
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('captcha')); ?>
+            <?php echo $this->formElement($form->get('captcha')); ?>
+            <?php echo $this->formElementErrors($form->get('captcha')); ?>                  
+            <p class="help-block">Enter the letters above as you see them.</p>
+        </div>
+        
         <?php echo $this->formElement($form->get('submit')); ?>
         
         <?php echo $this->form()->closeTag(); ?>

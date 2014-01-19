@@ -70,11 +70,68 @@ class ContactForm extends Form
         
         // Add the submit button
         $this->add(array(
+            'type'  => 'submit',
             'name' => 'submit',
-            'attributes' => array(
-                'type'  => 'submit',
+            'attributes' => array(                
                 'value' => 'Submit',
                 'id' => 'submitbutton',
+            ),
+        ));
+        
+        // Add the CAPTCHA field
+        /*$this->add(array(
+            'type'  => 'captcha',
+            'name' => 'captcha',
+            'attributes' => array(                                                
+            ),
+            'options' => array(
+                'label' => 'Human check',
+                'captcha' => array(
+                    'class' => 'Image',
+                    'imgDir' => './public/img/captcha',
+                    'suffix' => '.png',                    
+                    'imgUrl' => '/img/captcha/',
+                    'imgAlt' => 'CAPTCHA Image',
+                    'font'   => './data/font/thorne_shaded.ttf',
+                    'fsize'  => 24,
+                    'width'  => 350,
+                    'height' => 100,
+                    'expiration' => 600, 
+                    'dotNoiseLevel' => 40,
+                    'lineNoiseLevel' => 3
+                ),
+            ),
+        ));*/
+        
+        // Add the CAPTCHA field
+        /*$this->add(array(
+            'type'  => 'captcha',
+            'name' => 'captcha',
+            'attributes' => array(                                                
+            ),
+            'options' => array(
+                'label' => 'Human check',
+                'captcha' => array(
+                    'class' => 'Figlet',
+                    'wordLen' => 6,
+                    'expiration' => 600,                     
+                ),
+            ),
+        ));*/
+        
+        // Add the CAPTCHA field
+        $this->add(array(
+            'type'  => 'captcha',
+            'name' => 'captcha',
+            'attributes' => array(                                                
+            ),
+            'options' => array(
+                'label' => 'Human check',
+                'captcha' => array(
+                    'class' => 'ReCaptcha',
+                    'privKey' => '6LfTK-0SAAAAAKh1bxR8X0hLagfexs8UIvfYKsJb',
+                    'pubKey' => '6LfTK-0SAAAAANNmfx5Vw-IxoDW_ucUkK2uxdz_k',                     
+                ),
             ),
         ));
     }
