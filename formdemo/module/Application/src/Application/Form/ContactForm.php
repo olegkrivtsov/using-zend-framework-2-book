@@ -134,6 +134,19 @@ class ContactForm extends Form
                 ),
             ),
         ));
+        
+        // Add the CSRF field
+        $this->add(array(
+            'type'  => 'csrf',
+            'name' => 'csrf',
+            'attributes' => array(                                                
+            ),
+            'options' => array(                
+                'csrf_options' => array(
+                     'timeout' => 600
+                )
+            ),
+        ));
     }
     
     /**

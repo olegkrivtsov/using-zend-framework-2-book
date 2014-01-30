@@ -64,6 +64,8 @@ $form->prepare();
             <p class="help-block">Enter the letters above as you see them.</p>
         </div>
         
+        <?php echo $this->formElement($form->get('csrf')); ?>
+        
         <?php echo $this->formElement($form->get('submit')); ?>
         
         <?php echo $this->form()->closeTag(); ?>
