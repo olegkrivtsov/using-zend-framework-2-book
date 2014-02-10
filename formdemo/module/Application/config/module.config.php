@@ -93,7 +93,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController',            
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Image' => 'Application\Controller\ImageController',
         ),
     ),    
     // The following registers our custom view 

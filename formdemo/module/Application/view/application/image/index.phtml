@@ -1,0 +1,38 @@
+<?php
+$this->headTitle('Images');
+
+$this->mainMenu()->setActiveItemId('home');
+
+$this->pageBreadcrumbs()->setItems(array(
+            'Home'=>$this->url('home')
+            ));
+?>
+
+<h1>Images</h1>
+
+<p>
+    This page displays the list of uploaded images.
+</p>
+
+<p>
+<a href="#" class="btn btn-primary" role="button">Upload More</a>
+</p>
+
+<p>
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img data-src="holder.js/300x200" alt="...">
+      <div class="caption">
+        <h3>Thumbnail label</h3>
+        <p>...</p>
+        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+</p>
+
+<p>
+<a href="#" class="btn btn-primary" role="button">Upload More</a>
+</p>

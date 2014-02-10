@@ -14,4 +14,14 @@ $this->pageBreadcrumbs()->setItems(array(
     This is the Form Demo application.
 </p>
 
+<ul>
+    <li>
+        <a href="<?php echo $this->url('contactus'); ?>">Feedback Form</a> This page shows the usage of a feedback form.
+    </li>
+    
+    <li>
+        <a href="<?php echo $this->url('application/default', array('controller'=>'image', 'action'=>'index')); ?>">Images</a>
+        This page shows how to upload images with forms.
+    </li>    
+</ul>
 
