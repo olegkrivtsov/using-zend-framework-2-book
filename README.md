@@ -20,7 +20,6 @@ When download is complete, unpack the archive to some directory.
 
 The structure of the code archive is presented below. 
 
-{line-numbers=off,lang=text}
 ~~~
 using-zend-framework-2-book
 	helloworld
@@ -32,14 +31,25 @@ Below, we provide a short description for each available sample:
 
 ## Hello World
 
-This sample is based on Zend Skeleton Application and illustrates Chapter 4, 
-Chapter 5 and Chapter 6 of the book. It shows how to:
+This sample is based on *Zend Skeleton Application* and illustrates *Chapter 4*, 
+*Chapter 5* and *Chapter 6* of the book. It shows how to:
 
- * register controllers
- * create controller actions
- * use layouts
- * generate URLs with the `Url` controller plugin and view helper
+ * Register controllers
+ * Create controller actions
+ * Use layouts and switch them
+ * Generate URLs with the `Url` controller plugin and the `Url` view helper
+ * Create a custom route type
+ * Create own view helpers
  
 
 ## Form Demo
 
+This sample is based on the *Hello World* sample and illustrates 
+Chapter 7 "Collecting User Input with Forms" and Chapter 8 "Advanced Usage of Forms".
+It shows how to:
+
+ * Create a form model
+ * Use the form model in a controller
+ * Render the form with special form view helpers
+ * Use form security elements (CAPTCHA, CSRF)
+ * Upload files with forms
