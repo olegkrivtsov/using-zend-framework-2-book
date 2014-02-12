@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Form\ImageForm;
 
 /**
  * This controller is designed for managing image file uploads.
@@ -29,11 +30,50 @@ class ImageController extends AbstractActionController {
         $files = array();
         $dh  = opendir($dir);
         while (false !== ($filename = readdir($dh))) {
+            
+            if($filename=='.' || $fileName='..')
+                    continue;
+            
             $files[] = $filename;
         }
         
-        return new ViewModel($files);
+        return new ViewModel(array(
+            'files'=>$files
+            ));
     }
     
+    /**
+     * This action shows image upload form.
+     */
+    public function uploadAction() {
+        
+        $form = new ImageForm();
+        
+        // Check if user has submitted the form
+        if($this->getRequest()->isPost()) {
+            
+            // Fill in the form with POST data
+            $data = $this->params()->fromPost();            
+            
+            // Pass data to form
+            $form->setData($data);
+            
+            // Validate form
+            if($form->isValid()) {
+                
+                // Get filtered and validated data
+                $data = $form->getData();
+                
+                // Redirect to "Images" page
+                return $this->redirect()->toRoute('application/default', 
+                        array('controller'=>'image', 'action'=>'index'));
+            }            
+        } 
+        
+        // Render the page
+        return new ViewModel(array(
+                    'form' => $form
+                ));
+    }
     
 }

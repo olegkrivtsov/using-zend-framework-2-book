@@ -33,9 +33,9 @@ class ImageForm extends Form
         // Add "file_name" field
         $this->add(array(            
             'type'  => 'text',
-            'name' => 'file_name',
+            'name' => 'file-name',
             'attributes' => array(
-                'id' => 'file_name'
+                'id' => 'file-name'
             ),
             'options' => array(
                 'label' => 'Save as (optional)',
@@ -45,12 +45,12 @@ class ImageForm extends Form
         // Add "overwrite_existing" field
         $this->add(array(            
             'type'  => 'checkbox',
-            'name' => 'overwrite_existing',
+            'name' => 'overwrite-existing',
             'attributes' => array(
-                'id' => 'overwrite_existing'
+                'id' => 'overwrite-existing'
             ),
             'options' => array(
-                'label' => 'Overwrite if exists',
+                'label' => 'Overwrite if such file already exists',
             ),
         ));
                 
@@ -66,6 +66,19 @@ class ImageForm extends Form
             ),
         ));
         
+        // Add the CSRF field
+        $this->add(array(
+            'type'  => 'csrf',
+            'name' => 'csrf',
+            'attributes' => array(                                                
+            ),
+            'options' => array(                
+                'csrf_options' => array(
+                     'timeout' => 600
+                )
+            ),
+        ));
+        
         // Add the submit button
         $this->add(array(
             'type'  => 'submit',
@@ -74,7 +87,8 @@ class ImageForm extends Form
                 'value' => 'Submit',
                 'id' => 'submitbutton',
             ),
-        ));
+        ));       
+        
     }
     
     /**
