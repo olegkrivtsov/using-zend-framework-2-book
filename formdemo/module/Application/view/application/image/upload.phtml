@@ -12,14 +12,8 @@ $form->get('file-name')->setAttributes(array(
     'class'=>'form-control', 
     'placeholder'=>'Type new image name here'
     ));
-//$form->get('overwrite-existing')->setAttributes(array(
-//    'class'=>'form-control',     
-//    ));
-$form->get('file')->setAttributes(array(
-    'class'=>'form-control',     
-    
-    ));
 $form->get('submit')->setAttributes(array('class'=>'btn btn-primary'));
+$form->prepare();
 ?>
 
 <h1>Upload a New Image</h1>

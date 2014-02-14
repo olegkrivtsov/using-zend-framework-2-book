@@ -102,6 +102,7 @@ class ImageForm extends Form
         $inputFilter->add(array(
                 'name'     => 'file_name',
                 'required' => true,
+                'allow_empty' => true,
                 'filters'  => array(
                     array('name' => 'StringTrim'),                    
                 ),                
@@ -114,6 +115,7 @@ class ImageForm extends Form
         $inputFilter->add(array(
                 'name'     => 'overwrite_existing',
                 'required' => true,
+                'allow_empty' => true,
                 'filters'  => array(                    
                 ),                
                 'validators' => array(                    
@@ -126,18 +128,24 @@ class ImageForm extends Form
         );
         
         $inputFilter->add(array(
-                'name'     => 'body',
+                'type'     => '\Zend\InputFilter\FileInput',
+                'name'     => 'file',
                 'required' => true,
                 'filters'  => array(                    
-                    array('name' => 'StripTags'),
+                    
                 ),                
                 'validators' => array(
                     array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'min' => 1,
-                            'max' => 4096
-                        ),
+                        'name'    => 'FileIsImage',                        
+                    ),
+                    array(
+                        'name'    => 'FileImageSize',                        
+                        'options' => array(                            
+                            'minWidth'  => 128,
+                            'minHeight' => 128,
+                            'maxWidth'  => 4096,
+                            'maxHeight' => 4096
+                        )
                     ),
                 ),
             )
