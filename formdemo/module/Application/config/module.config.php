@@ -95,6 +95,7 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Image' => 'Application\Controller\ImageController',
+            'Application\Controller\User' => 'Application\Controller\UserController',
         ),
     ),    
     // The following registers our custom view 

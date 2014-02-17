@@ -1,0 +1,74 @@
+<?php
+
+$this->headTitle('Contact Us');
+
+$this->mainMenu()->setActiveItemId('contactUs');
+
+$this->pageBreadcrumbs()->setItems(array(
+            'Home'=>$this->url('home'),
+            'Register'=>$this->url('contactus')
+            ));
+
+$form = $this->form;
+
+$form->get('personal_info')->get('email')->setAttributes(array(
+    'class'=>'form-control', 
+    'placeholder'=>'name@example.com'
+    ));
+
+$form->get('personal_info')->get('title')->setAttributes(array(
+    'class'=>'form-control', 
+    'placeholder'=>'name@example.com'
+    ));
+
+$form->get('personal_info')->get('first_name')->setAttributes(array(
+    'class'=>'form-control', 
+    'placeholder'=>'John'
+    ));
+
+$form->get('personal_info')->get('last_name')->setAttributes(array(
+    'class'=>'form-control', 
+    'placeholder'=>'Doe'
+    ));
+
+
+$form->prepare();
+
+?>
+
+<h1>Register</h1>
+<p>
+    Please fill out the following form and click the <i>Create</i> 
+    button to create a new account.     
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <?php echo $this->form()->openTag($form); ?>
+        
+        <fieldset>
+            
+            <legend>Personal Information</legend>
+            
+            <div class="form-group">
+                <?php 
+                    $element = $form->get('personal_info')->get('email');
+                    echo $this->formLabel($element); 
+                    echo $this->formElement($element);
+                    echo $this->formElementErrors($element); 
+                ?>                  
+            </div>
+
+        </fieldset>
+            
+        <fieldset>
+            
+            <legend>Address</legend>
+          
+        
+        
+        </fieldset>
+                
+        <?php echo $this->form()->closeTag(); ?>
+    </div>    
+</div>    
