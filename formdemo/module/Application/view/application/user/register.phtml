@@ -6,7 +6,7 @@ $this->mainMenu()->setActiveItemId('contactUs');
 
 $this->pageBreadcrumbs()->setItems(array(
             'Home'=>$this->url('home'),
-            'Register'=>$this->url('contactus')
+            'Register'=>$this->url('application/default', array('controller'=>'user', 'action'=>'register'))
             ));
 
 $form = $this->form;
@@ -29,6 +29,33 @@ $form->get('personal_info')->get('first_name')->setAttributes(array(
 $form->get('personal_info')->get('last_name')->setAttributes(array(
     'class'=>'form-control', 
     'placeholder'=>'Doe'
+    ));
+
+$form->get('address')->get('country')->setAttributes(array(
+    'class'=>'form-control',     
+    ));
+
+$form->get('address')->get('city')->setAttributes(array(
+    'class'=>'form-control',     
+    'placeholder'=>'Your City'
+    ));
+
+$form->get('address')->get('address')->setAttributes(array(
+    'class'=>'form-control',
+    'placeholder'=>'Your Street'
+    ));
+
+$form->get('address')->get('zip_code')->setAttributes(array(
+    'class'=>'form-control', 
+    'placeholder'=>'123456'
+    ));
+
+$form->get('submit')->setAttributes(array(
+    'class'=>'btn btn-primary'
+    ));
+
+$form->get('cancel')->setAttributes(array(
+    'class'=>'btn btn-default'
     ));
 
 
@@ -58,17 +85,94 @@ $form->prepare();
                     echo $this->formElementErrors($element); 
                 ?>                  
             </div>
+            
+            <div class="form-group">
+                <?php 
+                    $element = $form->get('personal_info')->get('title');
+                    echo $this->formLabel($element); 
+                    echo $this->formElement($element);
+                    echo $this->formElementErrors($element); 
+                ?>                  
+            </div>
+            
+            <div class="form-group">
+                <?php 
+                    $element = $form->get('personal_info')->get('first_name');
+                    echo $this->formLabel($element); 
+                    echo $this->formElement($element);
+                    echo $this->formElementErrors($element); 
+                ?>                  
+            </div>
 
+            <div class="form-group">
+                <?php 
+                    $element = $form->get('personal_info')->get('last_name');
+                    echo $this->formLabel($element); 
+                    echo $this->formElement($element);
+                    echo $this->formElementErrors($element); 
+                ?>                  
+            </div>
+            
+            <div class="form-group">
+                <?php 
+                    $element = $form->get('personal_info')->get('birth_date');
+                    echo $this->formLabel($element);
+                    echo '<br>';
+                    echo $this->formElement($element);
+                    echo $this->formElementErrors($element); 
+                ?>                  
+            </div>                        
+            
         </fieldset>
             
         <fieldset>
             
             <legend>Address</legend>
           
+            <div class="form-group">
+                <?php 
+                    $element = $form->get('address')->get('country');
+                    echo $this->formLabel($element); 
+                    echo $this->formElement($element);
+                    echo $this->formElementErrors($element); 
+                ?>                  
+            </div>
         
-        
+            <div class="form-group">
+                <?php 
+                    $element = $form->get('address')->get('address');
+                    echo $this->formLabel($element);
+                    echo '<br>';
+                    echo $this->formElement($element);
+                    echo $this->formElementErrors($element); 
+                ?>                  
+            </div>
+            
+            <div class="form-group">
+                <?php 
+                    $element = $form->get('address')->get('city');
+                    echo $this->formLabel($element);
+                    echo '<br>';
+                    echo $this->formElement($element);
+                    echo $this->formElementErrors($element); 
+                ?>                  
+            </div>
+            
+            <div class="form-group">
+                <?php 
+                    $element = $form->get('address')->get('zip_code');
+                    echo $this->formLabel($element);
+                    echo '<br>';
+                    echo $this->formElement($element);
+                    echo $this->formElementErrors($element); 
+                ?>                  
+            </div>
+            
         </fieldset>
-                
+        
+        <?php echo $this->formElement($form->get('submit')); ?>
+        <?php echo $this->formElement($form->get('cancel')); ?>
+        
         <?php echo $this->form()->closeTag(); ?>
     </div>    
 </div>    

@@ -29,6 +29,9 @@ class UserController extends AbstractActionController {
             
             $form->setData($data);
             
+            var_dump($data);
+            exit;
+            
             // Validate form
             if($form->isValid()) {
                 
