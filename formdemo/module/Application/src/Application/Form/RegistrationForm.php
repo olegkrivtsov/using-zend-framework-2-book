@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ * This form is used to collect user's personal information and address.
  */       
 namespace Application\Form;
 
@@ -9,8 +9,8 @@ use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilter;
 
 /**
- * This form is used to collect user's personal information, address, and 
- * payment preferences.
+ * This form is used to collect user's personal information and address.
+ * This data is intended to be used when registering a new user.
  */
 class RegistrationForm extends Form
 {
@@ -34,6 +34,7 @@ class RegistrationForm extends Form
      */
     protected function addElements() {
         
+        // Add the "Personal Info" fieldset
         $fieldset = new Fieldset('personal_info');
         $this->add($fieldset);
                 
@@ -59,7 +60,7 @@ class RegistrationForm extends Form
             'options' => array(
                 'label' => 'Title',
                 'value_options' => array(
-                    '' => '<select>',
+                   -1 => '<select>',
                     1  => 'Mr.',
                     2  => 'Mrs.'
                 )
@@ -116,7 +117,7 @@ class RegistrationForm extends Form
             'options' => array(
                 'label' => 'Country',
                 'value_options' => array(
-                    '' => '<select>',
+                    -1 => '<select>',
                     1  => 'Australia',
                     2  => 'Brasil',
                     3  => 'Canada',
@@ -142,7 +143,7 @@ class RegistrationForm extends Form
                 'id' => 'address'
             ),
             'options' => array(
-                'label' => 'Street Address',
+                'label' => 'Street',
             ),
         ));
         
@@ -170,7 +171,7 @@ class RegistrationForm extends Form
             ),
         ));
         
-        // Add the submit button
+        // Add the Submit button
         $this->add(array(
             'type'  => 'submit',
             'name' => 'submit',
@@ -197,13 +198,16 @@ class RegistrationForm extends Form
      */
     private function addInputFilter() {
         
+        // Create main input filter
         $inputFilter = new InputFilter();        
         $this->setInputFilter($inputFilter);
         
+        // Create nested input filter for "Personal Info" fieldset
         $fieldsetInputFilter = new InputFilter();
         $inputFilter->add($fieldsetInputFilter, 'personal_info');
         
-        $inputFilter->get('personal_info')->add(array(
+        // Add input for "email" field
+        $fieldsetInputFilter->add(array(
                 'name'     => 'email',
                 'required' => true,
                 'filters'  => array(
@@ -220,5 +224,66 @@ class RegistrationForm extends Form
                 ),
             )
         );            
+        
+        // Add input for "title" field
+        $fieldsetInputFilter->add(array(
+                'name'     => 'title',
+                'required' => true,
+                'filters'  => array(            
+                    array('name' => 'Int'),   
+                ),                
+                'validators' => array(
+                    array(
+                        'name'    => 'InArray',
+                        'options' => array(
+                            'haystack' => array(1, 2),
+                            'strict'  => false
+                        ),
+                    ),
+                ),
+            )
+        );
+        
+        // Add input for "first_name" field
+        $fieldsetInputFilter->add(array(
+                'name'     => 'first_name',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StringTrim'),
+                    array('name' => 'StripTags'),
+                    array('name' => 'StripNewLines'),
+                ),                
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'min' => 1,
+                            'max' => 128
+                        ),
+                    ),
+                ),
+            )
+        );
+        
+        // Add input for "last_name" field
+        $fieldsetInputFilter->add(array(
+                'name'     => 'last_name',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StringTrim'),
+                    array('name' => 'StripTags'),
+                    array('name' => 'StripNewLines'),
+                ),                
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'min' => 1,
+                            'max' => 128
+                        ),
+                    ),
+                ),
+            )
+        );
     }
 }
