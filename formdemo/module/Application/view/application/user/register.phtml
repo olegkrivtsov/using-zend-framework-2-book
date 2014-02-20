@@ -26,6 +26,16 @@ $form->get('personal_info')->get('first_name')->setAttributes(array(
     'placeholder'=>'John'
     ));
 
+$form->get('personal_info')->get('password')->setAttributes(array(
+    'class'=>'form-control', 
+    'placeholder'=>'Your Password'
+    ));
+
+$form->get('personal_info')->get('confirm_password')->setAttributes(array(
+    'class'=>'form-control', 
+    'placeholder'=>'Type Password Again'
+    ));
+
 $form->get('personal_info')->get('last_name')->setAttributes(array(
     'class'=>'form-control', 
     'placeholder'=>'Doe'
@@ -107,6 +117,24 @@ $form->prepare();
             <div class="form-group">
                 <?php 
                     $element = $form->get('personal_info')->get('last_name');
+                    echo $this->formLabel($element); 
+                    echo $this->formElement($element);
+                    echo $this->formElementErrors($element); 
+                ?>                  
+            </div>
+            
+            <div class="form-group">
+                <?php 
+                    $element = $form->get('personal_info')->get('password');
+                    echo $this->formLabel($element); 
+                    echo $this->formElement($element);
+                    echo $this->formElementErrors($element); 
+                ?>                  
+            </div>
+            
+            <div class="form-group">
+                <?php 
+                    $element = $form->get('personal_info')->get('confirm_password');
                     echo $this->formLabel($element); 
                     echo $this->formElement($element);
                     echo $this->formElementErrors($element); 

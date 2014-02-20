@@ -91,6 +91,30 @@ class RegistrationForm extends Form
             ),
         ));
         
+        // Add "password" field
+        $fieldset->add(array(            
+            'type'  => 'password',
+            'name' => 'password',
+            'attributes' => array(
+                'id' => 'password'
+            ),
+            'options' => array(
+                'label' => 'Password',
+            ),
+        ));
+        
+        // Add "confirm_password" field
+        $fieldset->add(array(            
+            'type'  => 'password',
+            'name' => 'confirm_password',
+            'attributes' => array(
+                'id' => 'confirm_password'
+            ),
+            'options' => array(
+                'label' => 'Password Confirmation',
+            ),
+        ));
+        
         // Add "birth_date" field
         $fieldset->add(array(
             'type'  => 'dateselect',
@@ -280,6 +304,24 @@ class RegistrationForm extends Form
                         'options' => array(
                             'min' => 1,
                             'max' => 128
+                        ),
+                    ),
+                ),
+            )
+        );
+        
+        // Add input for "password" field
+        $fieldsetInputFilter->add(array(
+                'name'     => 'password',
+                'required' => true,
+                'filters'  => array(                    
+                ),                
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'min' => 6,
+                            'max' => 64
                         ),
                     ),
                 ),
