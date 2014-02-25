@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * The controller which manages image file uploads.
+ */
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
@@ -13,37 +15,26 @@ class ImageController extends AbstractActionController {
     
     /**
      * This is the default "index" action of the controller. It displays the 
-     * Images page.
+     * Images page which contains the list of uploaded images.
      * @return \Zend\View\Model\ViewModel
      */
     public function indexAction() {
         
-        $dir = "./data/upload";
+        // Get the singleton of the image manager service.
+        $imageManager = $this->getServiceLocator()->get('ImageManager');
         
-        if(!is_dir($dir)) {
-            if(!mkdir($dir)) {
-                throw new \Exception('Could not create directory for uploads: '. error_get_last());
-            }
-        }
+        // Get the list of uploaded files.
+        $files = $imageManager->getUploadedFiles();
         
-        // Open uploads directory
-        $files = array();
-        $handle  = opendir($dir);
-        while (false !== ($entry = readdir($handle))) {
-            
-            if($entry=='.' || $entry=='..')
-                    continue;
-            
-            $files[] = $entry;
-        }
-        
+        // Render the view template
         return new ViewModel(array(
             'files'=>$files
             ));
     }
     
     /**
-     * This action shows image upload form.
+     * This action shows the image upload form. This page allows to upload 
+     * a single file.
      */
     public function uploadAction() {
         
@@ -68,16 +59,17 @@ class ImageController extends AbstractActionController {
                 
                 // Get filtered and validated data
                 $data = $form->getData();
-                             
-                move_uploaded_file($data['file']['tmp_name'], './data/upload/'.$data['file']['name']);
                 
-                // Redirect to "Images" page
+                // Move uploaded file to its persistent location
+                $dstFileName = './data/upload/'.$data['file']['name'];
+                if(!move_uploaded_file($data['file']['tmp_name'], $dstFileName)) {
+                    throw new \Exception('Could move uploaded file: '. error_get_last());
+                }
+                
+                // Redirect the user to "Images" page
                 return $this->redirect()->toRoute('application/default', 
                         array('controller'=>'image', 'action'=>'index'));
-            }            
-            
-            $errors = $form->getMessages();
-            var_dump($errors);            
+            }                        
         } 
         
         // Render the page
@@ -95,7 +87,7 @@ class ImageController extends AbstractActionController {
         // Get the file name from GET variable
         $fileName = $this->params()->fromQuery('name', '');
         
-        // 
+        // Check whether the user needs a thumbnail or a full-size image
         $isThumbnail = (bool)$this->params()->fromQuery('thumbnail', false);
                 
         // Take some precautions to Make file name secure
@@ -110,22 +102,11 @@ class ImageController extends AbstractActionController {
             return;
         }
         
-        list($width_orig, $height_orig) = getimagesize($path);
-
         if($isThumbnail) {
+        
+            $imageManager = $this->getServiceLocator()->get('ImageManager');
             
-            $width = 240;
-            $ratio_orig = $width_orig/$height_orig;
-            $height = $width/$ratio_orig;
-
-            // resample
-            $image_p = imagecreatetruecolor($width, $height);
-            $image = imagecreatefromjpeg($path);
-            imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-
-            // output
-            $path = tempnam("/tmp", "FOO");
-            imagejpeg($image_p, $path, 80);
+            $path = $imageManager->resizeImage($path);
         }
         
         // Get file size in bytes
@@ -147,6 +128,11 @@ class ImageController extends AbstractActionController {
             // Set 500 Server Error status code
             $this->getResponse()->setStatusCode(500);
             return;
+        }
+        
+        if($isThumbnail) {
+            // Remove temporary file
+            unlink($path);
         }
         
         // Return Response to avoid default view rendering

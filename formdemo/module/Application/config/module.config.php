@@ -80,6 +80,9 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        'invokables' => array(
+            'ImageManager'=>'Application\Service\ImageManager',            
+        ),
     ),
     'translator' => array(
         'locale' => 'en_US',
