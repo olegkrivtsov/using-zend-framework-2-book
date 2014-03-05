@@ -1,0 +1,18 @@
+<?php
+$this->headTitle('About');
+
+$this->mainMenu()->setActiveItemId('about');
+
+$this->pageBreadcrumbs()->setItems(array(
+            'Home'=>$this->url('home'),
+            'About'=>$this->url('about'),
+            ));
+
+?>
+
+<h1>About</h1>
+
+<p>
+    The Blog application. Illustrates the usage of Doctrine library.
+</p>
+

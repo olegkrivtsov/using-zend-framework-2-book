@@ -24,6 +24,7 @@ The structure of the code archive is presented below.
 using-zend-framework-2-book
 	helloworld
 	formdemo
+	blog
 	...
 ~~~
 
@@ -53,3 +54,16 @@ It shows how to:
  * Render the form with special form view helpers
  * Use form security elements (CAPTCHA, CSRF)
  * Upload files with forms
+
+ ## Blog
+ 
+This sample is based on the *Hello World* sample and illustrates 
+Chapter 9 "Database Management with Doctrine".
+It shows how to:
+
+ * Install Doctrine
+ * Initialize database schema
+ * Use entity manager
+ * Create entities and define relations between entities 
+ * Create repositories
+ 
