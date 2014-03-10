@@ -1,7 +1,7 @@
-using-zend-framework-2-book
-===========================
+Code Samples for The "Using Zend Framework 2" Book 
+==================================================
 
-This project contains a set of code samples for the [Using Zend Framework 2](https://leanpub.com/using-zend-framework-2)
+This project contains a set of code samples for the [Using Zend Framework 2](http://using-zend-framework-2-book.com)
 book by Oleg Krivtsov. Zend Framework 2 is a modern PHP web development framework intended for
 building professionally looking, scalable and secure web-sites, which are 
 easy to test and maintain.
@@ -24,10 +24,13 @@ The structure of the code archive is presented below.
 using-zend-framework-2-book
 	helloworld
 	formdemo
+	blog
 	...
 ~~~
 
-Below, we provide a short description for each available sample:
+Below, we provide a short description for each available sample. For more detailed
+description, you will need to download and read the [Using Zend Framework 2](http://using-zend-framework-2-book.com) 
+e-book.
 
 ## Hello World
 
@@ -53,3 +56,16 @@ It shows how to:
  * Render the form with special form view helpers
  * Use form security elements (CAPTCHA, CSRF)
  * Upload files with forms
+
+## Blog
+ 
+This sample is based on the *Hello World* sample and illustrates 
+Chapter 9 "Database Management with Doctrine".
+It shows how to:
+
+ * Integrate your web site with Doctrine library
+ * Initialize database schema
+ * Use entity manager
+ * Create entities and define relations between entities 
+ * Create repositories
+ 

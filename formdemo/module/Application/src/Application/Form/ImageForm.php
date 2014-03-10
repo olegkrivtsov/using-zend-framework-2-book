@@ -66,19 +66,6 @@ class ImageForm extends Form
             ),
         ));
         
-        // Add the CSRF field
-        $this->add(array(
-            'type'  => 'csrf',
-            'name' => 'csrf',
-            'attributes' => array(                                                
-            ),
-            'options' => array(                
-                'csrf_options' => array(
-                     'timeout' => 600
-                )
-            ),
-        ));
-        
         // Add the submit button
         $this->add(array(
             'type'  => 'submit',
@@ -100,7 +87,7 @@ class ImageForm extends Form
         $this->setInputFilter($inputFilter);
         
         $inputFilter->add(array(
-                'name'     => 'file_name',
+                'name'     => 'file-name',
                 'required' => true,
                 'allow_empty' => true,
                 'filters'  => array(
@@ -113,7 +100,7 @@ class ImageForm extends Form
         );
         
         $inputFilter->add(array(
-                'name'     => 'overwrite_existing',
+                'name'     => 'overwrite-existing',
                 'required' => true,
                 'allow_empty' => true,
                 'filters'  => array(                    
@@ -128,7 +115,7 @@ class ImageForm extends Form
         );
         
         $inputFilter->add(array(
-                'type'     => '\Zend\InputFilter\FileInput',
+                'type'     => 'Zend\InputFilter\FileInput',
                 'name'     => 'file',
                 'required' => true,
                 'filters'  => array(                    
