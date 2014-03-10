@@ -98,7 +98,7 @@ class LoginForm extends Form
         );     
         
         // Add input for "password" field
-        $fieldsetInputFilter->add(array(
+        $inputFilter->add(array(
                 'name'     => 'password',
                 'required' => true,
                 'filters'  => array(                    
@@ -116,7 +116,7 @@ class LoginForm extends Form
         );
         
         // Add input for "remember_me" field
-        $fieldsetInputFilter->add(array(
+        $inputFilter->add(array(
                 'name'     => 'remember_me',
                 'required' => true,
                 'filters'  => array(                    
