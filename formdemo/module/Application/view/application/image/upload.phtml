@@ -27,6 +27,12 @@ $form->prepare();
         <?php echo $this->form()->openTag($form); ?>
         
         <div class="form-group">
+            <?php echo $this->formLabel($form->get('file')); ?>
+            <?php echo $this->formElement($form->get('file')); ?>
+            <?php echo $this->formElementErrors($form->get('file')); ?>                  
+        </div>
+                
+        <div class="form-group">
             <?php echo $this->formLabel($form->get('file-name')); ?>
             <?php echo $this->formElement($form->get('file-name')); ?>
             <?php echo $this->formElementErrors($form->get('file-name')); ?>                  
@@ -37,15 +43,7 @@ $form->prepare();
             <?php echo $this->formElement($form->get('overwrite-existing')); ?>
             <?php echo $this->formElementErrors($form->get('overwrite-existing')); ?>                  
         </div>
-        
-        <div class="form-group">
-            <?php echo $this->formLabel($form->get('file')); ?>
-            <?php echo $this->formElement($form->get('file')); ?>
-            <?php echo $this->formElementErrors($form->get('file')); ?>                  
-        </div>
-        
-        <?php echo $this->formElement($form->get('csrf')); ?>
-        
+                
         <?php echo $this->formElement($form->get('submit')); ?>
         
         <?php echo $this->form()->closeTag(); ?>
