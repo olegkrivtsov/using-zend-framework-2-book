@@ -8,10 +8,6 @@ $this->pageBreadcrumbs()->setItems(array(
             ));
 
 $form = $this->form;
-$form->get('file-name')->setAttributes(array(
-    'class'=>'form-control', 
-    'placeholder'=>'Type new image name here'
-    ));
 $form->get('submit')->setAttributes(array('class'=>'btn btn-primary'));
 $form->prepare();
 ?>
@@ -30,18 +26,6 @@ $form->prepare();
             <?php echo $this->formLabel($form->get('file')); ?>
             <?php echo $this->formElement($form->get('file')); ?>
             <?php echo $this->formElementErrors($form->get('file')); ?>                  
-        </div>
-                
-        <div class="form-group">
-            <?php echo $this->formLabel($form->get('file-name')); ?>
-            <?php echo $this->formElement($form->get('file-name')); ?>
-            <?php echo $this->formElementErrors($form->get('file-name')); ?>                  
-        </div>
-        
-        <div class="checkbox">
-            <?php echo $this->formLabel($form->get('overwrite-existing')); ?>
-            <?php echo $this->formElement($form->get('overwrite-existing')); ?>
-            <?php echo $this->formElementErrors($form->get('overwrite-existing')); ?>                  
         </div>
                 
         <?php echo $this->formElement($form->get('submit')); ?>

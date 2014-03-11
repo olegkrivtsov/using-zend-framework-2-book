@@ -23,8 +23,8 @@ class ImageController extends AbstractActionController {
         // Get the singleton of the image manager service.
         $imageManager = $this->getServiceLocator()->get('ImageManager');
         
-        // Get the list of uploaded files.
-        $files = $imageManager->getUploadedFiles();
+        // Get the list of already saved files.
+        $files = $imageManager->getSavedFiles();
         
         // Render the view template
         return new ViewModel(array(
@@ -57,14 +57,8 @@ class ImageController extends AbstractActionController {
             // Validate form
             if($form->isValid()) {
                 
-                // Get filtered and validated data
+                // Move uploaded file to its destination directory.
                 $data = $form->getData();
-                
-                // Move uploaded file to its persistent location
-                $dstFileName = './data/upload/'.$data['file']['name'];
-                if(!move_uploaded_file($data['file']['tmp_name'], $dstFileName)) {
-                    throw new \Exception('Could move uploaded file: '. error_get_last());
-                }
                 
                 // Redirect the user to "Images" page
                 return $this->redirect()->toRoute('application/default', 
@@ -109,16 +103,20 @@ class ImageController extends AbstractActionController {
             $path = $imageManager->resizeImage($path);
         }
         
-        // Get file size in bytes
+        // Get file size in bytes.
         $fileSize = filesize($path);
 
-        // Write HTTP headers
+        // Get MIME type of the file.
+        $finfo = finfo_open(FILEINFO_MIME);
+        $mimeType = finfo_file($finfo, $path);
+        if($mimeType===false)
+            $mimeType = 'application/octet-stream';
+        
+        // Write HTTP headers.
         $response = $this->getResponse();
         $headers = $response->getHeaders();
-        $headers->addHeaderLine("Content-type: application/octet-stream");
-        $headers->addHeaderLine("Content-Disposition: attachment; filename=\"" . $fileName . "\"");
+        $headers->addHeaderLine("Content-type: $mimeType");        
         $headers->addHeaderLine("Content-length: $fileSize");
-        $headers->addHeaderLine("Cache-control: private"); //use this to open files directly
             
         // Write file content        
         $fileContent = file_get_contents($path);

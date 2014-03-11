@@ -11,30 +11,30 @@ namespace Application\Service;
 class ImageManager {
     
     /**
-     * The directory where uploaded files are stored.
+     * The directory where we save image files.
      * @var string
      */
-    private $uploadDir = './data/upload/';
+    private $saveToDir = './data/upload/';
         
     /**
-     * Returns the array of uploaded file names.
+     * Returns the array of saved file names.
      * @return array List of uploaded file names.
      */
-    public function getUploadedFiles() {
+    public function getSavedFiles() {
         
-        // The directory where we plan to store uploaded files.
+        // The directory where we plan to save uploaded files.
         
         // Check whether the directory already exists, and if not,
         // create the directory.
-        if(!is_dir($this->uploadDir)) {
-            if(!mkdir($this->uploadDir)) {
+        if(!is_dir($this->saveToDir)) {
+            if(!mkdir($this->saveToDir)) {
                 throw new \Exception('Could not create directory for uploads: '. error_get_last());
             }
         }
         
         // Scan the directory and create the list of uploaded files.
         $files = array();        
-        $handle  = opendir($this->uploadDir);
+        $handle  = opendir($this->saveToDir);
         while (false !== ($entry = readdir($handle))) {
             
             if($entry=='.' || $entry=='..')
