@@ -8,25 +8,6 @@ $this->pageBreadcrumbs()->setItems(array(
             'Home'=>$this->url('home'),
             'Log in'=>$this->url('application/default', array('controller'=>'user', 'action'=>'login'))
             ));
-
-$form = $this->form;
-
-$form->get('email')->setAttributes(array(
-    'class'=>'form-control', 
-    'placeholder'=>'name@example.com'
-    ));
-
-$form->get('password')->setAttributes(array(
-    'class'=>'form-control', 
-    'placeholder'=>'Your Password'
-    ));
-
-$form->get('submit')->setAttributes(array(
-    'class'=>'btn btn-primary'
-    ));
-
-$form->prepare();
-
 ?>
 
 <div id="form-container" class="row">
@@ -41,31 +22,27 @@ $form->prepare();
          
 <script type="text/javascript">
     
-    $( document ).ready(function() {
-        
-        $( "input" ).on('change', function() {            
-            var form = $('form#login-form');
-            var fieldId = $(this).attr("id");
-            var data = form.serialize();
-            alert(data);
-            $.ajax({              
+    function validateFormField(form, fieldId) {
+            
+        $.ajax({              
               type: form.attr('method'),
               url: form.attr('action') + '?fieldId=' + fieldId,
               data: form.serialize()
             }).done(function(data, status, xhrObj) {              
-
                 $('div#form-container').html(data);
-
-                var isFormValid = xhrObj.getResponseHeader("X-Form-Valid");
-                
-                if(isFormValid=="yes") {        
-                   
-                }
-
             }).fail(function(data) {
                 // Optionally alert the user of an error here...        
                 alert('Error submitting form');                
             });
+    }
+    
+    $( document ).ready(function() {
+        
+        $(document).on('change', 'div#form-container input', function() {            
+            var form = $('form#login-form');
+            var fieldId = $(this).attr("id");
+        
+            validateFormField(form, fieldId);
         });  
     });
     

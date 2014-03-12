@@ -57,6 +57,10 @@ class UserController extends AbstractActionController {
         // Check if user has submitted the form
         if($this->getRequest()->isPost()) {
             
+            $fieldId = $this->params()->fromQuery('fieldId', null);
+            if($fieldId!=null)
+                $form->setValidationGroup($fieldId);
+            
             // Fill in the form with POST data
             $data = $this->params()->fromPost();            
             
@@ -73,8 +77,16 @@ class UserController extends AbstractActionController {
         } 
         
         // Pass form variable to view
-        return new ViewModel(array(
-            'form' => $form
+        $viewModel = new ViewModel(array(
+            'form' => $form,
+            'isAJAX'=> $this->getRequest()->isXmlHttpRequest()
         ));
+        
+        if($this->getRequest()->isXmlHttpRequest()) {
+            $viewModel->setTemplate('application/user/form.phtml');
+            $viewModel->setTerminal(true);
+        }
+        
+        return $viewModel;
     }
 }

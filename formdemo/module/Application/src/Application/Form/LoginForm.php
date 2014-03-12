@@ -57,6 +57,18 @@ class LoginForm extends Form
             ),
         ));
         
+        // Add "remember_me" field
+        $this->add(array(            
+            'type'  => 'checkbox',
+            'name' => 'remember_me',
+            'attributes' => array(
+                'id' => 'remember_me'
+            ),
+            'options' => array(
+                'label' => 'Remember me',
+            ),
+        ));
+        
         // Add the Submit button
         $this->add(array(
             'type'  => 'submit',
