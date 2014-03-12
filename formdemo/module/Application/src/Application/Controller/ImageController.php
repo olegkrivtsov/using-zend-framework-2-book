@@ -35,6 +35,7 @@ class ImageController extends AbstractActionController {
     /**
      * This action shows the image upload form. This page allows to upload 
      * a single file.
+     * @return \Zend\View\Model\ViewModel
      */
     public function uploadAction() {
         
@@ -75,52 +76,45 @@ class ImageController extends AbstractActionController {
     /**
      * This is the 'file' action that is invoked
      * when a user wants to download the given file.     
+     * @return Response
      */
     public function fileAction() 
     {
         // Get the file name from GET variable
         $fileName = $this->params()->fromQuery('name', '');
+                
+        // Get the singleton of the image manager service.
+        $imageManager = $this->getServiceLocator()->get('ImageManager');
+        
+        // Get path to image file
+        $fileName = $imageManager->getImagePathByName($fileName);
         
         // Check whether the user needs a thumbnail or a full-size image
         $isThumbnail = (bool)$this->params()->fromQuery('thumbnail', false);
-                
-        // Take some precautions to Make file name secure
-        str_replace("/", "", $fileName);  // Remove slashes
-        str_replace("\\", "", $fileName); // Remove back-slashes
         
-        // Try to open file
-        $path = './data/upload/' . $fileName;
-        if (!is_readable($path)) {
+        if($isThumbnail) {
+        
+            // Resize the image
+            $fileName = $imageManager->resizeImage($fileName);
+        }
+                
+        // Get image file info (size and MIME type).
+        $fileInfo = $imageManager->getImageFileInfo($fileName);        
+        if ($fileInfo===false) {
             // Set 404 Not Found status code
             $this->getResponse()->setStatusCode(404);            
             return;
         }
-        
-        if($isThumbnail) {
-        
-            $imageManager = $this->getServiceLocator()->get('ImageManager');
-            
-            $path = $imageManager->resizeImage($path);
-        }
-        
-        // Get file size in bytes.
-        $fileSize = filesize($path);
-
-        // Get MIME type of the file.
-        $finfo = finfo_open(FILEINFO_MIME);
-        $mimeType = finfo_file($finfo, $path);
-        if($mimeType===false)
-            $mimeType = 'application/octet-stream';
-        
+                
         // Write HTTP headers.
         $response = $this->getResponse();
         $headers = $response->getHeaders();
-        $headers->addHeaderLine("Content-type: $mimeType");        
-        $headers->addHeaderLine("Content-length: $fileSize");
+        $headers->addHeaderLine("Content-type: " . $fileInfo['type']);        
+        $headers->addHeaderLine("Content-length: " . $fileInfo['size']);
             
         // Write file content        
-        $fileContent = file_get_contents($path);
-        if($fileContent!=false) {                
+        $fileContent = $imageManager->getImageFileContent($fileName);
+        if($fileContent!==false) {                
             $response->setContent($fileContent);
         } else {        
             // Set 500 Server Error status code
@@ -129,12 +123,11 @@ class ImageController extends AbstractActionController {
         }
         
         if($isThumbnail) {
-            // Remove temporary file
-            unlink($path);
+            // Remove temporary thumbnail image file.
+            unlink($fileName);
         }
         
-        // Return Response to avoid default view rendering
+        // Return Response to avoid default view rendering.
         return $this->getResponse();
-    }
-    
+    }    
 }
