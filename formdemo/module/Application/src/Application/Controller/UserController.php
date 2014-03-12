@@ -77,5 +77,4 @@ class UserController extends AbstractActionController {
             'form' => $form
         ));
     }
-    
 }

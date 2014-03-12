@@ -29,44 +29,43 @@ $form->prepare();
 
 ?>
 
-<div class="row">
-    <div class="col-md-6 col-md-offset-2"
-        <form name="login" class="form-horizontal" action="">
-          <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-            <div class="col-sm-10">
-              <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-            <div class="col-sm-10">
-              <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox"> Remember me </input>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" name="submit" class="btn btn-default">Sign in</button>
-            </div>
-          </div>
-        </form>
-    <div>
+<div id="form-container" class="row">
+    
+    <?php 
+    
+    echo $this->partial('application/user/form.phtml');
+    
+    ?>
+    
 </div>
          
 <script type="text/javascript">
     
     $( document ).ready(function() {
-        $( "input" ).change(function() {
-            alert( "Handler for .change() called." );
+        
+        $( "input" ).on('change', function() {            
+            var form = $('form#login-form');
+            var fieldId = $(this).attr("id");
+            var data = form.serialize();
+            alert(data);
+            $.ajax({              
+              type: form.attr('method'),
+              url: form.attr('action') + '?fieldId=' + fieldId,
+              data: form.serialize()
+            }).done(function(data, status, xhrObj) {              
+
+                $('div#form-container').html(data);
+
+                var isFormValid = xhrObj.getResponseHeader("X-Form-Valid");
+                
+                if(isFormValid=="yes") {        
+                   
+                }
+
+            }).fail(function(data) {
+                // Optionally alert the user of an error here...        
+                alert('Error submitting form');                
+            });
         });  
     });
     
