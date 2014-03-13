@@ -54,32 +54,33 @@ class UserController extends AbstractActionController {
         // Create Registration form
         $form = new LoginForm();
         
-        // Check if user has submitted the form
+        // Determine if this request is an AJAX request.
+        $isAJAX = $this->getRequest()->isXmlHttpRequest();
+        
+        // Check if user has submitted the form.
         if($this->getRequest()->isPost()) {
             
-            $fieldId = $this->params()->fromQuery('fieldId', null);
-            if($fieldId!=null)
-                $form->setValidationGroup($fieldId);
+            $fieldName = $this->params()->fromQuery('field', null);
+            if($isAJAX) 
+                $form->setAjaxValidationGroup($fieldName);                
             
-            // Fill in the form with POST data
+            // Fill in the form with POST data.
             $data = $this->params()->fromPost();            
             
             $form->setData($data);
                         
-            // Validate form
+            // Validate form.
             if($form->isValid()) {
                 
-                // Get filtered and validated data
+                // Get filtered and validated data.
                 $data = $form->getData();
-                
-                
             }            
         } 
         
         // Pass form variable to view
         $viewModel = new ViewModel(array(
             'form' => $form,
-            'isAJAX'=> $this->getRequest()->isXmlHttpRequest()
+            'isAJAX'=> $isAJAX
         ));
         
         if($this->getRequest()->isXmlHttpRequest()) {

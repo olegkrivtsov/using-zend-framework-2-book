@@ -50,7 +50,8 @@ class LoginForm extends Form
             'type'  => 'password',
             'name' => 'password',
             'attributes' => array(
-                'id' => 'password'
+                'id' => 'password',
+                'class' => 'exclude-from-ajax-validation'
             ),
             'options' => array(
                 'label' => 'Password',
@@ -143,5 +144,29 @@ class LoginForm extends Form
                 ),
             )
         );
+    }
+    
+    /**
+     * Prepares AJAX validation group by certain field name.
+     * @param type $fieldName
+     * @return array Validation group.
+     */
+    public function setAjaxValidationGroup($fieldName) {
+    
+        $fieldsToValidate = array();
+        
+        if($fieldName!=null) {
+            
+            foreach($this->getElements() as $element) {                        
+                
+                if($element->getAttribute('class')=='exclude-from-ajax-validation')
+                    continue;
+                
+                $fieldsToValidate[] = $element->getName();
+                if($element->getName()==$fieldName)
+                    break;                            
+            }
+            $this->setValidationGroup($fieldsToValidate);
+        }
     }
 }
