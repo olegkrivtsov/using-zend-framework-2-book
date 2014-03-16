@@ -3,24 +3,24 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2b668bc37358b5a4c5879c7d91096c32",
+    "hash": "ca5c7fdec553d14f52567a2bd576fc28",
     "packages": [
         {
             "name": "zendframework/zendframework",
-            "version": "2.2.6",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "5eae447d46b00a280573b94c398b2f46f45a6903"
+                "reference": "5d22cee82f6f7f9218f47f22a145f3e95c39cacf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/5eae447d46b00a280573b94c398b2f46f45a6903",
-                "reference": "5eae447d46b00a280573b94c398b2f46f45a6903",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/5d22cee82f6f7f9218f47f22a145f3e95c39cacf",
+                "reference": "5d22cee82f6f7f9218f47f22a145f3e95c39cacf",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3",
+                "php": ">=5.3.23",
                 "zendframework/zendxml": "~1.0-dev"
             },
             "replace": {
@@ -81,14 +81,16 @@
                 "fabpot/php-cs-fixer": "*@dev",
                 "ircmaxell/random-lib": "dev-master",
                 "ircmaxell/security-lib": "dev-master",
-                "ocramius/proxy-manager": "0.4.*",
-                "phpunit/phpunit": "3.7.*"
+                "mikey179/vfsstream": "1.2.*",
+                "phpunit/phpunit": "3.7.*",
+                "satooshi/php-coveralls": "dev-master",
+                "sebastianbergmann/phpcov": "1.1.0"
             },
             "suggest": {
                 "doctrine/annotations": "Doctrine Annotations >=1.0 for annotation features",
                 "ext-intl": "ext/intl for i18n features (included in default builds of PHP)",
                 "ircmaxell/random-lib": "Fallback random byte generator for Zend\\Math\\Rand if OpenSSL/Mcrypt extensions are unavailable",
-                "ocramius/proxy-manager": "ProxyManager to handle lazy initialization of services",
+                "ocramius/proxy-manager": "ProxyManager 0.5.* to handle lazy initialization of services",
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
             },
@@ -119,7 +121,7 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2014-03-06 17:27:03"
+            "time": "2014-03-12 16:51:16"
         },
         {
             "name": "zendframework/zendservice-recaptcha",

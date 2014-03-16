@@ -68,18 +68,20 @@ class ContactForm extends Form
             ),
         ));
         
-        // Add the submit button
+        // Add "phone" field
         $this->add(array(
-            'type'  => 'submit',
-            'name' => 'submit',
+            'type'  => 'text',
+            'name' => 'phone',
             'attributes' => array(                
-                'value' => 'Submit',
-                'id' => 'submitbutton',
+                'id' => 'phone'
+            ),
+            'options' => array(
+                'label' => 'Your Phone',
             ),
         ));
-        
+                
         // Add the CAPTCHA field
-        /*$this->add(array(
+        $this->add(array(
             'type'  => 'captcha',
             'name' => 'captcha',
             'attributes' => array(                                                
@@ -101,7 +103,7 @@ class ContactForm extends Form
                     'lineNoiseLevel' => 3
                 ),
             ),
-        ));*/
+        ));
         
         // Add the CAPTCHA field
         /*$this->add(array(
@@ -120,7 +122,7 @@ class ContactForm extends Form
         ));*/
         
         // Add the CAPTCHA field
-        $this->add(array(
+        /*$this->add(array(
             'type'  => 'captcha',
             'name' => 'captcha',
             'attributes' => array(                                                
@@ -133,7 +135,7 @@ class ContactForm extends Form
                     'pubKey' => '6LfTK-0SAAAAANNmfx5Vw-IxoDW_ucUkK2uxdz_k',                     
                 ),
             ),
-        ));
+        ));*/
         
         // Add the CSRF field
         $this->add(array(
@@ -147,6 +149,16 @@ class ContactForm extends Form
                 )
             ),
         ));
+        
+        // Add the submit button
+        $this->add(array(
+            'type'  => 'submit',
+            'name' => 'submit',
+            'attributes' => array(                
+                'value' => 'Submit',
+                'id' => 'submitbutton',
+            ),
+        ));        
     }
     
     /**
@@ -211,6 +223,49 @@ class ContactForm extends Form
                     ),
                 ),
             )
-        );                
+        );   
+        
+        $inputFilter->add(array(
+                'name'     => 'phone',
+                'required' => true,                
+                'filters'  => array(                    
+                    array(
+                        'name' => 'Callback',
+                        'options' => array(
+                            'callback' => array($this, 'filterPhone'),
+                            'callback_params' => array(
+                                'form' => $this
+                            )
+                        )                        
+                    ),
+                    
+                ),                
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'min' => 3,
+                            'max' => 32
+                        ),
+                    ),
+                ),
+            )
+        );
+    }
+    
+    /**
+     * Custom filter for a phone number.
+     * @param string $value User-entered phone number.
+     * @return string Phone number in form of "1(808)456-7890"
+     */
+    public function filterPhone($value, $form) {
+        
+        // First remove any non-digit character.
+        $digits = preg_replace('#[^0-9]#', '', $value);
+        
+        // Add the braces, spacing and the dash.
+        $phoneNumber = substr($digits, 0, 1) . ' ('. substr($digits, 1, 3) . ') ' .
+                        substr($digits, 4, 3) . '-'. substr($digits, 7, 4);
+        return $phoneNumber;                
     }
 }

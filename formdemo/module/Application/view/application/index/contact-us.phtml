@@ -19,6 +19,10 @@ $form->get('subject')->setAttributes(array(
     'class'=>'form-control', 
     'placeholder'=>'Type subject here'
     ));
+$form->get('phone')->setAttributes(array(
+    'class'=>'form-control', 
+    'placeholder'=>'Type your phone number'
+    ));
 $form->get('body')->setAttributes(array(
     'class'=>'form-control', 
     'rows'=>6, 
@@ -55,6 +59,12 @@ $form->prepare();
             <?php echo $this->formLabel($form->get('body')); ?>
             <?php echo $this->formElement($form->get('body')); ?>
             <?php echo $this->formElementErrors($form->get('body')); ?>                  
+        </div>
+        
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('phone')); ?>
+            <?php echo $this->formElement($form->get('phone')); ?>
+            <?php echo $this->formElementErrors($form->get('phone')); ?>                  
         </div>
         
         <div class="form-group">
