@@ -233,7 +233,7 @@ class ContactForm extends Form
                         'name' => 'Callback',
                         'options' => array(
                             'callback' => array($this, 'filterPhone'),
-                            'callback_params' => array(
+                            'callbackParams' => array(
                                 'form' => $this
                             )
                         )                        
@@ -248,6 +248,15 @@ class ContactForm extends Form
                             'max' => 32
                         ),
                     ),
+                    array(
+                        'name' => 'Callback',
+                        'options' => array(
+                            'callback' => array($this, 'validatePhone'),
+                            'callbackOptions' => array(
+                                'form' => $this
+                            )
+                        )                        
+                    ),
                 ),
             )
         );
@@ -256,16 +265,43 @@ class ContactForm extends Form
     /**
      * Custom filter for a phone number.
      * @param string $value User-entered phone number.
-     * @return string Phone number in form of "1(808)456-7890"
+     * @return string Phone number in form of "1 (808) 456-7890"
      */
     public function filterPhone($value, $form) {
+                
+        if(strlen($value)==0)
+            return $value;
         
         // First remove any non-digit character.
         $digits = preg_replace('#[^0-9]#', '', $value);
         
+        // Pad with zeros if count of digits is incorrect.
+        str_pad($digits, 11, "0", STR_PAD_LEFT);
+        
         // Add the braces, spacing and the dash.
         $phoneNumber = substr($digits, 0, 1) . ' ('. substr($digits, 1, 3) . ') ' .
                         substr($digits, 4, 3) . '-'. substr($digits, 7, 4);
+        
         return $phoneNumber;                
+    }
+    
+    /**
+     * Custom validator for a phone number.
+     * @param string $value Phone number in form of "1 (808) 456-7890"
+     * @return boolean true if phone format is correct; otherwise false.
+     */
+    public function validatePhone($value, $form) {
+        
+        // First check phone number length
+        if(strlen($value)!=0)
+            return true;
+        
+        if(strlen($value)!=16)
+            return false;
+        
+        // Check if the value matches the pattern
+        $matchCount = preg_match( '/^\d \(\d{3}\) \d{3}-\d{4}$/', $value);
+        
+        return ($matchCount!=0)?true:false;
     }
 }

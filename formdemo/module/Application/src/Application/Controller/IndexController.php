@@ -71,7 +71,7 @@ class IndexController extends AbstractActionController {
                 // Redirect to "Thank You" page
                 return $this->redirect()->toRoute('application/default', 
                         array('controller'=>'index', 'action'=>'thankYou'));
-            }            
+            }               
         } 
         
         // Pass form variable to view
