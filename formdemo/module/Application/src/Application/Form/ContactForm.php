@@ -276,7 +276,7 @@ class ContactForm extends Form
         $digits = preg_replace('#[^0-9]#', '', $value);
         
         // Pad with zeros if count of digits is incorrect.
-        str_pad($digits, 11, "0", STR_PAD_LEFT);
+        $digits = str_pad($digits, 11, "0", STR_PAD_LEFT);
         
         // Add the braces, spacing and the dash.
         $phoneNumber = substr($digits, 0, 1) . ' ('. substr($digits, 1, 3) . ') ' .
@@ -293,9 +293,6 @@ class ContactForm extends Form
     public function validatePhone($value, $form) {
         
         // First check phone number length
-        if(strlen($value)!=0)
-            return true;
-        
         if(strlen($value)!=16)
             return false;
         
