@@ -50,6 +50,14 @@ class PhoneFilter extends AbstractFilter {
     }
     
     /**
+     * Returns phone format.
+     * @return string Format.
+     */
+    public function getFormat() {
+        return $this->format;
+    }
+    
+    /**
      * Filters a phone number.
      * @param string $value User-entered phone number.
      * @return string Phone number in form of "1 (808) 456-7890"

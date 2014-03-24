@@ -151,7 +151,7 @@ class IndexController extends AbstractActionController {
         // Get parameters from route.
         $type = $this->params()->fromRoute('type', 'code39');
         $label = $this->params()->fromRoute('label', 'HELLO-WORLD');
-        
+
         // Set barcode options.
         $barcodeOptions = array('text' => $label);        
         $rendererOptions = array();
