@@ -4,6 +4,8 @@ namespace Application\Form;
 
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
+use Application\Service\PhoneFilter;
+use Application\Service\PhoneValidator;
 
 /**
  * This form is used to collect user feedback data like user E-mail, 
@@ -229,7 +231,7 @@ class ContactForm extends Form
                 'name'     => 'phone',
                 'required' => true,                
                 'filters'  => array(                    
-                    array(
+                    /*array(
                         'name' => 'Callback',
                         'options' => array(
                             'callback' => array($this, 'filterPhone'),
@@ -237,8 +239,14 @@ class ContactForm extends Form
                                 'form' => $this
                             )
                         )                        
-                    ),
+                    ),*/
                     
+                    /*array(
+                        'name' => '\Application\Service\PhoneFilter',
+                        'options' => array(
+                            'format' => PhoneFilter::PHONE_FORMAT_INTL
+                        )
+                    ),*/                    
                 ),                
                 'validators' => array(
                     array(
@@ -248,13 +256,19 @@ class ContactForm extends Form
                             'max' => 32
                         ),
                     ),
-                    array(
+                    /*array(
                         'name' => 'Callback',
                         'options' => array(
                             'callback' => array($this, 'validatePhone'),
                             'callbackOptions' => array(
                                 'form' => $this
                             )
+                        )                        
+                    ),*/
+                    array(
+                        'name' => '\Application\Service\PhoneValidator',
+                        'options' => array(
+                            'format' => PhoneValidator::PHONE_FORMAT_INTL
                         )                        
                     ),
                 ),
@@ -265,9 +279,10 @@ class ContactForm extends Form
     /**
      * Custom filter for a phone number.
      * @param string $value User-entered phone number.
-     * @return string Phone number in form of "1 (808) 456-7890"
+     * @param string $format Desired phone format ('intl' or 'local').
+     * @return string Phone number in form of "1 (808) 456-7890" or "123-4567".
      */
-    public function filterPhone($value, $form) {
+    public function filterPhone($value, $format) {
                 
         if(strlen($value)==0)
             return $value;
@@ -275,12 +290,22 @@ class ContactForm extends Form
         // First remove any non-digit character.
         $digits = preg_replace('#[^0-9]#', '', $value);
         
-        // Pad with zeros if count of digits is incorrect.
-        $digits = str_pad($digits, 11, "0", STR_PAD_LEFT);
-        
-        // Add the braces, spacing and the dash.
-        $phoneNumber = substr($digits, 0, 1) . ' ('. substr($digits, 1, 3) . ') ' .
-                        substr($digits, 4, 3) . '-'. substr($digits, 7, 4);
+        if($format == 'intl') {
+            
+            // Pad with zeros if count of digits is incorrect.
+            $digits = str_pad($digits, 11, "0", STR_PAD_LEFT);
+
+            // Add the braces, spacing and the dash.
+            $phoneNumber = substr($digits, 0, 1) . ' ('. substr($digits, 1, 3) . ') ' .
+                            substr($digits, 4, 3) . '-'. substr($digits, 7, 4);
+        } else { 
+            
+            // Pad with zeros if count of digits is incorrect.
+            $digits = str_pad($digits, 7, "0", STR_PAD_LEFT);
+
+            // Add the the dash.
+            $phoneNumber = substr($digits, 0, 3) . '-'. substr($digits, 3, 4);
+        }
         
         return $phoneNumber;                
     }
@@ -288,16 +313,25 @@ class ContactForm extends Form
     /**
      * Custom validator for a phone number.
      * @param string $value Phone number in form of "1 (808) 456-7890"
+     * @param string $format Phone format ('intl' or 'local').
      * @return boolean true if phone format is correct; otherwise false.
      */
-    public function validatePhone($value, $form) {
+    public function validatePhone($value, $format) {
+        
+        if($format == 'intl') {
+            $correctLength = 16;
+            $pattern = '/^\d \(\d{3}\) \d{3}-\d{4}$/';
+        } else { // 'local'
+            $correctLength = 8;
+            $pattern = '/^\d{3}-\d{4}$/';
+        }
         
         // First check phone number length
-        if(strlen($value)!=16)
+        if(strlen($value)!=$correctLength)
             return false;
-        
+
         // Check if the value matches the pattern
-        $matchCount = preg_match( '/^\d \(\d{3}\) \d{3}-\d{4}$/', $value);
+        $matchCount = preg_match($pattern, $value);
         
         return ($matchCount!=0)?true:false;
     }
