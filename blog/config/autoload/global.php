@@ -12,17 +12,5 @@
  */
 
 return array(
-    'doctrine' => array(
-        'connection' => array(
-            'orm_default' => array(
-                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
-                'params' => array(
-                    'host'     => '127.0.0.1',                    
-                    'user'     => 'blog',
-                    'password' => 'blogpwd',
-                    'dbname'   => 'blog',
-                )
-            ),            
-        ),        
-    ),
+    
 );

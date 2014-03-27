@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * This class represents a comment related to a blog post.
+ * @ORM\Entity()
+ * @ORM\Table(name="post")
  */
 class Comment {
     

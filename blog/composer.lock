@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "35edf7eb6b6a78c167cd536877918a78",
+    "hash": "a465221c62382693834cc6f735ec32e7",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -780,12 +780,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendDeveloperTools.git",
-                "reference": "3e4fb960030a055ac27a7e214ec2586f7d54ad3d"
+                "reference": "763cecf9d68fc0d3765d45847047817a47ecdd4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/3e4fb960030a055ac27a7e214ec2586f7d54ad3d",
-                "reference": "3e4fb960030a055ac27a7e214ec2586f7d54ad3d",
+                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/763cecf9d68fc0d3765d45847047817a47ecdd4a",
+                "reference": "763cecf9d68fc0d3765d45847047817a47ecdd4a",
                 "shasum": ""
             },
             "require": {
@@ -833,7 +833,7 @@
                 "module",
                 "zf2"
             ],
-            "time": "2014-03-12 00:47:04"
+            "time": "2014-03-23 05:38:41"
         },
         {
             "name": "zendframework/zendframework",
@@ -1007,11 +1007,10 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "zendframework/zendframework": 5,
         "zendframework/zend-developer-tools": 20
     },
     "platform": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.28"
     },
     "platform-dev": [
 
