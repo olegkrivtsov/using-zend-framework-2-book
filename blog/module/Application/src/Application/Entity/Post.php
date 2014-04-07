@@ -3,6 +3,8 @@ namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Application\Entity\Comment;
+use Application\Entity\Tag;
 
 /**
  * This class represents a single post in a blog.
@@ -12,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Post {
     
     // Post status constants
-    const STATUS_UNPUBLISHED = 1;
+    const STATUS_DRAFT       = 1;
     const STATUS_PUBLISHED   = 2;
 
     /**
@@ -32,7 +34,7 @@ class Post {
     protected $status;
 
     /** @ORM\Column(name="date_created")  * */
-    protected $date_created;
+    protected $dateCreated;
 
     /**
      * @ORM\OneToMany(targetEntity="Application\Entity\Comment", mappedBy="post")
@@ -41,10 +43,17 @@ class Post {
     protected $comments;
     
     /**
+     * @ORM\ManyToMany(targetEntity="Application\Entity\Tag", mappedBy="post")
+     * @ORM\JoinColumn(name="id", referencedColumnName="post_id")
+     * */
+    protected $tags;
+    
+    /**
      * Constructor.
      */
     public function __construct() {
         $this->comments = new ArrayCollection();        
+        $this->tags = new ArrayCollection();        
     }
 
     /**
@@ -60,7 +69,7 @@ class Post {
      * @param int $id
      */
     public function setId($id) {
-        $this->id = $id;
+        $this->id = (int)$id;
     }
 
     /**
@@ -76,7 +85,7 @@ class Post {
      * @param string $title
      */
     public function setTitle($title) {
-        $this->title = $title;
+        $this->title = (string)$title;
     }
 
     /**
@@ -92,7 +101,7 @@ class Post {
      * @param integer $status
      */
     public function setStatus($status) {
-        $this->status = $status;
+        $this->status = (int)$status;
     }
 
     /**
@@ -102,7 +111,7 @@ class Post {
     public function getStatusStr() {
 
         switch ($this->_status) {
-            case self::STATUS_UNPUBLISHED: return 'Unpublished';
+            case self::STATUS_DRAFT: return 'Draft';
                 break;
             case self::STATUS_PUBLISHED: return 'Published';
                 break;
@@ -111,5 +120,79 @@ class Post {
         }
     }
     
+    /**
+     * Returns post content.
+     */
+    public function getContent() {
+       return $this->content; 
+    }
+    
+    /**
+     * Sets post content.
+     * @param type $content
+     */
+    public function setContent($content) {
+        $this->content = (string)$content;
+    }
+    
+    /**
+     * Returns the date when this post was created.
+     * @return string
+     */
+    public function getDateCreated() {
+        return $this->dateCreated;
+    }
+    
+    /**
+     * Sets the date when this post was created.
+     * @param string $dateCreated
+     */
+    public function setDateCreated($dateCreated) {
+        $this->dateCreated = (string)$dateCreated;
+    }
+    
+    /**
+     * Returns the date when this post was last modified.
+     * @return string
+     */
+    public function getDateModified() {
+        return $this->dateModified;
+    }
+    
+    /**
+     * Returns comments for this post.
+     * @return array
+     */
+    public function getComments() {
+        return $this->comments;
+    }
+    
+    /**
+     * Adds a new comment to this post.
+     * @param $comment
+     */
+    public function addComment($comment) {
+        
+        if($comment===null || !($comment instanceof Comment))
+            throw new \Exception('Comment must be an instance of the Application\Entity\Comment class');
+        
+        $this->comments[] = $comment;
+    }
+    
+    /**
+     * Returns tags for this post.
+     * @return array
+     */
+    public function getTags() {
+        return $this->tags;
+    }
+    
+    /**
+     * 
+     * @param type $tagsStr
+     */
+    public function setTagsFromString($tagsStr) {
+        $tags = explode($tagsStr, ',');
+    }
 }
 

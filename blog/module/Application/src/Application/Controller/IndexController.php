@@ -4,8 +4,8 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Application\Form\ContactForm;
-use Application\Service\MailSender;
+use Application\Form\PostForm;
+use Application\Entity\Post;
 
 /**
  * This is the main controller class of the Blog application. The 
@@ -26,11 +26,63 @@ class IndexController extends AbstractActionController {
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');    	
         
         // Get recent posts
-        $recentPosts = $entityManager->getRepository('\Application\Entity\Post')->findAll();
+        $recentPosts = $entityManager->getRepository('\Application\Entity\Post')
+                ->findBy(array(), array('dateCreated'=>'DESC'), 10);
         
         // Render the view template
         return new ViewModel(array(
             'recentPosts' => $recentPosts
+        ));
+    }
+    
+    /**
+     * This actions displays the "New Post" page. The page contains a form allowing
+     * to enter post title, content and tags. When the user clicks the Submit button,
+     * a new Post entity will be created.
+     */
+    public function addAction() {
+                
+        // Create the form.
+        $form = new PostForm();
+        
+        // Check whether this post is a POST request.
+        if($this->getRequest()->isPost()) {
+            
+            // Get POST data.
+            $data = $this->params()->fromPost();
+            
+            // Fill form with data.
+            $form->setData($data);
+            if($form->isValid()) {
+                                
+                // Get validated form data.
+                $data = $form->getData();
+                
+                // Get Doctrine entity manager.
+                $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');    	
+        
+                // Create new Post entity.
+                $post = new Post();
+                $post->setTitle($data['title']);
+                $post->setContent($data['content']);
+                $post->setTagsFromString($data['tags']);
+                $post->setStatus(Post::STATUS_PUBLISHED);
+                
+                // Add the entity to entity manager.
+                $entityManager->persist($post);
+                
+                // Apply changes.
+                $entityManager->flush();
+                
+                // Redirect the user to "index" page.
+                return $this->redirect()->toRoute('application/default', 
+                        array('controller'=>'index', 'action'=>'index'));
+            }
+        }
+        
+        // Render the view template.
+        return new ViewModel(array(
+            'form' => $form
         ));
     }
     

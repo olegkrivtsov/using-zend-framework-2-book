@@ -9,3 +9,5 @@
 /formdemo/public/img/captcha
 
 /formdemo/data/upload
+
+/blog/config/autoload/local.php
