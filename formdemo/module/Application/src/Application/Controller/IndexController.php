@@ -6,7 +6,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Form\ContactForm;
 use Application\Service\MailSender;
-use Zend\Filter\Null;
 
 /**
  * This is the main controller class of the Form Demo application. The 
@@ -21,8 +20,8 @@ class IndexController extends AbstractActionController {
      * Home page.
      * @return \Zend\View\Model\ViewModel
      */
-    public function indexAction() {
-
+    public function indexAction() 
+    {
         return new ViewModel();
     }
     
@@ -30,8 +29,8 @@ class IndexController extends AbstractActionController {
      * This action displays the About page.
      * @return \Zend\View\Model\ViewModel
      */
-    public function aboutAction() {
-                
+    public function aboutAction() 
+    {          
         return new ViewModel();
     }
     
@@ -39,8 +38,8 @@ class IndexController extends AbstractActionController {
      * This action displays the Contact Us page.
      * @return \Zend\View\Model\ViewModel
      */
-    public function contactUsAction() {
-        
+    public function contactUsAction() 
+    {   
         // Create Contact Us form
         $form = new ContactForm();
         
@@ -86,8 +85,8 @@ class IndexController extends AbstractActionController {
      * page on successful mail delivery.
      * @return \Zend\View\Model\ViewModel
      */
-    public function thankYouAction() {
-                
+    public function thankYouAction() 
+    {
         return new ViewModel();
     }
     
@@ -96,8 +95,8 @@ class IndexController extends AbstractActionController {
      * page on mail delivery error.
      * @return \Zend\View\Model\ViewModel
      */
-    public function sendErrorAction() {
-                
+    public function sendErrorAction() 
+    {
         return new ViewModel();
     }
 }
