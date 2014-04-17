@@ -11,14 +11,15 @@ use Application\Form\ImageForm;
 /**
  * This controller is designed for managing image file uploads.
  */
-class ImageController extends AbstractActionController {
-    
+class ImageController extends AbstractActionController 
+{
     /**
      * This is the default "index" action of the controller. It displays the 
-     * Images page which contains the list of uploaded images.
+     * Image Gallery page which contains the list of uploaded images.
      * @return \Zend\View\Model\ViewModel
      */
-    public function indexAction() {
+    public function indexAction() 
+    {
         
         // Get the singleton of the image manager service.
         $imageManager = $this->getServiceLocator()->get('ImageManager');
@@ -37,7 +38,8 @@ class ImageController extends AbstractActionController {
      * a single file.
      * @return \Zend\View\Model\ViewModel
      */
-    public function uploadAction() {
+    public function uploadAction() 
+    {
         
         // Create the form model
         $form = new ImageForm();
@@ -61,7 +63,7 @@ class ImageController extends AbstractActionController {
                 // Move uploaded file to its destination directory.
                 $data = $form->getData();
                 
-                // Redirect the user to "Images" page
+                // Redirect the user to "Image Gallery" page
                 return $this->redirect()->toRoute('application/default', 
                         array('controller'=>'image', 'action'=>'index'));
             }                        
@@ -74,24 +76,24 @@ class ImageController extends AbstractActionController {
     }
     
     /**
-     * This is the 'file' action that is invoked
-     * when a user wants to download the given file.     
+     * This is the 'file' action that is invoked when a user wants to 
+     * open the image file in a web browser or generate a thumbnail.        
      * @return Response
      */
     public function fileAction() 
     {
         // Get the file name from GET variable
         $fileName = $this->params()->fromQuery('name', '');
+        
+        // Check whether the user needs a thumbnail or a full-size image
+        $isThumbnail = (bool)$this->params()->fromQuery('thumbnail', false);
                 
         // Get the singleton of the image manager service.
         $imageManager = $this->getServiceLocator()->get('ImageManager');
         
         // Get path to image file
         $fileName = $imageManager->getImagePathByName($fileName);
-        
-        // Check whether the user needs a thumbnail or a full-size image
-        $isThumbnail = (bool)$this->params()->fromQuery('thumbnail', false);
-        
+                
         if($isThumbnail) {
         
             // Resize the image

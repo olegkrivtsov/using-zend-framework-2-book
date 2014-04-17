@@ -261,7 +261,7 @@ class ContactForm extends Form
                         'options' => array(
                             'callback' => array($this, 'validatePhone'),
                             'callbackOptions' => array(
-                                'form' => $this
+                                'format' => 'intl'
                             )
                         )                        
                     ),*/
@@ -325,20 +325,22 @@ class ContactForm extends Form
      * @return boolean true if phone format is correct; otherwise false.
      */
     public function validatePhone($value, $format) {
-        
+                
+        // Determine the correct length and pattern of the phone number,
+        // depending on the format.
         if($format == 'intl') {
             $correctLength = 16;
-            $pattern = '/^\d \(\d{3}\) \d{3}-\d{4}$/';
+            $pattern = '/^\d\ (\d{3}\) \d{3}-\d{4}$/';
         } else { // 'local'
             $correctLength = 8;
             $pattern = '/^\d{3}-\d{4}$/';
         }
-        
-        // First check phone number length
+                
+        // Check phone number length.
         if(strlen($value)!=$correctLength)
             return false;
 
-        // Check if the value matches the pattern
+        // Check if the value matches the pattern.
         $matchCount = preg_match($pattern, $value);
         
         return ($matchCount!=0)?true:false;

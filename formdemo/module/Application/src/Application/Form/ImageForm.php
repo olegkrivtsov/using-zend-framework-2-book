@@ -74,6 +74,9 @@ class ImageForm extends Form
                 'required' => true,                           
                 'validators' => array(
                     array(
+                        'name'    => 'FileUploadFile',                          
+                    ),
+                    array(
                         'name'    => 'FileIsImage',                          
                     ),
                     array(

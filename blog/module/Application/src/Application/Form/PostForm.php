@@ -29,7 +29,8 @@ class PostForm extends Form
     /**
      * This method adds elements to form (input fields and submit button).
      */
-    protected function addElements() {
+    protected function addElements() 
+    {
                 
         // Add "title" field
         $this->add(array(            
@@ -81,7 +82,8 @@ class PostForm extends Form
     /**
      * This method creates input filter (used for form filtering/validation).
      */
-    private function addInputFilter() {
+    private function addInputFilter() 
+    {
         
         $inputFilter = new InputFilter();        
         $this->setInputFilter($inputFilter);

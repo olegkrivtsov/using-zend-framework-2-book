@@ -83,7 +83,9 @@ class PhoneValidator extends AbstractValidator {
         $value = (string)$value;
         
         $format = $this->options['format'];
-        
+                
+        // Determine the correct length and pattern of the phone number,
+        // depending on the format.        
         if($format == self::PHONE_FORMAT_INTL) {
             $correctLength = 16;
             $pattern = '/^\d \(\d{3}\) \d{3}-\d{4}$/';

@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Form\ContactForm;
 use Application\Service\MailSender;
+use Zend\Filter\Null;
 
 /**
  * This is the main controller class of the Form Demo application. The 
@@ -21,7 +22,7 @@ class IndexController extends AbstractActionController {
      * @return \Zend\View\Model\ViewModel
      */
     public function indexAction() {
-                
+
         return new ViewModel();
     }
     
