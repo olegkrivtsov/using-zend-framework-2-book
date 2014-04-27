@@ -236,7 +236,7 @@ class ContactForm extends Form
                         'options' => array(
                             'callback' => array($this, 'filterPhone'),
                             'callbackParams' => array(
-                                'form' => $this
+                                'format' => 'intl'
                             )
                         )                        
                     ),*/
@@ -256,21 +256,21 @@ class ContactForm extends Form
                             'max' => 32
                         ),
                     ),
-                    /*array(
+                    array(
                         'name' => 'Callback',
                         'options' => array(
                             'callback' => array($this, 'validatePhone'),
                             'callbackOptions' => array(
-                                'form' => $this
+                                'format' => 'intl'
                             )
                         )                        
-                    ),*/
-                    array(
+                    ),
+                    /*array(
                         'name' => '\Application\Service\PhoneValidator',
                         'options' => array(
                             'format' => PhoneValidator::PHONE_FORMAT_INTL
                         )                        
-                    ),
+                    ),*/
                 ),
             )
         );
@@ -321,10 +321,11 @@ class ContactForm extends Form
     /**
      * Custom validator for a phone number.
      * @param string $value Phone number in form of "1 (808) 456-7890"
+     * @param mixed $context 
      * @param string $format Phone format ('intl' or 'local').
      * @return boolean true if phone format is correct; otherwise false.
      */
-    public function validatePhone($value, $format) {
+    public function validatePhone($value, $context, $format) {
         
         if($format == 'intl') {
             $correctLength = 16;
