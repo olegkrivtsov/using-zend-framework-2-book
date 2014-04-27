@@ -256,7 +256,7 @@ class ContactForm extends Form
                             'max' => 32
                         ),
                     ),
-                    array(
+                    /*array(
                         'name' => 'Callback',
                         'options' => array(
                             'callback' => array($this, 'validatePhone'),
@@ -264,13 +264,13 @@ class ContactForm extends Form
                                 'format' => 'intl'
                             )
                         )                        
-                    ),
-                    /*array(
+                    ),*/
+                    array(
                         'name' => '\Application\Service\PhoneValidator',
                         'options' => array(
                             'format' => PhoneValidator::PHONE_FORMAT_INTL
                         )                        
-                    ),*/
+                    ),
                 ),
             )
         );
@@ -321,25 +321,27 @@ class ContactForm extends Form
     /**
      * Custom validator for a phone number.
      * @param string $value Phone number in form of "1 (808) 456-7890"
-     * @param mixed $context 
+     * @params array $context Form field values.
      * @param string $format Phone format ('intl' or 'local').
      * @return boolean true if phone format is correct; otherwise false.
      */
     public function validatePhone($value, $context, $format) {
-        
+                
+        // Determine the correct length and pattern of the phone number,
+        // depending on the format.
         if($format == 'intl') {
             $correctLength = 16;
-            $pattern = '/^\d \(\d{3}\) \d{3}-\d{4}$/';
+            $pattern = '/^\d\ (\d{3}\) \d{3}-\d{4}$/';
         } else { // 'local'
             $correctLength = 8;
             $pattern = '/^\d{3}-\d{4}$/';
         }
-        
-        // First check phone number length
+                
+        // Check phone number length.
         if(strlen($value)!=$correctLength)
             return false;
 
-        // Check if the value matches the pattern
+        // Check if the value matches the pattern.
         $matchCount = preg_match($pattern, $value);
         
         return ($matchCount!=0)?true:false;

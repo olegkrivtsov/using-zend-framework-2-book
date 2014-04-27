@@ -1,6 +1,8 @@
 <?php
 /**
- * 
+ * Because we strive to write code conforming to Domain Driven Design pattern, we 
+ * define a service model class encapsulating the functionality for image management. We name
+ * this class `ImageManager` and put it to `Application\Service` namespace.
  */
 namespace Application\Service;
 
@@ -8,8 +10,8 @@ namespace Application\Service;
  * The image manager service. Responsible for getting the list of uploaded
  * files and resizing the images.
  */
-class ImageManager {
-    
+class ImageManager 
+{
     /**
      * The directory where we save image files.
      * @var string
@@ -20,7 +22,8 @@ class ImageManager {
      * Returns path to the directory where we save the image files.
      * @return string
      */
-    public function getSaveToDir() {
+    public function getSaveToDir() 
+    {
         return $this->saveToDir;
     }
     
@@ -29,7 +32,8 @@ class ImageManager {
      * @param string $fileName Image file name (without path part).
      * @return string Path to image file.
      */
-    public function getImagePathByName($fileName) {
+    public function getImagePathByName($fileName) 
+    {
         
         // Take some precautions to Make file name secure
         str_replace("/", "", $fileName);  // Remove slashes
@@ -44,8 +48,8 @@ class ImageManager {
      * Returns the array of saved file names.
      * @return array List of uploaded file names.
      */
-    public function getSavedFiles() {
-        
+    public function getSavedFiles() 
+    {
         // The directory where we plan to save uploaded files.
         
         // Check whether the directory already exists, and if not,
@@ -76,7 +80,8 @@ class ImageManager {
      * @param string $filePath Path to the image file.
      * @return array File information.
      */
-    public function getImageFileInfo($filePath) {
+    public function getImageFileInfo($filePath) 
+    {
         
         // Try to open file        
         if (!is_readable($filePath)) {            
@@ -103,7 +108,8 @@ class ImageManager {
      * @param string $filePath Path to image file.
      * @return string|false
      */
-    public function getImageFileContent($filePath) {
+    public function getImageFileContent($filePath) 
+    {
         return file_get_contents($filePath);
     }
 
@@ -114,7 +120,8 @@ class ImageManager {
      * @param int $desiredWidth
      * @return string Resulting file name.
      */
-    public  function resizeImage($filePath, $desiredWidth = 240) {
+    public  function resizeImage($filePath, $desiredWidth = 240) 
+    {
         
         // Get original image dimensions.
         list($originalWidth, $originalHeight) = getimagesize($filePath);
