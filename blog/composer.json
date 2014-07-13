@@ -9,8 +9,7 @@
     "homepage": "http://using-zend-framework-2-book.com",
     "require": {
         "php": ">=5.3.28",
-        "zendframework/zendframework": ">=2.2",		
-        "doctrine/doctrine-orm-module": "*",
-        "zendframework/zend-developer-tools": "dev-master"
+        "zendframework/zendframework": ">=2.2",
+        "doctrine/doctrine-orm-module": "*"		        
     }
 }

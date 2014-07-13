@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `post` (
 CREATE TABLE IF NOT EXISTS `comment` (     
   `id` int(11) PRIMARY KEY AUTO_INCREMENT, -- Unique ID  
   `comment` text,                -- Text description
-  `username` timestamp NOT NULL, -- User's name who created the post
+  `username` varchar(32) NOT NULL, -- User's name who created the post
   `status` int(11) NOT NULL,  -- Status  
   `date_created` timestamp NOT NULL -- Publication date        
   

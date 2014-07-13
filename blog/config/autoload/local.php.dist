@@ -19,7 +19,7 @@ return array(
                 'params' => array(
                     'host'     => '127.0.0.1',                    
                     'user'     => 'blog',
-                    'password' => 'blogpwd',
+                    'password' => '<password>',
                     'dbname'   => 'blog',
                 )
             ),            

@@ -29,6 +29,10 @@ class IndexController extends AbstractActionController {
         $recentPosts = $entityManager->getRepository('\Application\Entity\Post')
                 ->findBy(array(), array('dateCreated'=>'DESC'), 10);
         
+        foreach ($recentPosts as $recentPost) {
+            $comments = $recentPost->getComments();
+        }
+        
         // Render the view template
         return new ViewModel(array(
             'recentPosts' => $recentPosts

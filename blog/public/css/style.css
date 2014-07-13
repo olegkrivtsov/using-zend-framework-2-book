@@ -89,3 +89,8 @@ form ul li {
     color: red;    
     
 }
+
+p.comments-header {
+    font-size: 0.9em;
+    color:#aaa;
+}

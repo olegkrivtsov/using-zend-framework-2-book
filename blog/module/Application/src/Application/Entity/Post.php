@@ -13,9 +13,9 @@ use Application\Entity\Tag;
  */
 class Post {
     
-    // Post status constants
-    const STATUS_DRAFT       = 1;
-    const STATUS_PUBLISHED   = 2;
+    // Post status constants.
+    const STATUS_DRAFT       = 1; // Draft.
+    const STATUS_PUBLISHED   = 2; // Published.
 
     /**
      * @ORM\Id
@@ -24,34 +24,35 @@ class Post {
      */
     protected $id;
 
-    /** @ORM\Column(name="title")  * */
+    /** @ORM\Column(name="title")  **/
     protected $title;
 
-    /** @ORM\Column(name="content")  * */
+    /** @ORM\Column(name="content")  **/
     protected $content;
 
-    /** @ORM\Column(name="status")  * */
+    /** @ORM\Column(name="status")  **/
     protected $status;
 
-    /** @ORM\Column(name="date_created")  * */
+    /** @ORM\Column(name="date_created")  **/
     protected $dateCreated;
 
     /**
      * @ORM\OneToMany(targetEntity="Application\Entity\Comment", mappedBy="post")
      * @ORM\JoinColumn(name="id", referencedColumnName="post_id")
-     * */
+     **/
     protected $comments;
     
     /**
      * @ORM\ManyToMany(targetEntity="Application\Entity\Tag", mappedBy="post")
      * @ORM\JoinColumn(name="id", referencedColumnName="post_id")
-     * */
+     **/
     protected $tags;
     
     /**
      * Constructor.
      */
-    public function __construct() {
+    public function __construct() 
+    {
         $this->comments = new ArrayCollection();        
         $this->tags = new ArrayCollection();        
     }
@@ -60,7 +61,8 @@ class Post {
      * Returns ID of this post.
      * @return integer
      */
-    public function getId() {
+    public function getId() 
+    {
         return $this->id;
     }
 
@@ -68,7 +70,8 @@ class Post {
      * Sets ID of this post.
      * @param int $id
      */
-    public function setId($id) {
+    public function setId($id) 
+    {
         $this->id = (int)$id;
     }
 
@@ -76,7 +79,8 @@ class Post {
      * Returns title.
      * @return string
      */
-    public function getTitle() {
+    public function getTitle() 
+    {
         return $this->title;
     }
 
@@ -84,7 +88,8 @@ class Post {
      * Sets title.
      * @param string $title
      */
-    public function setTitle($title) {
+    public function setTitle($title) 
+    {
         $this->title = (string)$title;
     }
 
@@ -92,7 +97,8 @@ class Post {
      * Returns status.
      * @return integer
      */
-    public function getStatus() {
+    public function getStatus() 
+    {
         return $this->status;
     }
 
@@ -100,7 +106,8 @@ class Post {
      * Sets status.
      * @param integer $status
      */
-    public function setStatus($status) {
+    public function setStatus($status) 
+    {
         $this->status = (int)$status;
     }
 
@@ -108,8 +115,8 @@ class Post {
      * Returns status as a string.
      * @return string 
      */
-    public function getStatusStr() {
-
+    public function getStatusStr() 
+    {
         switch ($this->_status) {
             case self::STATUS_DRAFT: return 'Draft';
                 break;
@@ -123,7 +130,8 @@ class Post {
     /**
      * Returns post content.
      */
-    public function getContent() {
+    public function getContent() 
+    {
        return $this->content; 
     }
     
@@ -131,7 +139,8 @@ class Post {
      * Sets post content.
      * @param type $content
      */
-    public function setContent($content) {
+    public function setContent($content) 
+    {
         $this->content = (string)$content;
     }
     
@@ -139,7 +148,8 @@ class Post {
      * Returns the date when this post was created.
      * @return string
      */
-    public function getDateCreated() {
+    public function getDateCreated() 
+    {
         return $this->dateCreated;
     }
     
@@ -147,7 +157,8 @@ class Post {
      * Sets the date when this post was created.
      * @param string $dateCreated
      */
-    public function setDateCreated($dateCreated) {
+    public function setDateCreated($dateCreated) 
+    {
         $this->dateCreated = (string)$dateCreated;
     }
     
@@ -155,7 +166,8 @@ class Post {
      * Returns the date when this post was last modified.
      * @return string
      */
-    public function getDateModified() {
+    public function getDateModified() 
+    {
         return $this->dateModified;
     }
     
@@ -163,7 +175,8 @@ class Post {
      * Returns comments for this post.
      * @return array
      */
-    public function getComments() {
+    public function getComments() 
+    {
         return $this->comments;
     }
     
@@ -171,8 +184,8 @@ class Post {
      * Adds a new comment to this post.
      * @param $comment
      */
-    public function addComment($comment) {
-        
+    public function addComment($comment) 
+    {
         if($comment===null || !($comment instanceof Comment))
             throw new \Exception('Comment must be an instance of the Application\Entity\Comment class');
         
@@ -183,7 +196,8 @@ class Post {
      * Returns tags for this post.
      * @return array
      */
-    public function getTags() {
+    public function getTags() 
+    {
         return $this->tags;
     }
     
@@ -191,7 +205,8 @@ class Post {
      * 
      * @param type $tagsStr
      */
-    public function setTagsFromString($tagsStr) {
+    public function setTagsFromString($tagsStr) 
+    {
         $tags = explode($tagsStr, ',');
     }
 }
