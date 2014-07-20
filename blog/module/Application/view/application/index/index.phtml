@@ -10,7 +10,11 @@ $this->pageBreadcrumbs()->setItems(array(
 
 <h1>Recent Posts</h1>
 
-<a class="btn btn-default" href="<?php echo $this->url('application/default', array('controller'=>'index', 'action'=>'add')); ?>">New Post</a>
+<a class="btn btn-default" href="
+    <?php echo $this->url('application/default', 
+            array('controller'=>'post', 'action'=>'add')); ?>">
+    New Post
+</a>
 
 <?php foreach($this->recentPosts as $post): ?>
 
@@ -19,7 +23,11 @@ $this->pageBreadcrumbs()->setItems(array(
 </h3>
 
 <p class="comments-header">
-    No comments | <a href="#">Add new comment</a>
+    No comments | 
+    <a href="<?php echo $this->url('application/default', 
+            array('controller'=>'comment', 'action'=>'add')); ?>">">
+        Add new comment
+    </a>
 </p>
 
 <p>    

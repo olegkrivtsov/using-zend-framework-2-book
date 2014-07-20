@@ -4,7 +4,8 @@ $this->headTitle('New Post');
 $this->mainMenu()->setActiveItemId('home');
 
 $this->pageBreadcrumbs()->setItems(array(
-            'Home'=>$this->url('home')
+            'Home'=>$this->url('home'),
+            'Add Post'=>$this->url('application/default', array('controller'=>'post', 'action'=>'add'))
             ));
 
 $form = $this->form;

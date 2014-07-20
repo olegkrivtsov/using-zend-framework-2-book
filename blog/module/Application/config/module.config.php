@@ -82,7 +82,7 @@ return array(
             'translator' => 'MvcTranslator',
         ),
         'invokables' => array(
-            'ImageManager'=>'Application\Service\ImageManager',            
+            'PostManager'=>'Application\Service\PostManager',            
         ),
     ),
     'translator' => array(
@@ -98,8 +98,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Image' => 'Application\Controller\ImageController',
-            'Application\Controller\User' => 'Application\Controller\UserController',
+            'Application\Controller\Post' => 'Application\Controller\PostController',
+            'Application\Controller\Comment' => 'Application\Controller\CommentController',
         ),
     ),    
     // The following registers our custom view 
@@ -107,8 +107,7 @@ return array(
     'view_helpers' => array(
        'invokables' => array(
           'mainMenu' => 'Application\View\Helper\Menu',          
-          'pageBreadcrumbs' => 'Application\View\Helper\Breadcrumbs',          
-          'customFormRow' => 'Application\View\Helper\CustomFormRow',          
+          'pageBreadcrumbs' => 'Application\View\Helper\Breadcrumbs',                    
        ),
     ),
     'view_manager' => array(

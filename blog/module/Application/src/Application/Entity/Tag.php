@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * This class represents a tag.
- * @ORM\Entity()
+ * @ORM\Entity
  * @ORM\Table(name="tag")
  */
 class Tag {
@@ -14,20 +14,28 @@ class Tag {
     /**
      * @ORM\Id
      * @ORM\Column(name="id")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue
      */
     protected $id;
 
-    /** @ORM\Column(name="name") */
+    /** 
+     * @ORM\Column(name="name") 
+     */
     protected $name;
 
-    /** @ORM\Column(name="content")  */
+    /** 
+     * @ORM\Column(name="content")  
+     */
     protected $content;
 
-    /** @ORM\Column(name="status")  */
+    /** 
+     * @ORM\Column(name="status")  
+     */
     protected $status;
 
-    /** @ORM\Column(name="date_created") */
+    /** 
+     * @ORM\Column(name="date_created") 
+     */
     protected $date_created;
     
     /**

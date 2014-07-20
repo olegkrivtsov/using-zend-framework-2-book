@@ -7,10 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * This class represents a comment related to a blog post.
- * @ORM\Entity()
+ * @ORM\Entity
  * @ORM\Table(name="post")
  */
-class Comment {
+class Comment 
+{
     
     // Comment status constants
     const STATUS_VISIBLE = 1;
@@ -19,26 +20,34 @@ class Comment {
     /**
      * @ORM\Id
      * @ORM\Column(name="id")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue
      */
     protected $id;
 
-    /** @ORM\Column(name="title")  * */
+    /** 
+     * @ORM\Column(name="title")  
+     */
     protected $title;
 
-    /** @ORM\Column(name="body")  * */
+    /** 
+     * @ORM\Column(name="body")  
+     */
     protected $body;
 
-    /** @ORM\Column(name="status")  * */
+    /** 
+     * @ORM\Column(name="status")  
+     */
     protected $status;
 
-    /** @ORM\Column(name="publication_date")  * */
+    /** 
+     * @ORM\Column(name="publication_date")  
+     */
     protected $publicationDate;
 
     /**
      * @ORM\OneToMany(targetEntity="Application\Entity\Comment", mappedBy="post")
      * @ORM\JoinColumn(name="id", referencedColumnName="post_id")
-     * */
+     */
     protected $comments;
     
     /**

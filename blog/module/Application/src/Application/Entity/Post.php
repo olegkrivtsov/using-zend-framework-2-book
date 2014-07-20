@@ -8,11 +8,11 @@ use Application\Entity\Tag;
 
 /**
  * This class represents a single post in a blog.
- * @ORM\Entity()
+ * @ORM\Entity
  * @ORM\Table(name="post")
  */
-class Post {
-    
+class Post 
+{
     // Post status constants.
     const STATUS_DRAFT       = 1; // Draft.
     const STATUS_PUBLISHED   = 2; // Published.
@@ -20,32 +20,46 @@ class Post {
     /**
      * @ORM\Id
      * @ORM\Column(name="id")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue
      */
     protected $id;
 
-    /** @ORM\Column(name="title")  **/
+    /** 
+     * @ORM\Column(name="title")  
+     * 
+     */
     protected $title;
 
-    /** @ORM\Column(name="content")  **/
+    /** 
+     * @ORM\Column(name="content")  
+     */
     protected $content;
 
-    /** @ORM\Column(name="status")  **/
+    /** 
+     * @ORM\Column(name="status")  
+     */
     protected $status;
 
-    /** @ORM\Column(name="date_created")  **/
+    /**
+     * @ORM\Column(name="date_created")  
+     */
     protected $dateCreated;
+    
+    /*
+     * @ORM\Column(name="date_modified")  
+     */
+    protected $dateModified;
 
     /**
      * @ORM\OneToMany(targetEntity="Application\Entity\Comment", mappedBy="post")
      * @ORM\JoinColumn(name="id", referencedColumnName="post_id")
-     **/
+     */
     protected $comments;
     
     /**
      * @ORM\ManyToMany(targetEntity="Application\Entity\Tag", mappedBy="post")
      * @ORM\JoinColumn(name="id", referencedColumnName="post_id")
-     **/
+     */
     protected $tags;
     
     /**
@@ -169,6 +183,15 @@ class Post {
     public function getDateModified() 
     {
         return $this->dateModified;
+    }
+    
+    /**
+     * Sets the date when this post was last modified.
+     * @param string $dateModified
+     */
+    public function setDateModified($dateModified) 
+    {
+        $this->dateModified = (string)$dateModified;
     }
     
     /**
