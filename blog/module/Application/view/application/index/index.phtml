@@ -19,13 +19,26 @@ $this->pageBreadcrumbs()->setItems(array(
 <?php foreach($this->recentPosts as $post): ?>
 
 <h3>
-    <?php echo $this->escapeHtml($post->getTitle()); ?>
+    <a href="<?php echo $this->url('application/default', 
+            array('controller'=>'post', 'action'=>'view', 'id'=>$post->getId())); ?>">
+        <?php echo $this->escapeHtml($post->getTitle()); ?>
+    </a>    
 </h3>
 
+<p>
+    Tags: <?php echo $postManager->convertTagsToString($post); ?>    
+</p>
+
+<a href="<?php echo $this->url('application/default', 
+            array('controller'=>'post', 'action'=>'edit', 'id'=>$post->getId())); ?>">
+        Edit post
+</a>
+
 <p class="comments-header">
-    No comments | 
+    <?php echo $postManager->getCommentCountStr($post); ?> | 
     <a href="<?php echo $this->url('application/default', 
-            array('controller'=>'comment', 'action'=>'add')); ?>">">
+            array('controller'=>'post', 'action'=>'view', 'id'=>$post->getId()),
+            array('fragment'=>'comment')); ?>">
         Add new comment
     </a>
 </p>

@@ -1,0 +1,41 @@
+<?php
+$this->headTitle('Manage Posts');
+
+$this->mainMenu()->setActiveItemId('admin');
+
+$this->pageBreadcrumbs()->setItems(array(
+            'Admin'=>$this->url('home')
+            ));
+?>
+
+<h1>Manage Posts</h1>
+
+<table class="table table-striped">
+
+   <tr>
+        <th>ID</th>
+        <th>Post Title</th>
+        <th>Created</th>
+        <th>Last Modified</th>
+        <th>Status</th>        
+        <th>Actions</th>        
+    </tr>
+    
+    <?php foreach ($posts as $post): ?>
+    
+    <tr>
+        <td><?php echo $post->getId(); ?></td>
+        <td><?php echo $post->getTitle(); ?></td>
+        <td><?php echo $post->getDateCreated(); ?></td>
+        <td><?php echo $post->getDateModified(); ?></td>
+        <td><?php echo $post->getStatus(); ?></td>
+        <td>
+            <a class="btn btn-info" href="#">
+                <span class="glyphicon glyphicon-pencil"></span> Edit
+            </a>
+        </td>    
+    </tr>
+        
+    <?php endforeach; ?>   
+    
+</table>

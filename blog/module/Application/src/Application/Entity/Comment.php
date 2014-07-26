@@ -1,5 +1,4 @@
 <?php
-
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,14 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * This class represents a comment related to a blog post.
  * @ORM\Entity
- * @ORM\Table(name="post")
+ * @ORM\Table(name="comment")
  */
 class Comment 
 {
-    
     // Comment status constants
-    const STATUS_VISIBLE = 1;
-    const STATUS_HIDDEN  = 2;
+    const STATUS_VISIBLE = 1; // Comment is visible.
+    const STATUS_HIDDEN  = 2; // Comment is hidden.
 
     /**
      * @ORM\Id
@@ -25,75 +23,96 @@ class Comment
     protected $id;
 
     /** 
-     * @ORM\Column(name="title")  
+     * @ORM\Column(name="comment")  
      */
-    protected $title;
+    protected $comment;
 
     /** 
-     * @ORM\Column(name="body")  
+     * @ORM\Column(name="author")  
      */
-    protected $body;
-
+    protected $author;
+    
     /** 
      * @ORM\Column(name="status")  
      */
     protected $status;
 
     /** 
-     * @ORM\Column(name="publication_date")  
+     * @ORM\Column(name="date_created")  
      */
-    protected $publicationDate;
+    protected $dateCreated;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Application\Entity\Comment", mappedBy="post")
-     * @ORM\JoinColumn(name="id", referencedColumnName="post_id")
+    /** 
+     * @ORM\Column(name="post_id")  
      */
-    protected $comments;
+    protected $postId;
     
     /**
-     * Constructor.
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Post", inversedBy="comments")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
-    public function __construct() {
-        $this->comments = new ArrayCollection();        
-    }
-
+    protected $post;
+    
     /**
-     * Returns ID of this post.
+     * Returns ID of this comment.
      * @return integer
      */
-    public function getId() {
+    public function getId() 
+    {
         return $this->id;
     }
 
     /**
-     * Sets ID of this post.
+     * Sets ID of this comment.
      * @param int $id
      */
-    public function setId($id) {
+    public function setId($id) 
+    {
         $this->id = $id;
     }
-
+    
     /**
-     * Returns title.
+     * Returns comment text.
      * @return string
      */
-    public function getTitle() {
-        return $this->title;
+    public function getContent() 
+    {
+        return $this->comment;
     }
 
     /**
-     * Sets title.
-     * @param string $title
+     * Sets status.
+     * @param string $comment
      */
-    public function setTitle($title) {
-        $this->title = $title;
+    public function setContent($comment) 
+    {
+        $this->comment = $comment;
+    }
+    
+    /**
+     * Returns author's name.
+     * @return string
+     */
+    public function getAuthor() 
+    {
+        return $this->author;
+    }
+
+    /**
+     * Sets author's name.
+     * @param string $author
+     */
+    public function setAuthor($author) 
+    {
+        $this->author = $author;
     }
 
     /**
      * Returns status.
      * @return integer
      */
-    public function getStatus() {
+    public function getStatus() 
+    {
         return $this->status;
     }
 
@@ -101,7 +120,8 @@ class Comment
      * Sets status.
      * @param integer $status
      */
-    public function setStatus($status) {
+    public function setStatus($status) 
+    {
         $this->status = $status;
     }
 
@@ -109,10 +129,10 @@ class Comment
      * Returns status as a string.
      * @return string 
      */
-    public function getStatusStr() {
-
+    public function getStatusStr() 
+    {
         switch ($this->_status) {
-            case self::STATUS_ACTIVE: return 'Active';
+            case self::STATUS_VISIBLE: return 'Visible';
                 break;
             case self::STATUS_HIDDEN: return 'Hidden';
                 break;
@@ -121,5 +141,41 @@ class Comment
         }
     }
     
+    /**
+     * Returns the date when this post was created.
+     * @return string
+     */
+    public function getDateCreated() 
+    {
+        return $this->dateCreated;
+    }
+    
+    /**
+     * Sets the date when this post was created.
+     * @param string $dateCreated
+     */
+    public function setDateCreated($dateCreated) 
+    {
+        $this->dateCreated = (string)$dateCreated;
+    }
+    
+    /*
+     * Returns associated post.
+     * @return \Application\Entity\Post
+     */
+    public function getPost() 
+    {
+        return $this->post;
+    }
+    
+    /**
+     * Sets associated post.
+     * @param \Application\Entity\Post $post
+     */
+    public function setPost($post) 
+    {
+        $this->post = $post;
+        $post->addComment($this);
+    }
 }
 

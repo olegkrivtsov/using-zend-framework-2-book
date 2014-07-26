@@ -51,14 +51,17 @@ class Post
     protected $dateModified;
 
     /**
-     * @ORM\OneToMany(targetEntity="Application\Entity\Comment", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="\Application\Entity\Comment", mappedBy="post")
      * @ORM\JoinColumn(name="id", referencedColumnName="post_id")
      */
     protected $comments;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Application\Entity\Tag", mappedBy="post")
-     * @ORM\JoinColumn(name="id", referencedColumnName="post_id")
+     * @ORM\ManyToMany(targetEntity="\Application\Entity\Tag", inversedBy="posts")
+     * @ORM\JoinTable(name="post_to_tag",
+     *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     *      )
      */
     protected $tags;
     
@@ -222,15 +225,19 @@ class Post
     public function getTags() 
     {
         return $this->tags;
-    }
+    }      
     
     /**
-     * 
-     * @param type $tagsStr
+     * Adds a new tag to this post.
+     * @param $tag
      */
-    public function setTagsFromString($tagsStr) 
+    public function addTag($tag) 
     {
-        $tags = explode($tagsStr, ',');
+        if($tag===null || !($tag instanceof Tag))
+            throw new \Exception('Comment must be an instance of the Application\Entity\Tag class');
+        
+        $this->tags[] = $tag;
+        $tag->addPost($this);
     }
 }
 

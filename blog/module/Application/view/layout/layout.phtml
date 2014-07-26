@@ -39,7 +39,12 @@
                                 'id' => 'home',
                                 'label' => 'Home',
                                 'link' => $this->url('home')
-                            ),                            
+                            ), 
+                            array(
+                                'id' => 'admin',
+                                'label' => 'Admin',
+                                'link' => $this->url('application/default', array('controller'=>'post', 'action'=>'admin'))
+                            ),
                             array(
                                 'id' => 'about',
                                 'label' => 'About',

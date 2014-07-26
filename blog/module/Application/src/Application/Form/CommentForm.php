@@ -31,7 +31,18 @@ class CommentForm extends Form
      */
     protected function addElements() 
     {
-                
+        // Add "author" field
+        $this->add(array(            
+            'type'  => 'text',
+            'name' => 'author',
+            'attributes' => array(
+                'id' => 'author'
+            ),
+            'options' => array(
+                'label' => 'Author',
+            ),
+        ));
+        
         // Add "comment" field
         $this->add(array(            
             'type'  => 'textarea',
@@ -63,6 +74,24 @@ class CommentForm extends Form
         
         $inputFilter = new InputFilter();        
         $this->setInputFilter($inputFilter);
+        
+        $inputFilter->add(array(
+                'name'     => 'author',
+                'required' => true,
+                'filters'  => array(                    
+                    array('name' => 'StringTrim'),
+                ),                
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'min' => 1,
+                            'max' => 4096
+                        ),
+                    ),
+                ),
+            )
+        );
         
         $inputFilter->add(array(
                 'name'     => 'comment',

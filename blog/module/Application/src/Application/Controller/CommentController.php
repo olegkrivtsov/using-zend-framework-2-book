@@ -3,7 +3,7 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Application\Form\PostForm;
+use Application\Form\CommentForm;
 use Application\Entity\Post;
 
 /**

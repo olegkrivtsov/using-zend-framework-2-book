@@ -16,27 +16,38 @@ CREATE TABLE IF NOT EXISTS `post` (
   `content` text,             -- Text description
   `tags` text,                -- Comma-separated list of tags
   `status` int(11) NOT NULL,  -- Status  
-  `date_created` timestamp NOT NULL, -- Publication date  
-  `date_modified` timestamp NOT NULL, -- Publication date  
+  `date_created` timestamp NOT NULL, -- Creation date  
+  `date_modified` timestamp NOT NULL, -- Last modification date  
   
-  FULLTEXT KEY `title_key` (`title`),
-  FULLTEXT KEY `content_key` (`content`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';
+  KEY `title_key` (`title`),
+  KEY `content_key` (`content`),
+  KEY `status_key` (`status`),
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';
 
 -- Comment
 CREATE TABLE IF NOT EXISTS `comment` (     
   `id` int(11) PRIMARY KEY AUTO_INCREMENT, -- Unique ID  
+  `post_id` int(11) NOT NULL, -- Post ID this comment belongs to  
   `comment` text,                -- Text description
-  `username` varchar(32) NOT NULL, -- User's name who created the post
+  `author` varchar(128) NOT NULL, -- Author's name who created the comment
   `status` int(11) NOT NULL,  -- Status  
-  `date_created` timestamp NOT NULL -- Publication date        
-  
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';
+  `date_created` timestamp NOT NULL -- Creation date        
+  UNIQUE KEY `date_created_key` (`date_created`),          -- Tag names must be unique.
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';
 
 -- Tag
 CREATE TABLE IF NOT EXISTS `tag` (     
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT, -- Unique ID  
-  `name` VARCHAR(128),                     -- Tag name
-  `frequency` INTEGER DEFAULT 1            -- Frequency
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT, -- Unique ID.  
+  `name` VARCHAR(128) NOT NULL,            -- Tag name.  
+  UNIQUE KEY `name_key` (`name`),          -- Tag names must be unique.
       
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';
+
+-- Post-To-Tag
+CREATE TABLE IF NOT EXISTS `post_to_tag` (     
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT, -- Unique ID  
+  `post_id` int(11),                      -- Post id
+  `tag_id` int(11),                      -- Tag id
+   KEY `post_id_key` (`post_id`),
+   KEY `tag_key` (`tag_id`)      
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';

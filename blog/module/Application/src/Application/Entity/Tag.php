@@ -9,8 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="tag")
  */
-class Tag {
-    
+class Tag 
+{
     /**
      * @ORM\Id
      * @ORM\Column(name="id")
@@ -23,40 +23,38 @@ class Tag {
      */
     protected $name;
 
-    /** 
-     * @ORM\Column(name="content")  
+    /**
+     * @ORM\ManyToMany(targetEntity="\Application\Entity\Post", mappedBy="tags")
+     * @ORM\JoinTable(name="post_to_tag",
+     *      joinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")}
+     *      )
      */
-    protected $content;
-
-    /** 
-     * @ORM\Column(name="status")  
-     */
-    protected $status;
-
-    /** 
-     * @ORM\Column(name="date_created") 
-     */
-    protected $date_created;
+    protected $posts;
     
     /**
      * Constructor.
      */
-    public function __construct() {        
+    public function __construct() 
+    {        
+        $this->posts = new ArrayCollection();        
     }
 
     /**
-     * Returns ID of this post.
+     * Returns ID of this tag.
      * @return integer
      */
-    public function getId() {
+    public function getId() 
+    {
         return $this->id;
     }
 
     /**
-     * Sets ID of this post.
+     * Sets ID of this tag.
      * @param int $id
      */
-    public function setId($id) {
+    public function setId($id) 
+    {
         $this->id = $id;
     }
 
@@ -64,7 +62,8 @@ class Tag {
      * Returns name.
      * @return string
      */
-    public function getName() {
+    public function getName() 
+    {
         return $this->name;
     }
 
@@ -72,8 +71,45 @@ class Tag {
      * Sets title.
      * @param string $name
      */
-    public function setName($name) {
-        $this->title = $name;
+    public function setName($name) 
+    {
+        $this->name = $name;
+    }
+    
+    /**
+     * Returns the date when this post was created.
+     * @return string
+     */
+    public function getDateCreated() 
+    {
+        return $this->dateCreated;
+    }
+    
+    /**
+     * Sets the date when this post was created.
+     * @param string $dateCreated
+     */
+    public function setDateCreated($dateCreated) 
+    {
+        $this->dateCreated = (string)$dateCreated;
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function getPosts() 
+    {
+        return $this->posts;
+    }
+    
+    /**
+     * 
+     * @param type $post
+     */
+    public function addPost($post) 
+    {
+        $this->posts[] = $post;        
     }
 }
 

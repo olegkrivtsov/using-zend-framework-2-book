@@ -21,7 +21,6 @@ class IndexController extends AbstractActionController
      */
     public function indexAction() 
     {
-        
         // Get Doctrine entity manager
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');    	
         
@@ -29,9 +28,12 @@ class IndexController extends AbstractActionController
         $recentPosts = $entityManager->getRepository('\Application\Entity\Post')
                 ->findBy(array(), array('dateCreated'=>'DESC'), 10);
         
+        $postManager = $this->getServiceLocator()->get('post_manager');  
+        
         // Render the view template
         return new ViewModel(array(
-            'recentPosts' => $recentPosts
+            'recentPosts' => $recentPosts,
+            'postManager' => $postManager
         ));
     }
     
