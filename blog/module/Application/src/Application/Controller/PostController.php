@@ -41,7 +41,7 @@ class PostController extends AbstractActionController
                 
                 // Use post manager service to add new post to database.                
                 $postManager->addNewPost($data['title'], $data['content'], 
-                        $data['tags']);
+                        $data['tags'], $data['status']);
                 
                 // Redirect the user to "index" page.
                 return $this->redirect()->toRoute('application/default', 
@@ -141,7 +141,7 @@ class PostController extends AbstractActionController
                 
                 // Use post manager service to add new post to database.                
                 $postManager->updatePost($post, $data['title'], $data['content'], 
-                        $data['tags']);
+                        $data['tags'], $data['status']);
                 
                 // Redirect the user to "index" page.
                 return $this->redirect()->toRoute('application/default', 
@@ -151,7 +151,8 @@ class PostController extends AbstractActionController
             $data = array(
                 'title' => $post->getTitle(),
                 'content' => $post->getContent(),
-                'tags' => $postManager->convertTagsToString($post)
+                'tags' => $postManager->convertTagsToString($post),
+                'status' => $post->getStatus()
             );
             
             $form->setData($data);
@@ -170,6 +171,25 @@ class PostController extends AbstractActionController
      */
     public function deleteAction()
     {
+        $postId = $this->params()->fromRoute('id', -1);
+        
+        $entityManager = $this->getServiceLocator()
+                ->get('doctrine.entitymanager.orm_default');    	
+        
+        $post = $entityManager->getRepository('\Application\Entity\Post')
+                ->findOneBy(array('id'=>$postId));        
+        if ($post == null) {
+            $this->getResponse()->setStatusCode(404);
+            return;                        
+        }        
+        
+        $postManager = $this->getServiceLocator()->get('post_manager');  
+        $postManager->removePost($post);
+        
+        // Redirect the user to "index" page.
+        return $this->redirect()->toRoute('application/default', 
+                array('controller'=>'post', 'action'=>'admin'));
+        
         // Render the view template.
         return new ViewModel(array(
         ));        
@@ -185,13 +205,16 @@ class PostController extends AbstractActionController
         // Get Doctrine entity manager
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');    	
         
+        $postManager = $this->getServiceLocator()->get('post_manager');     
+        
         // Get recent posts
         $posts = $entityManager->getRepository('\Application\Entity\Post')
                 ->findBy(array(), array('dateCreated'=>'DESC'));
         
         // Render the view template
         return new ViewModel(array(
-            'posts' => $posts
+            'posts' => $posts,
+            'postManager' => $postManager
         ));        
     }
 }

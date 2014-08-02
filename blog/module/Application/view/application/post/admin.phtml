@@ -10,12 +10,20 @@ $this->pageBreadcrumbs()->setItems(array(
 
 <h1>Manage Posts</h1>
 
+<p>
+<a class="btn btn-default" href="
+    <?php echo $this->url('application/default', 
+            array('controller'=>'post', 'action'=>'add')); ?>">
+    New Post
+</a>
+</p>
+
 <table class="table table-striped">
 
    <tr>
         <th>ID</th>
         <th>Post Title</th>
-        <th>Created</th>
+        <th>Date Created</th>
         <th>Last Modified</th>
         <th>Status</th>        
         <th>Actions</th>        
@@ -25,13 +33,23 @@ $this->pageBreadcrumbs()->setItems(array(
     
     <tr>
         <td><?php echo $post->getId(); ?></td>
-        <td><?php echo $post->getTitle(); ?></td>
+        <td>
+            <a href="<?php echo $this->url('application/default', 
+                array('controller'=>'post', 'action'=>'view', 'id'=>$post->getId())); ?>">
+                <?php echo $this->escapeHtml($post->getTitle()); ?>
+            </a> 
+        </td>
         <td><?php echo $post->getDateCreated(); ?></td>
         <td><?php echo $post->getDateModified(); ?></td>
-        <td><?php echo $post->getStatus(); ?></td>
+        <td><?php echo $postManager->getPostStatusAsString($post); ?></td>
         <td>
-            <a class="btn btn-info" href="#">
-                <span class="glyphicon glyphicon-pencil"></span> Edit
+            <a class="btn btn-info" href="<?php echo $this->url('application/default', 
+            array('controller'=>'post', 'action'=>'edit', 'id'=>$post->getId())); ?>">
+                <span class="glyphicon glyphicon-pencil" ></span> Edit
+            </a>
+            <a class="btn btn-danger" href="<?php echo $this->url('application/default', 
+            array('controller'=>'post', 'action'=>'delete', 'id'=>$post->getId())); ?>">
+                <span class="glyphicon glyphicon-remove"></span> Delete
             </a>
         </td>    
     </tr>

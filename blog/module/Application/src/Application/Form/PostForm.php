@@ -68,6 +68,22 @@ class PostForm extends Form
             ),
         ));
         
+        // Add "status" field
+        $this->add(array(
+            'type'  => 'select',
+            'name' => 'status',
+            'attributes' => array(                
+                'id' => 'status'
+            ),
+            'options' => array(
+                'label' => 'Status',
+                'value_options' => array(
+                    '1' => 'Draft',
+                    '2' => 'Published'
+                )
+            ),
+        ));
+        
         // Add the submit button
         $this->add(array(
             'type'  => 'submit',

@@ -8,7 +8,7 @@ use Application\Entity\Tag;
 
 /**
  * This class represents a single post in a blog.
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\Application\Repository\PostRepository")
  * @ORM\Table(name="post")
  */
 class Post 
@@ -126,23 +126,7 @@ class Post
     public function setStatus($status) 
     {
         $this->status = (int)$status;
-    }
-
-    /**
-     * Returns status as a string.
-     * @return string 
-     */
-    public function getStatusStr() 
-    {
-        switch ($this->_status) {
-            case self::STATUS_DRAFT: return 'Draft';
-                break;
-            case self::STATUS_PUBLISHED: return 'Published';
-                break;
-            default: return 'Unknown';
-                break;
-        }
-    }
+    }   
     
     /**
      * Returns post content.
@@ -236,8 +220,16 @@ class Post
         if($tag===null || !($tag instanceof Tag))
             throw new \Exception('Comment must be an instance of the Application\Entity\Tag class');
         
-        $this->tags[] = $tag;
-        $tag->addPost($this);
+        $this->tags[] = $tag;        
+    }
+    
+    /**
+     * 
+     * @param type $tag
+     */
+    public function removeTag($tag) 
+    {
+        $this->tags->removeElement($tag);
     }
 }
 

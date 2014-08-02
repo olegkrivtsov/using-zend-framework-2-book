@@ -8,45 +8,64 @@ $this->pageBreadcrumbs()->setItems(array(
             ));
 ?>
 
-<h1>Recent Posts</h1>
+<h1>Posts</h1>
 
-<a class="btn btn-default" href="
-    <?php echo $this->url('application/default', 
-            array('controller'=>'post', 'action'=>'add')); ?>">
-    New Post
-</a>
+<div class="row">
+    
+    <div class="col-md-9">
 
-<?php foreach($this->recentPosts as $post): ?>
+    <?php foreach($posts as $post): ?>
 
-<h3>
-    <a href="<?php echo $this->url('application/default', 
-            array('controller'=>'post', 'action'=>'view', 'id'=>$post->getId())); ?>">
-        <?php echo $this->escapeHtml($post->getTitle()); ?>
-    </a>    
-</h3>
+    <h3>
+        <a href="<?php echo $this->url('application/default', 
+                array('controller'=>'post', 'action'=>'view', 'id'=>$post->getId())); ?>">
+            <?php echo $this->escapeHtml($post->getTitle()); ?>
+        </a>    
+    </h3>
+        
+    <p>
+        Tags: <?php echo $postManager->convertTagsToString($post); ?>    
+    </p>
 
-<p>
-    Tags: <?php echo $postManager->convertTagsToString($post); ?>    
-</p>
+    <p class="comments-header">
+        <?php echo $postManager->getCommentCountStr($post); ?> | 
+        <a href="<?php echo $this->url('application/default', 
+                array('controller'=>'post', 'action'=>'view', 'id'=>$post->getId()),
+                array('fragment'=>'comment')); ?>">
+            Add new comment
+        </a>
+    </p>
 
-<a href="<?php echo $this->url('application/default', 
-            array('controller'=>'post', 'action'=>'edit', 'id'=>$post->getId())); ?>">
-        Edit post
-</a>
+    <p>    
+        <?php echo $this->escapeHtml($post->getContent()); ?>
+    </p>
 
-<p class="comments-header">
-    <?php echo $postManager->getCommentCountStr($post); ?> | 
-    <a href="<?php echo $this->url('application/default', 
-            array('controller'=>'post', 'action'=>'view', 'id'=>$post->getId()),
-            array('fragment'=>'comment')); ?>">
-        Add new comment
-    </a>
-</p>
+    <?php endforeach; ?>
 
-<p>    
-    <?php echo $this->escapeHtml($post->getContent()); ?>
-</p>
-
-<?php endforeach; ?>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Popular Tags</h3>
+            </div>
+            <div class="panel-body">
+                <?php foreach($this->tagCloud as $tagName=>$frequency): ?>
+                
+                <a href="<?php echo $this->url('application/default', 
+                    array('controller'=>'index', 'action'=>'index'),
+                    array('query'=>array('tag'=>$tagName))); ?>">                   
+        
+                    <span style="font-size:<?php echo $frequency*1.5 ?>em">
+                        <?php echo $this->escapeHtml($tagName); ?>
+                    </span>
+                
+                </a>    
+                    
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</div>
 
 

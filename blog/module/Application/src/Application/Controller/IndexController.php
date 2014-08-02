@@ -1,9 +1,9 @@
 <?php
-
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Entity\Post;
 
 /**
  * This is the main controller class of the Blog application. The 
@@ -21,19 +21,32 @@ class IndexController extends AbstractActionController
      */
     public function indexAction() 
     {
+        $tagFilter = $this->params()->fromQuery('tag', null);
+        
         // Get Doctrine entity manager
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');    	
         
-        // Get recent posts
-        $recentPosts = $entityManager->getRepository('\Application\Entity\Post')
-                ->findBy(array(), array('dateCreated'=>'DESC'), 10);
+        if ($tagFilter) {
+         
+            // Filter posts by tag
+            $posts = $entityManager->getRepository('\Application\Entity\Post')
+                    ->findPostsByTag($tagFilter);
+            
+        } else {
+            // Get recent posts
+            $posts = $entityManager->getRepository('\Application\Entity\Post')
+                    ->findBy(array('status'=>Post::STATUS_PUBLISHED), array('dateCreated'=>'DESC'), 50);
+        }
         
         $postManager = $this->getServiceLocator()->get('post_manager');  
         
+        $tagCloud = $postManager->getTagCloud();
+        
         // Render the view template
         return new ViewModel(array(
-            'recentPosts' => $recentPosts,
-            'postManager' => $postManager
+            'posts' => $posts,
+            'postManager' => $postManager,
+            'tagCloud' => $tagCloud
         ));
     }
     

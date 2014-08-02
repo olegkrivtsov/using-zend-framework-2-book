@@ -39,7 +39,7 @@ class PostManager implements ServiceManagerAwareInterface
     /**
      * This method adds a new post.
      */
-    public function addNewPost($title, $content, $tags) 
+    public function addNewPost($title, $content, $tags, $status) 
     {
         // Get Doctrine entity manager.
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');    	
@@ -48,7 +48,7 @@ class PostManager implements ServiceManagerAwareInterface
         $post = new Post();
         $post->setTitle($title);
         $post->setContent($content);
-        $post->setStatus(Post::STATUS_PUBLISHED);
+        $post->setStatus($status);
         $currentDate = date('Y-m-d H:i:s');
         $post->setDateCreated($currentDate);
         $post->setDateModified($currentDate);
@@ -62,12 +62,10 @@ class PostManager implements ServiceManagerAwareInterface
             
             $tagName = StaticFilter::execute($tagName, 'StringTrim');
             
-            $existingTag = $entityManager->getRepository('\Application\Entity\Tag')
+            $tag = $entityManager->getRepository('\Application\Entity\Tag')
                     ->findOneBy(array('name' => $tagName));
-            if ($existingTag != null)
-                continue;
-            
-            $tag = new Tag();
+            if ($tag == null)
+                $tag = new Tag();
             $tag->setName($tagName);
             $tag->addPost($post);
             
@@ -86,13 +84,14 @@ class PostManager implements ServiceManagerAwareInterface
      * @param type $content
      * @param type $tags
      */
-    public function updatePost($post, $title, $content, $tags) 
+    public function updatePost($post, $title, $content, $tags, $status) 
     {
         // Get Doctrine entity manager.
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');    	
 
         $post->setTitle($title);
         $post->setContent($content);
+        $post->setStatus($status);
         
         $currentDate = date('Y-m-d H:i:s');
         $post->setDateModified($currentDate);
@@ -103,12 +102,10 @@ class PostManager implements ServiceManagerAwareInterface
             
             $tagName = StaticFilter::execute($tagName, 'StringTrim');
             
-            $existingTag = $entityManager->getRepository('\Application\Entity\Tag')
+            $tag = $entityManager->getRepository('\Application\Entity\Tag')
                     ->findOneBy(array('name' => $tagName));
-            if ($existingTag != null)
-                continue;
-            
-            $tag = new Tag();
+            if ($tag == null)
+                $tag = new Tag();
             $tag->setName($tagName);
             $tag->addPost($post);
             
@@ -119,6 +116,22 @@ class PostManager implements ServiceManagerAwareInterface
         
         // Apply changes to database.
         $entityManager->flush();
+    }
+    
+    /**
+     * Returns status as a string.
+     * @return string 
+     */
+    public function getPostStatusAsString($post) 
+    {
+        switch ($post->getStatus()) {
+            case Post::STATUS_DRAFT: return 'Draft';
+                break;
+            case Post::STATUS_PUBLISHED: return 'Published';
+                break;
+            default: return 'Unknown';
+                break;
+        }
     }
     
     /**
@@ -213,6 +226,70 @@ class PostManager implements ServiceManagerAwareInterface
 
         // Apply changes.
         $entityManager->flush();
+    }
+    
+    /**
+     * Removes post and all associated comments.
+     * @param type $post
+     */
+    public function removePost($post) 
+    {
+        $entityManager = $this->getServiceLocator()
+                ->get('doctrine.entitymanager.orm_default');    	
+        
+        // Remove associated comments
+        $comments = $post->getComments();
+        foreach ($comments as $comment) {
+            $entityManager->remove($comment);
+        }
+        
+        // Remove tag associations (if any)
+        $tags = $post->getTags();
+        foreach ($tags as $tag) {
+            
+            $post->removeTag($tag);
+        }
+        
+        $entityManager->remove($post);
+        
+        $entityManager->flush();
+    }
+    
+    /**
+     * Calculates frequencies of tag usage.
+     */
+    public function getTagCloud()
+    {
+        $tagCloud = array();
+                
+        $entityManager = $this->getServiceLocator()
+                ->get('doctrine.entitymanager.orm_default'); 
+
+        $posts = $entityManager->getRepository('\Application\Entity\Post')
+                    ->findPostsHavingAnyTag();
+        $totalPostCount = count($posts);
+        
+        $tags = $entityManager->getRepository('\Application\Entity\Tag')
+                ->findAll();
+        foreach ($tags as $tag) {
+            
+            $postsByTag = $entityManager->getRepository('\Application\Entity\Post')
+                    ->findPostsByTag($tag->getName());
+            
+            $postCount = count($postsByTag);
+            if ($postCount > 0) {
+                $tagCloud[$tag->getName()] = $postCount;
+            }
+        }
+        
+        $normalizedTagCloud = array();
+        
+        // Normalize
+        foreach ($tagCloud as $name=>$postCount) {
+            $normalizedTagCloud[$name] =  $postCount/$totalPostCount;
+        }
+        
+        return $normalizedTagCloud;
     }
 }
 

@@ -31,11 +31,6 @@ $form->prepare();
     <?php echo $this->escapeHtml($post->getTitle()); ?>    
 </h1>
 
-<a href="<?php echo $this->url('application/default', 
-            array('controller'=>'post', 'action'=>'edit', 'id'=>$post->getId())); ?>">
-        Edit post
-</a>
-
 <p class="comments-header">
     <?php echo $commentCount; ?> | 
     <a href="#comment">

@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `post_to_tag` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT, -- Unique ID  
   `post_id` int(11),                      -- Post id
   `tag_id` int(11),                      -- Tag id
+   UNIQUE INDEX `post_id_tag_id_key` (`post_id`, `tag_id`), -- Tag names must be unique.
    KEY `post_id_key` (`post_id`),
-   KEY `tag_key` (`tag_id`)      
+   KEY `tag_id_key` (`tag_id`)      
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';
