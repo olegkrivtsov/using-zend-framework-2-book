@@ -78,8 +78,8 @@ class PostForm extends Form
             'options' => array(
                 'label' => 'Status',
                 'value_options' => array(
+                    '2' => 'Published',
                     '1' => 'Draft',
-                    '2' => 'Published'
                 )
             ),
         ));

@@ -45,11 +45,6 @@ class Post
      */
     protected $dateCreated;
     
-    /*
-     * @ORM\Column(name="date_modified")  
-     */
-    protected $dateModified;
-
     /**
      * @ORM\OneToMany(targetEntity="\Application\Entity\Comment", mappedBy="post")
      * @ORM\JoinColumn(name="id", referencedColumnName="post_id")
@@ -161,15 +156,6 @@ class Post
     public function setDateCreated($dateCreated) 
     {
         $this->dateCreated = (string)$dateCreated;
-    }
-    
-    /**
-     * Returns the date when this post was last modified.
-     * @return string
-     */
-    public function getDateModified() 
-    {
-        return $this->dateModified;
     }
     
     /**

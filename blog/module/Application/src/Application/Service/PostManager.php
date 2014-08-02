@@ -50,8 +50,7 @@ class PostManager implements ServiceManagerAwareInterface
         $post->setContent($content);
         $post->setStatus($status);
         $currentDate = date('Y-m-d H:i:s');
-        $post->setDateCreated($currentDate);
-        $post->setDateModified($currentDate);
+        $post->setDateCreated($currentDate);        
         
         // Add the entity to entity manager.
         $entityManager->persist($post);
@@ -93,9 +92,6 @@ class PostManager implements ServiceManagerAwareInterface
         $post->setContent($content);
         $post->setStatus($status);
         
-        $currentDate = date('Y-m-d H:i:s');
-        $post->setDateModified($currentDate);
-        
         // Add tags to post
         $tags = explode(',', $tags);
         foreach ($tags as $tagName) {
@@ -135,22 +131,7 @@ class PostManager implements ServiceManagerAwareInterface
     }
     
     /**
-     * Publishes or unpublishes the post.
-     * @param type $isPublished
-     */
-    public function chanePostStatus($post, $newStatus = Post::STATUS_PUBLISHED) 
-    {
-        // Get Doctrine entity manager.
-        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');    	
-        
-        $post->setStatus($newStatus);
-        
-        // Apply changes to database.
-        $entityManager->flush();
-    }
-
-    /**
-     * Converts tags to string.
+     * Converts tags of the given post to comma separated list (string).
      * @param $post
      */
     public function convertTagsToString($post) 
@@ -167,23 +148,7 @@ class PostManager implements ServiceManagerAwareInterface
         }
         
         return $tagsStr;
-    }
-
-    /**
-     * Returns post by ID or null if nothing found.
-     * @param int $id
-     */
-    public function findPostById($id) 
-    {
-        // Get Doctrine entity manager.
-        $entityManager = $this->getServiceLocator()
-                ->get('doctrine.entitymanager.orm_default');
-        
-        $post = $entityManager->getRepository('\Application\Entity\Post')
-                ->findOneBy(array('id'=>$id));
-        
-        return $post;
-    }
+    }    
 
     /**
      * Returns count of comments for given post as properly formatted string.

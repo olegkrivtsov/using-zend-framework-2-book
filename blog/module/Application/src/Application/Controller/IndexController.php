@@ -35,7 +35,7 @@ class IndexController extends AbstractActionController
         } else {
             // Get recent posts
             $posts = $entityManager->getRepository('\Application\Entity\Post')
-                    ->findBy(array('status'=>Post::STATUS_PUBLISHED), array('dateCreated'=>'DESC'), 50);
+                    ->findBy(array('status'=>Post::STATUS_PUBLISHED), array('dateCreated'=>'DESC'));
         }
         
         $postManager = $this->getServiceLocator()->get('post_manager');  

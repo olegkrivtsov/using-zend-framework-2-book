@@ -65,8 +65,12 @@ class PostController extends AbstractActionController
     {       
         $postId = $this->params()->fromRoute('id', -1);
         
+        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');    	
         $postManager = $this->getServiceLocator()->get('post_manager');        
-        $post = $postManager->findPostById($postId);        
+        
+        $post = $entityManager->getRepository('\Application\Entity\Post')
+                ->findOneBy(array('id'=>$postId));
+        
         if ($post == null) {
             $this->getResponse()->setStatusCode(404);
             return;                        
@@ -119,8 +123,11 @@ class PostController extends AbstractActionController
         
         $postId = $this->params()->fromRoute('id', -1);
         
+        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');    	
         $postManager = $this->getServiceLocator()->get('post_manager');        
-        $post = $postManager->findPostById($postId);        
+        
+        $post = $entityManager->getRepository('\Application\Entity\Post')
+                ->findOneBy(array('id'=>$postId));        
         if ($post == null) {
             $this->getResponse()->setStatusCode(404);
             return;                        

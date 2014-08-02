@@ -24,7 +24,6 @@ $this->pageBreadcrumbs()->setItems(array(
         <th>ID</th>
         <th>Post Title</th>
         <th>Date Created</th>
-        <th>Last Modified</th>
         <th>Status</th>        
         <th>Actions</th>        
     </tr>
@@ -39,8 +38,7 @@ $this->pageBreadcrumbs()->setItems(array(
                 <?php echo $this->escapeHtml($post->getTitle()); ?>
             </a> 
         </td>
-        <td><?php echo $post->getDateCreated(); ?></td>
-        <td><?php echo $post->getDateModified(); ?></td>
+        <td><?php echo $post->getDateCreated(); ?></td>        
         <td><?php echo $postManager->getPostStatusAsString($post); ?></td>
         <td>
             <a class="btn btn-info" href="<?php echo $this->url('application/default', 
