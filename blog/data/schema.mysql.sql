@@ -13,34 +13,25 @@ set names 'utf8';
 CREATE TABLE IF NOT EXISTS `post` (     
   `id` int(11) PRIMARY KEY AUTO_INCREMENT, -- Unique ID
   `title` text NOT NULL,      -- Title  
-  `content` text,             -- Text description
-  `tags` text,                -- Comma-separated list of tags
+  `content` text NOT NULL,    -- Text 
   `status` int(11) NOT NULL,  -- Status  
-  `date_created` timestamp NOT NULL, -- Creation date  
-  `date_modified` timestamp NOT NULL, -- Last modification date  
-  
-  KEY `title_key` (`title`),
-  KEY `content_key` (`content`),
-  KEY `status_key` (`status`),
+  `date_created` timestamp NOT NULL -- Creation date    
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';
 
 -- Comment
 CREATE TABLE IF NOT EXISTS `comment` (     
   `id` int(11) PRIMARY KEY AUTO_INCREMENT, -- Unique ID  
-  `post_id` int(11) NOT NULL, -- Post ID this comment belongs to  
-  `comment` text,                -- Text description
-  `author` varchar(128) NOT NULL, -- Author's name who created the comment
-  `status` int(11) NOT NULL,  -- Status  
-  `date_created` timestamp NOT NULL -- Creation date        
-  UNIQUE KEY `date_created_key` (`date_created`),          -- Tag names must be unique.
+  `post_id` int(11) NOT NULL,     -- Post ID this comment belongs to  
+  `comment` text NOT NULL,        -- Text description
+  `author` varchar(128) NOT NULL, -- Author's name who created the comment  
+  `date_created` timestamp NOT NULL -- Creation date          
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';
 
 -- Tag
 CREATE TABLE IF NOT EXISTS `tag` (     
   `id` int(11) PRIMARY KEY AUTO_INCREMENT, -- Unique ID.  
   `name` VARCHAR(128) NOT NULL,            -- Tag name.  
-  UNIQUE KEY `name_key` (`name`),          -- Tag names must be unique.
-      
+  UNIQUE KEY `name_key` (`name`)          -- Tag names must be unique.      
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';
 
 -- Post-To-Tag
@@ -48,7 +39,8 @@ CREATE TABLE IF NOT EXISTS `post_to_tag` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT, -- Unique ID  
   `post_id` int(11),                      -- Post id
   `tag_id` int(11),                      -- Tag id
-   UNIQUE INDEX `post_id_tag_id_key` (`post_id`, `tag_id`), -- Tag names must be unique.
+   UNIQUE KEY `unique_key` (`post_id`, `tag_id`), -- Tag names must be unique.
    KEY `post_id_key` (`post_id`),
    KEY `tag_id_key` (`tag_id`)      
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';
+

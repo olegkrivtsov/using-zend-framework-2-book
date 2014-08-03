@@ -73,24 +73,6 @@ class Tag
     }
     
     /**
-     * Returns the date when this post was created.
-     * @return string
-     */
-    public function getDateCreated() 
-    {
-        return $this->dateCreated;
-    }
-    
-    /**
-     * Sets the date when this post was created.
-     * @param string $dateCreated
-     */
-    public function setDateCreated($dateCreated) 
-    {
-        $this->dateCreated = (string)$dateCreated;
-    }
-    
-    /**
      * 
      * @return type
      */

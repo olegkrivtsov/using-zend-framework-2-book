@@ -86,7 +86,7 @@ class CommentForm extends Form
                         'name'    => 'StringLength',
                         'options' => array(
                             'min' => 1,
-                            'max' => 4096
+                            'max' => 128
                         ),
                     ),
                 ),

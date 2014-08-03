@@ -26,7 +26,6 @@ class Post
 
     /** 
      * @ORM\Column(name="title")  
-     * 
      */
     protected $title;
 
@@ -159,15 +158,6 @@ class Post
     }
     
     /**
-     * Sets the date when this post was last modified.
-     * @param string $dateModified
-     */
-    public function setDateModified($dateModified) 
-    {
-        $this->dateModified = (string)$dateModified;
-    }
-    
-    /**
      * Returns comments for this post.
      * @return array
      */
@@ -210,7 +200,7 @@ class Post
     }
     
     /**
-     * 
+     * Removes association between this post and the given tag.
      * @param type $tag
      */
     public function removeTag($tag) 

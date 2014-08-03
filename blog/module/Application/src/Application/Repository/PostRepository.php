@@ -37,5 +37,5 @@ class PostRepository extends EntityRepository
         $posts = $query->getResult();
         
         return $posts;
-    }
+    }        
 }

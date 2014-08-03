@@ -11,10 +11,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Comment 
 {
-    // Comment status constants
-    const STATUS_VISIBLE = 1; // Comment is visible.
-    const STATUS_HIDDEN  = 2; // Comment is hidden.
-
     /**
      * @ORM\Id
      * @ORM\Column(name="id")
@@ -33,20 +29,10 @@ class Comment
     protected $author;
     
     /** 
-     * @ORM\Column(name="status")  
-     */
-    protected $status;
-
-    /** 
      * @ORM\Column(name="date_created")  
      */
     protected $dateCreated;
 
-    /** 
-     * @ORM\Column(name="post_id")  
-     */
-    protected $postId;
-    
     /**
      * @ORM\ManyToOne(targetEntity="Application\Entity\Post", inversedBy="comments")
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
@@ -107,40 +93,6 @@ class Comment
         $this->author = $author;
     }
 
-    /**
-     * Returns status.
-     * @return integer
-     */
-    public function getStatus() 
-    {
-        return $this->status;
-    }
-
-    /**
-     * Sets status.
-     * @param integer $status
-     */
-    public function setStatus($status) 
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * Returns status as a string.
-     * @return string 
-     */
-    public function getStatusStr() 
-    {
-        switch ($this->_status) {
-            case self::STATUS_VISIBLE: return 'Visible';
-                break;
-            case self::STATUS_HIDDEN: return 'Hidden';
-                break;
-            default: return 'Unknown';
-                break;
-        }
-    }
-    
     /**
      * Returns the date when this post was created.
      * @return string

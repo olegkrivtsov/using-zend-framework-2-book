@@ -56,22 +56,7 @@ class PostManager implements ServiceManagerAwareInterface
         $entityManager->persist($post);
         
         // Add tags to post
-        $tags = explode(',', $tags);
-        foreach ($tags as $tagName) {
-            
-            $tagName = StaticFilter::execute($tagName, 'StringTrim');
-            
-            $tag = $entityManager->getRepository('\Application\Entity\Tag')
-                    ->findOneBy(array('name' => $tagName));
-            if ($tag == null)
-                $tag = new Tag();
-            $tag->setName($tagName);
-            $tag->addPost($post);
-            
-            $entityManager->persist($tag);
-            
-            $post->addTag($tag);
-        }
+        $this->addTagsToPost($tags, $post);
         
         // Apply changes to database.
         $entityManager->flush();
@@ -93,10 +78,34 @@ class PostManager implements ServiceManagerAwareInterface
         $post->setStatus($status);
         
         // Add tags to post
-        $tags = explode(',', $tags);
+        $this->addTagsToPost($tags, $post);
+        
+        // Apply changes to database.
+        $entityManager->flush();
+    }
+
+    /**
+     * Adds/updates tags in the given post.
+     */
+    private function addTagsToPost($tagsStr, $post) 
+    {
+        // Get Doctrine entity manager.
+        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');    	
+        
+        // Remove tag associations (if any)
+        $tags = $post->getTags();
+        foreach ($tags as $tag) {            
+            $post->removeTag($tag);
+        }
+        
+        // Add tags to post
+        $tags = explode(',', $tagsStr);
         foreach ($tags as $tagName) {
             
             $tagName = StaticFilter::execute($tagName, 'StringTrim');
+            if (empty($tagName)) {
+                continue; 
+            }
             
             $tag = $entityManager->getRepository('\Application\Entity\Tag')
                     ->findOneBy(array('name' => $tagName));
@@ -109,10 +118,7 @@ class PostManager implements ServiceManagerAwareInterface
             
             $post->addTag($tag);
         }
-        
-        // Apply changes to database.
-        $entityManager->flush();
-    }
+    }    
     
     /**
      * Returns status as a string.
@@ -181,8 +187,7 @@ class PostManager implements ServiceManagerAwareInterface
         $comment = new Comment();
         $comment->setPost($post);
         $comment->setAuthor($author);
-        $comment->setContent($content);
-        $comment->setStatus(Comment::STATUS_VISIBLE);
+        $comment->setContent($content);        
         $currentDate = date('Y-m-d H:i:s');
         $comment->setDateCreated($currentDate);
 
