@@ -24,7 +24,8 @@ class IndexController extends AbstractActionController
         $tagFilter = $this->params()->fromQuery('tag', null);
         
         // Get Doctrine entity manager
-        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');    	
+        $entityManager = $this->getServiceLocator()
+                ->get('doctrine.entitymanager.orm_default');    	
         
         if ($tagFilter) {
          
@@ -35,14 +36,17 @@ class IndexController extends AbstractActionController
         } else {
             // Get recent posts
             $posts = $entityManager->getRepository('\Application\Entity\Post')
-                    ->findBy(array('status'=>Post::STATUS_PUBLISHED), array('dateCreated'=>'DESC'));
+                    ->findBy(array('status'=>Post::STATUS_PUBLISHED), 
+                             array('dateCreated'=>'DESC'));
         }
         
+        // Get post manager service.
         $postManager = $this->getServiceLocator()->get('post_manager');  
         
+        // Get popular tags.
         $tagCloud = $postManager->getTagCloud();
         
-        // Render the view template
+        // Render the view template.
         return new ViewModel(array(
             'posts' => $posts,
             'postManager' => $postManager,

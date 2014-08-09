@@ -152,7 +152,7 @@ class PostController extends AbstractActionController
                 
                 // Redirect the user to "index" page.
                 return $this->redirect()->toRoute('application/default', 
-                        array('controller'=>'index', 'action'=>'index'));
+                        array('controller'=>'post', 'action'=>'admin'));
             }
         } else {
             $data = array(

@@ -19,9 +19,9 @@ class Comment
     protected $id;
 
     /** 
-     * @ORM\Column(name="comment")  
+     * @ORM\Column(name="content")  
      */
-    protected $comment;
+    protected $content;
 
     /** 
      * @ORM\Column(name="author")  
@@ -63,7 +63,7 @@ class Comment
      */
     public function getContent() 
     {
-        return $this->comment;
+        return $this->content;
     }
 
     /**

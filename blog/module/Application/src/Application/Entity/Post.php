@@ -83,7 +83,7 @@ class Post
      */
     public function setId($id) 
     {
-        $this->id = (int)$id;
+        $this->id = $id;
     }
 
     /**
@@ -101,7 +101,7 @@ class Post
      */
     public function setTitle($title) 
     {
-        $this->title = (string)$title;
+        $this->title = $title;
     }
 
     /**
@@ -119,7 +119,7 @@ class Post
      */
     public function setStatus($status) 
     {
-        $this->status = (int)$status;
+        $this->status = $status;
     }   
     
     /**
@@ -136,7 +136,7 @@ class Post
      */
     public function setContent($content) 
     {
-        $this->content = (string)$content;
+        $this->content = $content;
     }
     
     /**
@@ -154,7 +154,7 @@ class Post
      */
     public function setDateCreated($dateCreated) 
     {
-        $this->dateCreated = (string)$dateCreated;
+        $this->dateCreated = $dateCreated;
     }
     
     /**
@@ -172,9 +172,6 @@ class Post
      */
     public function addComment($comment) 
     {
-        if($comment===null || !($comment instanceof Comment))
-            throw new \Exception('Comment must be an instance of the Application\Entity\Comment class');
-        
         $this->comments[] = $comment;
     }
     
@@ -193,9 +190,6 @@ class Post
      */
     public function addTag($tag) 
     {
-        if($tag===null || !($tag instanceof Tag))
-            throw new \Exception('Comment must be an instance of the Application\Entity\Tag class');
-        
         $this->tags[] = $tag;        
     }
     
