@@ -2,6 +2,7 @@
 namespace Application\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Application\Entity\Post;
 
 /**
  * This is the custom repository class for Post entity.
@@ -16,7 +17,7 @@ class PostRepository extends EntityRepository
     {
         $entityManager = $this->getEntityManager();
         
-        $dql = "SELECT p FROM \Application\Entity\Post p JOIN p.tags t WHERE p.status=2 ORDER BY p.dateCreated DESC";    
+        $dql = "SELECT p FROM \Application\Entity\Post p JOIN p.tags t WHERE p.status=".Post::STATUS_PUBLISHED." ORDER BY p.dateCreated DESC";    
         $query = $entityManager->createQuery($dql);
         $posts = $query->getResult();
         
@@ -32,7 +33,7 @@ class PostRepository extends EntityRepository
     {
         $entityManager = $this->getEntityManager();
         
-        $dql = "SELECT p FROM \Application\Entity\Post p JOIN p.tags t WHERE p.status=2 AND t.name='".$tagName."' ORDER BY p.dateCreated DESC";    
+        $dql = "SELECT p FROM \Application\Entity\Post p JOIN p.tags t WHERE p.status=".Post::STATUS_PUBLISHED." AND t.name='".$tagName."' ORDER BY p.dateCreated DESC";    
         $query = $entityManager->createQuery($dql);
         $posts = $query->getResult();
         
