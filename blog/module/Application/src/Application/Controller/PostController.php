@@ -51,8 +51,7 @@ class PostController extends AbstractActionController
         
         // Render the view template.
         return new ViewModel(array(
-            'form' => $form,
-            'postManager' => $postManager
+            'form' => $form
         ));
     }    
     
@@ -75,8 +74,6 @@ class PostController extends AbstractActionController
             $this->getResponse()->setStatusCode(404);
             return;                        
         }        
-        
-        $commentCount = $postManager->getCommentCountStr($post);
         
         // Create the form.
         $form = new CommentForm();
@@ -107,7 +104,6 @@ class PostController extends AbstractActionController
         // Render the view template.
         return new ViewModel(array(
             'post' => $post,
-            'commentCount' => $commentCount,
             'form' => $form,
             'postManager' => $postManager
         ));
@@ -119,13 +115,20 @@ class PostController extends AbstractActionController
      */
     public function editAction() 
     {
+        // Create form.
         $form = new PostForm();
         
+        // Get post ID.
         $postId = $this->params()->fromRoute('id', -1);
         
-        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');    	
+        // Get Doctrine entity manager.
+        $entityManager = $this->getServiceLocator()
+                ->get('doctrine.entitymanager.orm_default');    	
+        
+        // Get Post Manager.
         $postManager = $this->getServiceLocator()->get('post_manager');        
         
+        // Find the existing post in the database.
         $post = $entityManager->getRepository('\Application\Entity\Post')
                 ->findOneBy(array('id'=>$postId));        
         if ($post == null) {
@@ -146,7 +149,7 @@ class PostController extends AbstractActionController
                 // Get validated form data.
                 $data = $form->getData();
                 
-                // Use post manager service to add new post to database.                
+                // Use post manager service update existing post.                
                 $postManager->updatePost($post, $data['title'], $data['content'], 
                         $data['tags'], $data['status']);
                 
@@ -195,16 +198,13 @@ class PostController extends AbstractActionController
         
         // Redirect the user to "index" page.
         return $this->redirect()->toRoute('application/default', 
-                array('controller'=>'post', 'action'=>'admin'));
-        
-        // Render the view template.
-        return new ViewModel(array(
-        ));        
+                array('controller'=>'post', 'action'=>'admin'));        
+                
     }
     
     /**
      * This "admin" action displays the Manage Posts page. This page contains
-     * the list of posts with an ability to publish/unpublish/edit/delete any post.
+     * the list of posts with an ability to edit/delete any post.
      * @return \Zend\View\Model\ViewModel
      */
     public function adminAction()

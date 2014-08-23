@@ -217,7 +217,7 @@ class PostManager implements ServiceManagerAwareInterface
         $tags = $post->getTags();
         foreach ($tags as $tag) {
             
-            $post->removeTag($tag);
+            $post->removeTagAssociation($tag);
         }
         
         $entityManager->remove($post);

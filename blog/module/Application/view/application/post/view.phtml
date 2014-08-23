@@ -1,5 +1,5 @@
 <?php
-$this->headTitle('View Post - ' . $this->escapeHtml($post->getTitle()) );
+$this->headTitle('View Post - ' . $post->getTitle());
 
 $this->mainMenu()->setActiveItemId('home');
 
@@ -28,37 +28,37 @@ $form->prepare();
 </a>
 
 <h1>
-    <?php echo $this->escapeHtml($post->getTitle()); ?>    
+    <?php echo $post->getTitle(); ?>    
 </h1>
 
 <p class="comments-header">
-    <?php echo $commentCount; ?> | 
+    <?php echo $postManager->getCommentCountStr($post); ?> | 
     <a href="#comment">
         Add new comment
     </a>
 </p>
 
 <p>    
-    <?php echo $this->escapeHtml($post->getContent()); ?>
+    <?php echo $post->getContent(); ?>
 </p>
 
 <p>
     Tags: <?php echo $postManager->convertTagsToString($post); ?>    
 </p>
         
-<h3><?php echo $commentCount; ?></h3>
+<h3><?php echo $postManager->getCommentCountStr($post); ?></h3>
 
 <?php foreach ($post->getComments() as $comment): ?>
 
 <hr>
 
 <p>
-    <?php echo $this->escapeHtml($comment->getAuthor()); ?> on 
-    <?php echo $this->escapeHtml($comment->getDateCreated()); ?>
+    <?php echo $comment->getAuthor() ?> on 
+    <?php echo $comment->getDateCreated(); ?>
 </p>
 
 <p>
-    <?php echo $this->escapeHtml($comment->getContent()); ?>    
+    <?php echo $comment->getContent(); ?>    
 </p>
 
 <?php endforeach; ?>

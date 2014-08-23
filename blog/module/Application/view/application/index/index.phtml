@@ -19,7 +19,7 @@ $this->pageBreadcrumbs()->setItems(array(
     <h3>
         <a href="<?php echo $this->url('application/default', 
                 array('controller'=>'post', 'action'=>'view', 'id'=>$post->getId())); ?>">
-            <?php echo $this->escapeHtml($post->getTitle()); ?>
+            <?php echo $post->getTitle(); ?>
         </a>    
     </h3>
         
@@ -37,7 +37,7 @@ $this->pageBreadcrumbs()->setItems(array(
     </p>
 
     <p>    
-        <?php echo $this->escapeHtml($post->getContent()); ?>
+        <?php echo $post->getContent(); ?>
     </p>
 
     <?php endforeach; ?>
@@ -57,7 +57,7 @@ $this->pageBreadcrumbs()->setItems(array(
                     array('query'=>array('tag'=>$tagName))); ?>">                   
         
                     <span style="font-size:<?php echo $frequency*3 ?>em">
-                        <?php echo $this->escapeHtml($tagName); ?>
+                        <?php echo $tagName; ?>
                     </span>
                 
                 </a>    

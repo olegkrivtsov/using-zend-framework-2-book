@@ -34,11 +34,11 @@ CREATE TABLE `tag` (
   UNIQUE KEY `name_key` (`name`)          -- Tag names must be unique.      
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';
 
--- Post-To-Tag
-CREATE TABLE `post_to_tag` (     
+-- Post-Tag
+CREATE TABLE `post_tag` (     
   `id` int(11) PRIMARY KEY AUTO_INCREMENT, -- Unique ID  
-  `post_id` int(11),                      -- Post id
-  `tag_id` int(11),                      -- Tag id
+  `post_id` int(11),                       -- Post id
+  `tag_id` int(11),                        -- Tag id
    UNIQUE KEY `unique_key` (`post_id`, `tag_id`), -- Tag names must be unique.
    KEY `post_id_key` (`post_id`),
    KEY `tag_id_key` (`tag_id`)      
@@ -56,10 +56,10 @@ INSERT INTO post(`title`, `content`, `status`, `date_created`) VALUES(
    'Getting Started with Magento Extension Development – Book Review',
    'Post content 2', 2, '2014-08-09 18:51');
 
-INSERT INTO post_to_tag(`post_id`, `tag_id`) VALUES(1, 1);
-INSERT INTO post_to_tag(`post_id`, `tag_id`) VALUES(1, 2);
-INSERT INTO post_to_tag(`post_id`, `tag_id`) VALUES(2, 2);
-INSERT INTO post_to_tag(`post_id`, `tag_id`) VALUES(2, 3);
+INSERT INTO post_tag(`post_id`, `tag_id`) VALUES(1, 1);
+INSERT INTO post_tag(`post_id`, `tag_id`) VALUES(1, 2);
+INSERT INTO post_tag(`post_id`, `tag_id`) VALUES(2, 2);
+INSERT INTO post_tag(`post_id`, `tag_id`) VALUES(2, 3);
 
 INSERT INTO comment(`post_id`, `content`, `author`, `date_created`) VALUES(
     1, 'Excellent post!', 'Oleg Krivtsov', '2014-08-09 19:20');

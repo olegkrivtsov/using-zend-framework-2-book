@@ -52,7 +52,7 @@ class Post
     
     /**
      * @ORM\ManyToMany(targetEntity="\Application\Entity\Tag", inversedBy="posts")
-     * @ORM\JoinTable(name="post_to_tag",
+     * @ORM\JoinTable(name="post_tag",
      *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
@@ -197,7 +197,7 @@ class Post
      * Removes association between this post and the given tag.
      * @param type $tag
      */
-    public function removeTag($tag) 
+    public function removeTagAssociation($tag) 
     {
         $this->tags->removeElement($tag);
     }
