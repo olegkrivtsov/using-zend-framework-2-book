@@ -82,7 +82,7 @@ return array(
             'translator' => 'MvcTranslator',
         ),
         'invokables' => array(
-            'PostManager'=>'Application\Service\PostManager',            
+            'post_manager'=>'Application\Service\PostManager',            
         ),
     ),
     'translator' => array(

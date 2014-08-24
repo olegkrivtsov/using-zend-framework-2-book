@@ -10,6 +10,7 @@
     "require": {
         "php": ">=5.3.28",
         "zendframework/zendframework": ">=2.2",
-        "doctrine/doctrine-orm-module": "*"		        
+        "doctrine/doctrine-orm-module": "*",
+        "doctrine/migrations": "dev-master"		        
     }
 }

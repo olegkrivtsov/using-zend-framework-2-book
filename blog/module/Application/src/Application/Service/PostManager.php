@@ -63,7 +63,7 @@ class PostManager implements ServiceManagerAwareInterface
     }
     
     /**
-     * 
+     * This method allows to update data of a single post.
      * @param type $title
      * @param type $content
      * @param type $tags
