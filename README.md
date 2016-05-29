@@ -1,7 +1,7 @@
 Code Samples for The "Using Zend Framework 2" Book 
 ==================================================
 
-This project contains a set of code samples for the [Using Zend Framework 2](http://using-zend-framework-2-book.com)
+This project contains a set of code samples for the [Using Zend Framework 2](https://leanpub.com/using-zend-framework-2)
 book by Oleg Krivtsov. Zend Framework 2 is a modern PHP web development framework intended for
 building professionally looking, scalable and secure web-sites, which are 
 easy to test and maintain.
@@ -29,7 +29,7 @@ using-zend-framework-2-book
 ~~~
 
 Below, we provide a short description for each available sample. For more detailed
-description, you will need to download and read the [Using Zend Framework 2](http://using-zend-framework-2-book.com) 
+description, you will need to download and read the [Using Zend Framework 2](https://leanpub.com/using-zend-framework-2) 
 e-book.
 
 ## Hello World
